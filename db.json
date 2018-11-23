@@ -5,18 +5,18 @@
   "comments": [
     { "id": 1, "body": "some comment", "postId": 1 }
   ],
-  "profile": { "name": "typicode" },
+  "profile": { "email": "typicode" },
   "users": [
   	{ 
   	"id": "sadfa234sda", 
-  	"name": "Vasya",
+  	"email": "Vasya",
   	"email": "vasya@gmail.com",
   	"password": "1234",
   	"role": "scorekeeper"
   	},
   	{ 
   	"id": "ghjnfjhsaasd", 
-  	"name": "Kolya",
+  	"email": "Kolya",
   	"email": "kolya@gmail.com",
   	"password": "5678",
   	"role": "admin"
