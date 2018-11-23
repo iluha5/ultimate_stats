@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {withStyles} from "@material-ui/core/es/styles/index";
 import Typography from '@material-ui/core/Typography';
+import AlarmSnackBar from "./AlarmSnackBar";
 
 
 class Login extends Component {
@@ -13,7 +14,9 @@ class Login extends Component {
         super(props);
 
         this.state = {
-            name: ''
+            name: '',
+            isLoginFailedOpen: false,
+            test: 'default'
         };
     }
 
@@ -21,6 +24,14 @@ class Login extends Component {
         this.setState({
             [name]: event.target.value,
         });
+    };
+
+    handleButtonClick = event => {
+        console.log('----- click');
+        this.setState({
+            isLoginFailedOpen: true,
+            test: 'otstoy'
+        })
     };
 
     componentDidMount() {
@@ -54,9 +65,14 @@ class Login extends Component {
                     margin="normal"
                     variant="outlined"
                 />
-                <Button variant="outlined" className={classes.button}>
+                <Button
+                    variant="outlined"
+                    className={classes.button}
+                    onClick={this.handleButtonClick}
+                >
                     Войти
                 </Button>
+                <AlarmSnackBar isOpen = {this.state.isLoginFailedOpen} message = {'Не верный логин или пароль!'} />
             </form>
         );
     }
