@@ -5,6 +5,7 @@ import {loadBearer} from "../AC";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {withStyles} from "@material-ui/core/es/styles/index";
+import Typography from '@material-ui/core/Typography';
 
 
 class Login extends Component {
@@ -32,6 +33,9 @@ class Login extends Component {
 
         return (
             <form className={classes.container} noValidate autoComplete="off">
+                <Typography variant="h5" component="h2">
+                    Вход в сетевой режим
+                </Typography>
                 <TextField
                     id="outlined-name"
                     label="Name"
@@ -77,6 +81,7 @@ const styles = theme => ({
     button: {
         margin: theme.spacing.unit,
     },
+
 });
 
 const mapStateToProps = (state, ownProps) => {

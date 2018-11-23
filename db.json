@@ -6,5 +6,21 @@
     { "id": 1, "body": "some comment", "postId": 1 }
   ],
   "profile": { "name": "typicode" },
+  "users": [
+  	{ 
+  	"id": "sadfa234sda", 
+  	"name": "Vasya",
+  	"email": "vasya@gmail.com",
+  	"password": "1234",
+  	"role": "scorekeeper"
+  	},
+  	{ 
+  	"id": "ghjnfjhsaasd", 
+  	"name": "Kolya",
+  	"email": "kolya@gmail.com",
+  	"password": "5678",
+  	"role": "admin"
+  	}
+  ],
   "bearer": { "id": "asdfsdrgfsdfgsdfgdsfg234df234" }
 }
