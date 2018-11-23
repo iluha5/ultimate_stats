@@ -7,7 +7,7 @@ import reducer from './Reducers'
 
 const enhancer = applyMiddleware(thunk, routerMiddleware(history));
 
-const store = createStore(reducer, {}, enhancer);
+const store = createStore(reducer, enhancer);
 
 //dev only
 window.store = store;

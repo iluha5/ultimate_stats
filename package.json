@@ -2,9 +2,12 @@
   "name": "stats",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:4000",
   "dependencies": {
+    "@material-ui/core": "^3.5.1",
     "history": "^4.7.2",
     "material-ui": "^0.20.2",
+    "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-redux": "^5.1.1",
