@@ -1,16 +1,29 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {connect} from "react-redux";
 
 class Scorekeeper extends Component {
     render() {
         return (
             <div>
-                привет
+                привет, {this.props.user.name}
             </div>
         );
     }
 }
 
-Scorekeeper.propTypes = {};
+Scorekeeper.propTypes = {
+    user: PropTypes.object.isRequired
+};
 
-export default Scorekeeper;
+const mapStateToProps = (state) => {
+    return {
+        user: state.user.userData
+    }
+};
+
+const mapDispatchToProps = () => {
+    return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scorekeeper);

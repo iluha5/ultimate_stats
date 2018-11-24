@@ -1,4 +1,4 @@
-import {API, FAIL, LOAD_BEARER, LOAD_USERS, START, SUCCESS} from "./constants";
+import {API, FAIL, LOAD_BEARER, LOAD_USERS, START, SUCCESS, WRONG_USER} from "./constants";
 import {push, replace} from 'react-router-redux';
 
 export function loadBearer() {
@@ -42,10 +42,30 @@ export function loadUsersAndLogin(user) {
                 }
                 return res.json()
             })
-            .then(response => dispatch({
-                    type: LOAD_USERS + SUCCESS,
-                    payload: { response, user }
-                })
+            .then(response => {
+                    let fullUser;
+
+                    if (Array.isArray(response)) {
+                        fullUser = response.find(el => {
+                            return el.password === user.password && el.email === user.email;
+                        });
+
+                        if (!fullUser) {
+                            fullUser = {role: WRONG_USER};
+                        }
+
+                    }
+
+                    dispatch({
+                        type: LOAD_USERS + SUCCESS,
+                        payload: {fullUser}
+                    });
+
+                    if (fullUser.role !== WRONG_USER ){
+                        dispatch(push('/network/keeper'));
+                    }
+
+                }
             )
             .catch(error => {
                 dispatch({

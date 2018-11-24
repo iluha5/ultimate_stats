@@ -9,14 +9,14 @@
   "users": [
   	{ 
   	"id": "sadfa234sda", 
-  	"email": "Vasya",
+  	"name": "Vasya",
   	"email": "vasya@gmail.com",
   	"password": "1234",
   	"role": "scorekeeper"
   	},
   	{ 
   	"id": "ghjnfjhsaasd", 
-  	"email": "Kolya",
+  	"name": "Kolya",
   	"email": "kolya@gmail.com",
   	"password": "5678",
   	"role": "admin"

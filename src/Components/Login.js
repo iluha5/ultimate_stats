@@ -22,13 +22,14 @@ class Login extends Component {
             email: '',
             password: '',
             isLoginFailedOpen: false,
-            test: 'default'
+            isButtonClick: false
         };
     }
 
     handleChange = name => event => {
         this.setState({
             [name]: event.target.value,
+            isLoginFailedOpen: false,
         });
     };
 
@@ -43,24 +44,40 @@ class Login extends Component {
             loadUsersAndLogin({email, password});
         }
 
+        const {user} = this.props;
+
         this.setState({
-            isLoginFailedOpen: true,
-            test: 'otstoy'
+            isButtonClick: true
         })
+
     };
 
+    static getDerivedStateFromProps(props, state) {
+        // debugger;
+        const {userData, isLoading} = props.user;
+        const {isButtonClick} = state;
+
+        if (userData && userData.role === WRONG_USER && isButtonClick && !isLoading) {
+            return {
+                isLoginFailedOpen: true,
+                isButtonClick: false,
+
+            }
+        }
+        return null;
+
+    }
+
     componentDidMount() {
-        const {loadBearer} = this.props;
+        const {loadBearer, user} = this.props;
         loadBearer();
     }
 
-    getBody() {
-        const {user, classes} = this.props;
-        let toRender = [];
-        // debugger;
+    render() {
+        const {classes} = this.props;
 
-        if (JSON.stringify(user) === '{}' || user === WRONG_USER) {
-            toRender.push(
+        return (
+            <div>
                 <form className={classes.container} noValidate autoComplete="off">
                     <Typography variant="h5" component="h2">
                         Вход в сетевой режим
@@ -93,73 +110,9 @@ class Login extends Component {
                     >
                         Войти
                     </Button>
+                    <AlarmSnackBar isOpen={this.state.isLoginFailedOpen} message={'Не верный логин или пароль!'}/>
                 </form>
-            )
-        }
-
-        if (user === WRONG_USER) {
-            toRender.push(
-                <AlarmSnackBar isOpen={this.state.isLoginFailedOpen} message={'Не верный логин или пароль!'}/>
-            )
-        }
-
-        if (user && JSON.stringify(user) !== '{}' && user !== WRONG_USER) {
-            push('/network/keeper');
-            // toRender.push(
-            //     <Switch>
-            //         <Route path='/network/keeper' component={Scorekeeper}/>
-            //     </Switch>
-            // )
-
-        }
-
-        return toRender;
-
-    }
-
-
-    render() {
-        const {classes, user} = this.props;
-
-        return (
-            <div>
-            {this.getBody()}
             </div>);
-
-            {/*<form className={classes.container} noValidate autoComplete="off">*/}
-                {/*<Typography variant="h5" component="h2">*/}
-                    {/*Вход в сетевой режим*/}
-                {/*</Typography>*/}
-                {/*<TextField*/}
-                    {/*id="outlined-email-input"*/}
-                    {/*label="Email"*/}
-                    {/*className={classes.textField}*/}
-                    {/*type="email"*/}
-                    {/*name="email"*/}
-                    {/*autoComplete="email"*/}
-                    {/*margin="normal"*/}
-                    {/*variant="outlined"*/}
-                    {/*onChange={this.handleChange('email')}*/}
-                {/*/>*/}
-                {/*<TextField*/}
-                    {/*id="outlined-password-input"*/}
-                    {/*label="Password"*/}
-                    {/*className={classes.textField}*/}
-                    {/*type="password"*/}
-                    {/*autoComplete="current-password"*/}
-                    {/*margin="normal"*/}
-                    {/*variant="outlined"*/}
-                    {/*onChange={this.handleChange('password')}*/}
-                {/*/>*/}
-                {/*<Button*/}
-                    {/*variant="outlined"*/}
-                    {/*className={classes.button}*/}
-                    {/*onClick={this.handleButtonClick}*/}
-                {/*>*/}
-                    {/*Войти*/}
-                {/*</Button>*/}
-                {/*<AlarmSnackBar isOpen={this.state.isLoginFailedOpen} message={'Не верный логин или пароль!'}/>*/}
-            {/*</form>*/}
 
     }
 
