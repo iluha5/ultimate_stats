@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-import Bar from "./Bar";
 import AppDrawer from "./AppDrawer";
 import {withStyles} from "@material-ui/core/styles/index";
 import Typography from '@material-ui/core/Typography';
+import TournamentsList from "./TournamentsList";
 
 
 class Scorekeeper extends Component {
@@ -13,13 +13,13 @@ class Scorekeeper extends Component {
 
         return (
             <div>
-                {/*<Bar />*/}
                 <AppDrawer />
                 <main className={classes.content}>
                     <div className={classes.toolbar} />
-                    <Typography paragraph>
-                        привет, {this.props.user.name}
-                    </Typography>
+                    {/*<Typography paragraph>*/}
+                        {/*привет, {this.props.user.name}*/}
+                    {/*</Typography>*/}
+                    <TournamentsList />
                 </main>
 
             </div>
@@ -39,7 +39,7 @@ const styles = theme => ({
     toolbar: theme.mixins.toolbar,
     content: {
         flexGrow: 1,
-        padding: theme.spacing.unit * 3,
+        padding: theme.spacing.unit * 0,
     },
 });
 

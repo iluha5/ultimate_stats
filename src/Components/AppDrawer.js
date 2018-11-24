@@ -61,7 +61,7 @@ const styles = theme => ({
     },
 });
 
-class ResponsiveDrawer extends React.Component {
+class AppDrawer extends React.Component {
     state = {
         mobileOpen: false,
         anchorEl: null,
@@ -156,19 +156,6 @@ class ResponsiveDrawer extends React.Component {
                             </div>
                         )}
                     </Toolbar>
-                    {/*<Toolbar>*/}
-                        {/*<IconButton*/}
-                            {/*color="inherit"*/}
-                            {/*aria-label="Open drawer"*/}
-                            {/*onClick={this.handleDrawerToggle}*/}
-                            {/*className={classes.menuButton}*/}
-                        {/*>*/}
-                            {/*<MenuIcon/>*/}
-                        {/*</IconButton>*/}
-                        {/*<Typography variant="h6" color="inherit" noWrap>*/}
-                            {/*Responsive drawer*/}
-                        {/*</Typography>*/}
-                    {/*</Toolbar>*/}
                 </AppBar>
                 <nav className={classes.drawer}>
                     {/* The implementation can be swap with js to avoid SEO duplication of links. */}
@@ -206,7 +193,7 @@ class ResponsiveDrawer extends React.Component {
     }
 }
 
-ResponsiveDrawer.propTypes = {
+AppDrawer.propTypes = {
     classes: PropTypes.object.isRequired,
     // Injected by the documentation to work in an iframe.
     // You won't need it on your project.
@@ -214,4 +201,4 @@ ResponsiveDrawer.propTypes = {
     theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, {withTheme: true})(ResponsiveDrawer);
+export default withStyles(styles, {withTheme: true})(AppDrawer);
