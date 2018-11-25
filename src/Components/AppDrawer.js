@@ -19,9 +19,12 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MailIcon from '@material-ui/icons/Mail';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import {connect} from "react-redux";
+import {goTo} from "../AC";
+import {DRAWER_WIDTH} from "../constants";
 
 
-const drawerWidth = 240;
+// const drawerWidth = 240;
 
 const styles = theme => ({
     root: {
@@ -30,14 +33,14 @@ const styles = theme => ({
     },
     drawer: {
         [theme.breakpoints.up('md')]: {
-            width: drawerWidth,
+            width: DRAWER_WIDTH,
             flexShrink: 0,
         },
     },
     appBar: {
-        marginLeft: drawerWidth,
+        marginLeft: DRAWER_WIDTH,
         [theme.breakpoints.up('md')]: {
-            width: `calc(100% - ${drawerWidth}px)`,
+            width: `calc(100% - ${DRAWER_WIDTH}px)`,
         },
     },
     menuButton: {
@@ -53,7 +56,7 @@ const styles = theme => ({
     },
     toolbar: theme.mixins.toolbar,
     drawerPaper: {
-        width: drawerWidth,
+        width: DRAWER_WIDTH,
     },
     content: {
         flexGrow: 1,
@@ -80,18 +83,18 @@ class AppDrawer extends React.Component {
     };
 
     render() {
-        const {classes, theme} = this.props;
+        const {classes, theme, goTo} = this.props;
         const {anchorEl} = this.state;
         const open = Boolean(anchorEl);
 
 
         const drawer = (
             <div>
-                <div className={classes.toolbar}/>
-                <Divider/>
+                {/*<div className={classes.toolbar}/>*/}
+                {/*<Divider/>*/}
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                        <ListItem button key={text}>
+                    {['Главная'].map((text, index) => (
+                        <ListItem button key={text} onClick={() => goTo('/')}>
                             <ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
                             <ListItemText primary={text}/>
                         </ListItem>
@@ -99,12 +102,12 @@ class AppDrawer extends React.Component {
                 </List>
                 <Divider/>
                 <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
-                            <ListItemText primary={text}/>
-                        </ListItem>
-                    ))}
+                    {/*{['All mail', 'Trash', 'Spam'].map((text, index) => (*/}
+                        {/*<ListItem button key={text}>*/}
+                            {/*<ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>*/}
+                            {/*<ListItemText primary={text}/>*/}
+                        {/*</ListItem>*/}
+                    {/*))}*/}
                 </List>
             </div>
         );
@@ -200,5 +203,14 @@ AppDrawer.propTypes = {
     container: PropTypes.object,
     theme: PropTypes.object.isRequired,
 };
+const mapStateToProps = (state) => {
+    return {};
+};
 
-export default withStyles(styles, {withTheme: true})(AppDrawer);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        goTo: (path) => dispatch(goTo(path))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles, {withTheme: true})(AppDrawer));

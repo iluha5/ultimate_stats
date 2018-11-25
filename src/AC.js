@@ -77,3 +77,9 @@ export function loadUsersAndLogin(user) {
 
     }
 }
+
+export function goTo(path) {
+    return (dispatch) => {
+        dispatch(push(path));
+    }
+}

@@ -5,6 +5,7 @@ import AppDrawer from "./AppDrawer";
 import {withStyles} from "@material-ui/core/styles/index";
 import Typography from '@material-ui/core/Typography';
 import TournamentsList from "./TournamentsList";
+import {DRAWER_WIDTH} from "../constants";
 
 
 class Scorekeeper extends Component {
@@ -32,6 +33,7 @@ Scorekeeper.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
+// const drawerWidth = 240;
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -39,7 +41,12 @@ const styles = theme => ({
     toolbar: theme.mixins.toolbar,
     content: {
         flexGrow: 1,
-        padding: theme.spacing.unit * 0,
+        // padding: theme.spacing.unit * 0,
+        [theme.breakpoints.up('md')]: {
+            width: `calc(100% - ${DRAWER_WIDTH}px)`,
+            marginLeft: DRAWER_WIDTH,
+        },
+
     },
 });
 

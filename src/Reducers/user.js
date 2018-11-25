@@ -14,20 +14,36 @@ const UserState = Record({
     userData: {}
 });
 
-const defaultUser = new UserState();
+const defaultUser = UserState();
+
+const convertPlainObjectToUserState = (userState) => {
+    if (userState && userState.userData) {
+        return UserState({
+            isLoading: userState.isLoading,
+            userData: UserData(userState.userData)
+        })
+    }
+
+    return defaultUser;
+};
 
 export default (userState = defaultUser, action) => {
     const {type, payload} = action;
 
+    if (!Record.isRecord(userState)) {
+        userState = convertPlainObjectToUserState(userState);
+    }
+
     switch (type) {
         case LOAD_USERS + START:
+            // debugger
             return userState
                 .set('isLoading', true);
         case LOAD_USERS + SUCCESS:
             // debugger;
             return userState
                 .set('isLoading', false)
-                .set('userData', new UserData(payload.fullUser));
+                .set('userData', UserData(payload.fullUser));
         case LOAD_BEARER + FAIL:
             console.log('----- Fail to load Users', payload);
             return userState

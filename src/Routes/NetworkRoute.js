@@ -5,13 +5,13 @@ import Scorekeeper from "../Components/Scorekeeper";
 import Mode from "../Components/Mode";
 import {Redirect, Route, Switch} from "react-router-dom";
 import {connect} from "react-redux";
-import {SCOREKEEPER} from "../constants";
+import {ADMIN, SCOREKEEPER} from "../constants";
 
 class NetworkRoute extends Component {
     renderKeeper = () => {
         const {user} = this.props;
 
-        return (user && user.role === SCOREKEEPER) ? (
+        return (user && (user.role === SCOREKEEPER || user.role === ADMIN )) ? (
             <Scorekeeper />
         ) : (
             <Redirect to='/network' />
