@@ -13,6 +13,8 @@ import SendIcon from '@material-ui/icons/Send';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
+import {connect} from "react-redux";
+import {loadTournamentsList} from "../AC";
 
 const styles = theme => ({
     root: {
@@ -32,6 +34,11 @@ class TournamentsList extends React.Component {
     state = {
         open: false,
     };
+
+    componentDidMount() {
+        const {loadTournamentsList} = this.props;
+        loadTournamentsList();
+    }
 
     handleClick = () => {
         this.setState(state => ({ open: !state.open }));
@@ -89,5 +96,14 @@ class TournamentsList extends React.Component {
 TournamentsList.propTypes = {
     classes: PropTypes.object.isRequired,
 };
+const mapStateToProps = (state) => {
+    return {};
+};
 
-export default withStyles(styles)(TournamentsList);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        loadTournamentsList: () => dispatch(loadTournamentsList())
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(TournamentsList));

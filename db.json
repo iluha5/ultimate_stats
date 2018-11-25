@@ -1,26 +1,85 @@
 {
   "posts": [
-    { "id": 1, "title": "json-server", "author": "typicode" }
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
   ],
   "comments": [
-    { "id": 1, "body": "some comment", "postId": 1 }
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
   ],
-  "profile": { "email": "typicode" },
+  "tournaments": [
+    {
+      "id": "sdsrd0-8sdfg098xcv0b-vcbn9",
+      "name": "Лорд Новгород 2019",
+      "country": "Россия",
+      "place": "Великий Новгород",
+      "dateStart": "15-02-2019",
+      "dateEnd": "17-02-2019",
+      "covering": "Паркет",
+      "format": "5х5",
+      "games": "112",
+      "teams": "44",
+      "isMenDivision": "true",
+      "isWomenDivision": "true",
+      "isMixDivision": "false",
+      "ownerId": "sadfa234sda"
+    },
+    {
+      "id": "sdsrd0fdsfdsf-8sdfg098xcv0b-vcbn9",
+      "name": "Запуск 2019",
+      "country": "Россия",
+      "place": "Серпухов",
+      "dateStart": "9-02-2019",
+      "dateEnd": "10-02-2019",
+      "covering": "Паркет",
+      "format": "5х5",
+      "games": "45",
+      "teams": "20",
+      "isMenDivision": "true",
+      "isWomenDivision": "true",
+      "isMixDivision": "false",
+      "ownerId": "sadfa234sda"
+    },
+    {
+      "id": "sdsrdsdfg0dffg098xcv0b-vcbn9",
+      "name": "КНО 2019",
+      "country": "Россия",
+      "place": "Великий Новгород",
+      "dateStart": "3-09-2019",
+      "dateEnd": "4-09-2019",
+      "covering": "Трава",
+      "format": "7х7",
+      "games": "20",
+      "teams": "10",
+      "isMenDivision": "true",
+      "isWomenDivision": "true",
+      "isMixDivision": "false",
+      "ownerId": "ghjnfjhsaasd"
+    }
+  ],
   "users": [
-  	{ 
-  	"id": "sadfa234sda", 
-  	"name": "Vasya",
-  	"email": "vasya@gmail.com",
-  	"password": "1234",
-  	"role": "scorekeeper"
-  	},
-  	{ 
-  	"id": "ghjnfjhsaasd", 
-  	"name": "Kolya",
-  	"email": "kolya@gmail.com",
-  	"password": "5678",
-  	"role": "admin"
-  	}
+    {
+      "id": "sadfa234sda",
+      "name": "Vasya",
+      "email": "vasya@gmail.com",
+      "password": "1234",
+      "role": "scorekeeper"
+    },
+    {
+      "id": "ghjnfjhsaasd",
+      "name": "Kolya",
+      "email": "kolya@gmail.com",
+      "password": "5678",
+      "role": "admin"
+    }
   ],
-  "bearer": { "id": "asdfsdrgfsdfgsdfgdsfg234df234" }
+  "bearer": {
+    "id": "asdfsdrgfsdfgsdfgdsfg234df234"
+  }
 }

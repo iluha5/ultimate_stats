@@ -61,7 +61,13 @@ const styles = theme => ({
     content: {
         flexGrow: 1,
         padding: theme.spacing.unit * 3,
+        alignItems: 'center'
     },
+    userName: {
+        display: 'flex',
+        alignItems: 'center',
+        paddingTop: 5
+    }
 });
 
 class AppDrawer extends React.Component {
@@ -83,7 +89,7 @@ class AppDrawer extends React.Component {
     };
 
     render() {
-        const {classes, theme, goTo} = this.props;
+        const {classes, theme, goTo, user} = this.props;
         const {anchorEl} = this.state;
         const open = Boolean(anchorEl);
 
@@ -130,6 +136,9 @@ class AppDrawer extends React.Component {
                         </Typography>
                         {(
                             <div className={classes.rightMenuButton}>
+                                <Typography variant="body2" gutterBottom color="inherit" className={classes.userName}>
+                                    {user.name}
+                                </Typography>
                                 <IconButton
                                     aria-owns={open ? 'menu-appbar' : undefined}
                                     aria-haspopup="true"
@@ -202,9 +211,12 @@ AppDrawer.propTypes = {
     // You won't need it on your project.
     container: PropTypes.object,
     theme: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired
 };
 const mapStateToProps = (state) => {
-    return {};
+    return {
+        user: state.user.userData
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {

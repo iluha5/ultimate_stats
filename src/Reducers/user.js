@@ -5,7 +5,6 @@ const UserData = Record({
     id: null,
     name: null,
     email: null,
-    password: null,
     role: null
 });
 

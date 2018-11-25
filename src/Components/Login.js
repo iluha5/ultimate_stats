@@ -35,12 +35,14 @@ class Login extends Component {
 
     handleButtonClick = event => {
         console.log('----- click');
+        event.preventDefault();
 
-        const {loadUsersAndLogin} = this.props;
+        const {loadUsersAndLogin, loadBearer} = this.props;
         const {email, password} = this.state;
 
         if (email && password) {
             // debugger;
+            loadBearer(); // just for immitation
             loadUsersAndLogin({email, password});
         }
 
@@ -68,17 +70,17 @@ class Login extends Component {
 
     }
 
-    componentDidMount() {
-        const {loadBearer, user} = this.props;
-        loadBearer();
-    }
+    // componentDidMount() {
+        // const {loadBearer, user} = this.props;
+        // loadBearer();
+    // }
 
     render() {
         const {classes} = this.props;
 
         return (
             <div>
-                <form className={classes.container} noValidate autoComplete="off">
+                <form className={classes.container} noValidate autoComplete="off" onSubmit={this.handleButtonClick}>
                     <Typography variant="h5" component="h2">
                         Вход в сетевой режим
                     </Typography>
@@ -107,6 +109,7 @@ class Login extends Component {
                         variant="outlined"
                         className={classes.button}
                         onClick={this.handleButtonClick}
+                        type="submit"
                     >
                         Войти
                     </Button>

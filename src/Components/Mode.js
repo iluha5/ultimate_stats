@@ -37,10 +37,11 @@ const styles = theme => ({
         flexWrap: 'wrap',
         flexDirection: 'column',
         alignItems: 'center',
-        marginTop: '20%'
+        marginTop: '20%',
     },
     button: {
         margin: theme.spacing.unit,
+        width: 280,
     },
 });
 
