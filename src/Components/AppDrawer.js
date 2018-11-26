@@ -31,6 +31,11 @@ const styles = theme => ({
         display: 'flex',
         // flexGrow: 1,
     },
+    title: {
+        // border: '1px solid #fff',
+        lineHeight: '1em',
+        paddingTop: 0
+    },
     drawer: {
         [theme.breakpoints.up('md')]: {
             width: DRAWER_WIDTH,
@@ -42,17 +47,36 @@ const styles = theme => ({
         [theme.breakpoints.up('md')]: {
             width: `calc(100% - ${DRAWER_WIDTH}px)`,
         },
+        [theme.breakpoints.down('sm')]: {
+            // height: 50
+        }
     },
+    toolBar: {
+        minHeight: 30
+    },
+    // appBarWrapper: {
+    //   height: 30
+    // },
     menuButton: {
         marginRight: 20,
         [theme.breakpoints.up('md')]: {
             display: 'none',
         },
+        [theme.breakpoints.down('sm')]: {
+            paddingTop: 4,
+            paddingBottom: 4
+        }
     },
-    rightMenuButton: {
+    rightMenuWrapper: {
         flexGrow: '1',
         justifyContent: 'flex-end',
-        display: 'flex'
+        display: 'flex',
+    },
+    rightMenuButton: {
+        [theme.breakpoints.down('sm')]: {
+            paddingTop: 4,
+            paddingBottom: 4
+        }
     },
     toolbar: theme.mixins.toolbar,
     drawerPaper: {
@@ -67,6 +91,13 @@ const styles = theme => ({
         display: 'flex',
         alignItems: 'center',
         paddingTop: 5
+    },
+    name: {
+        textAlign: 'center',
+        border: 0,
+        color: '#f44336',
+        paddingLeft: 5,
+        paddingRight: 5
     }
 });
 
@@ -81,11 +112,11 @@ class AppDrawer extends React.Component {
     };
 
     handleMenu = event => {
-        this.setState({ anchorEl: event.currentTarget });
+        this.setState({anchorEl: event.currentTarget});
     };
 
     handleClose = () => {
-        this.setState({ anchorEl: null });
+        this.setState({anchorEl: null});
     };
 
     render() {
@@ -109,10 +140,10 @@ class AppDrawer extends React.Component {
                 <Divider/>
                 <List>
                     {/*{['All mail', 'Trash', 'Spam'].map((text, index) => (*/}
-                        {/*<ListItem button key={text}>*/}
-                            {/*<ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>*/}
-                            {/*<ListItemText primary={text}/>*/}
-                        {/*</ListItem>*/}
+                    {/*<ListItem button key={text}>*/}
+                    {/*<ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>*/}
+                    {/*<ListItemText primary={text}/>*/}
+                    {/*</ListItem>*/}
                     {/*))}*/}
                 </List>
             </div>
@@ -121,54 +152,67 @@ class AppDrawer extends React.Component {
         return (
             <div className={classes.root}>
                 <CssBaseline/>
-                <AppBar position="fixed" className={classes.appBar}>
-                    <Toolbar>
-                        <IconButton
-                            className={classes.menuButton}
-                            color="inherit"
-                            aria-label="Open drawer"
-                            onClick={this.handleDrawerToggle}
-                        >
-                            <MenuIcon/>
-                        </IconButton>
-                        <Typography variant="h6" color="inherit" className={classes.grow}>
-                            Панель скоркипера
-                        </Typography>
-                        {(
-                            <div className={classes.rightMenuButton}>
-                                <Typography variant="body2" gutterBottom color="inherit" className={classes.userName}>
-                                    {user.name}
-                                </Typography>
-                                <IconButton
-                                    aria-owns={open ? 'menu-appbar' : undefined}
-                                    aria-haspopup="true"
-                                    onClick={this.handleMenu}
-                                    color="inherit"
-                                    // className={classes.rightMenuButton}
-                                >
-                                    <AccountCircle/>
-                                </IconButton>
-                                <Menu
-                                    id="menu-appbar"
-                                    anchorEl={anchorEl}
-                                    anchorOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    open={open}
-                                    onClose={this.handleClose}
-                                >
-                                    <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                                    <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                                </Menu>
-                            </div>
-                        )}
-                    </Toolbar>
-                </AppBar>
+                {/*<div className={classes.appBarWrapper}>*/}
+                    <AppBar position="fixed" className={classes.appBar}>
+                        <Toolbar className={classes.toolBar} >
+                            <IconButton
+                                className={classes.menuButton}
+                                color="inherit"
+                                aria-label="Open drawer"
+                                onClick={this.handleDrawerToggle}
+                            >
+                                <MenuIcon/>
+                            </IconButton>
+                            <Typography variant="subtitle1" color="inherit" className={classes.title}>
+                                Панель скоркипера
+                            </Typography>
+                            {(
+                                <div className={classes.rightMenuWrapper}>
+                                    {/*<Typography variant="body2" gutterBottom color="inherit"*/}
+                                                {/*className={classes.userName}>*/}
+                                        {/*{user.name}*/}
+                                    {/*</Typography>*/}
+                                    <IconButton
+                                        aria-owns={open ? 'menu-appbar' : undefined}
+                                        aria-haspopup="true"
+                                        onClick={this.handleMenu}
+                                        color="inherit"
+                                        className={classes.rightMenuButton}
+                                    >
+                                        <AccountCircle/>
+                                    </IconButton>
+                                    <Menu
+                                        id="menu-appbar"
+                                        anchorEl={anchorEl}
+                                        anchorOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        transformOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        open={open}
+                                        onClose={this.handleClose}
+                                    >
+                                        <div></div>
+                                        <Typography
+                                            variant={"subtitle2"}
+                                            color={"inherit"}
+                                            gutterBottom
+                                            style={{textAlign: 'center', border: 0, color: '#f44336', paddingLeft: 5, paddingRight: 5}}
+                                            className={classes.name}
+                                        >
+                                            {user.name}
+                                        </Typography>
+                                        <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                                        <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                                    </Menu>
+                                </div>
+                            )}
+                        </Toolbar>
+                    </AppBar>
+                {/*</div>*/}
                 <nav className={classes.drawer}>
                     {/* The implementation can be swap with js to avoid SEO duplication of links. */}
                     <Hidden mdUp implementation="css">

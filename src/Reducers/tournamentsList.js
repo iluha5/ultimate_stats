@@ -28,12 +28,6 @@ const defaultTournamentList = TournamentsListState();
 
 const convertPlainObjectToTournamentsListState = (tournamentsListState) => {
     if (tournamentsListState && tournamentsListState.list) {
-        // debugger
-        // const tournamentDataArr = tournamentsListState.list.reduce(
-        //     (acc, tournament) =>
-        //         acc.set(tournament.id, TournamentData(tournament))
-        //     , new OrderedMap({})
-        // );
 
         return TournamentsListState({
             isLoading: tournamentsListState.isLoading,
@@ -59,7 +53,6 @@ export default (tournamentsListState = defaultTournamentList, action) => {
                 .set('isLoading', true);
 
         case LOAD_TOURNAMENTS + SUCCESS:
-            debugger
             return tournamentsListState
                 .set('isLoading', false)
                 .set('list', arrToMap(payload, TournamentData));

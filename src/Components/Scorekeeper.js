@@ -16,10 +16,6 @@ class Scorekeeper extends Component {
             <div>
                 <AppDrawer />
                 <main className={classes.content}>
-                    <div className={classes.toolbar} />
-                    {/*<Typography paragraph>*/}
-                        {/*привет, {this.props.user.name}*/}
-                    {/*</Typography>*/}
                     <TournamentsList />
                 </main>
 
