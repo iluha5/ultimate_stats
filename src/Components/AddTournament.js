@@ -7,12 +7,18 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
+import { MuiPickersUtilsProvider } from 'material-ui-pickers';
+import { DatePicker } from 'material-ui-pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import ArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import ArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import ruLocale from 'date-fns/locale/ru';
 
 
 export default class AddTournament extends React.Component {
-    // state = {
-    //     open: false,
-    // };
+    state = {
+        selectedDate: new Date(),
+    };
 
     // handleClickOpen = () => {
     //     this.setState({open: true});
@@ -22,8 +28,13 @@ export default class AddTournament extends React.Component {
     //     this.setState({open: false});
     // };
 
+    handleDateChange = date => {
+        this.setState({ selectedDate: date });
+    };
+
     render() {
         const {isOpen, toggleClose} = this.props;
+        const {selectedDate} = this.state;
 
         return (
             <div>
@@ -35,9 +46,29 @@ export default class AddTournament extends React.Component {
                 >
                     <DialogTitle id="form-dialog-title">Добавление турнира</DialogTitle>
                     <DialogContent>
-                        <DialogContentText>
-                            Все поля кроме Название - необязательные, но очень рекомендуемые :)
-                        </DialogContentText>
+                        {/*<DialogContentText>*/}
+                            {/*Все поля кроме Название - необязательные, но очень рекомендуемые :)*/}
+                        {/*</DialogContentText>*/}
+                        <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ruLocale}>
+                            <DatePicker
+                                value={selectedDate}
+                                onChange={this.handleDateChange}
+                                leftArrowIcon={<ArrowLeft/>}
+                                rightArrowIcon={<ArrowRight/>}
+                                label={'C:'}
+                                format="dd-MM-yyyy"
+                            />
+                            <span> </span>
+                            <DatePicker
+                                value={selectedDate}
+                                onChange={this.handleDateChange}
+                                leftArrowIcon={<ArrowLeft/>}
+                                rightArrowIcon={<ArrowRight/>}
+                                label={'По:'}
+                                format="dd-MM-yyyy"
+                            />
+                        </MuiPickersUtilsProvider>
+
                         <TextField
                             autoFocus
                             margin="dense"
@@ -46,6 +77,7 @@ export default class AddTournament extends React.Component {
                             type="name"
                             fullWidth
                         />
+
                         <TextField
                             autoFocus
                             margin="dense"
@@ -71,5 +103,5 @@ export default class AddTournament extends React.Component {
 
 AddTournament.propTypes = {
     isOpen: PropTypes.bool.isRequired,
-    toggleClose: PropTypes.func.isRequired
+    toggleClose: PropTypes.func.isRequired,
 };
