@@ -20,7 +20,7 @@ export const saveState = (state) => {
    // console.log('----- saveState', state.toJS());
   try {
       const serializedState = JSON.stringify(state);
-      console.log('----- saveState, serializedState', serializedState);
+      // console.log('----- saveState, serializedState', serializedState);
 
       localStorage.setItem('state', serializedState);
       // debugger

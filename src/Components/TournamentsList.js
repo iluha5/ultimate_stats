@@ -15,6 +15,7 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
+import AddTournament from "./AddTournament";
 
 const styles = theme => ({
     root: {
@@ -38,12 +39,24 @@ const styles = theme => ({
         position: 'absolute',
         bottom: theme.spacing.unit * 2,
         right: theme.spacing.unit * 2,
+    },
+    collapse: {
+        color: 'rgba(0, 0, 0, 0.54)'
+    },
+    dates: {
+      whiteSpace: 'normal'
+    },
+    dateNowrap: {
+        fontSize: '0.875rem',
+        color: 'gray',
+        whiteSpace: 'nowrap'
     }
 });
 
 class TournamentsList extends React.Component {
     state = {
-        open: false,
+        isCollapseOpen: [],
+        isOpenAddTournament: false,
     };
 
     componentDidMount() {
@@ -51,25 +64,38 @@ class TournamentsList extends React.Component {
         loadTournamentsList();
     }
 
-    handleClick = () => {
-        this.setState(state => ({open: !state.open}));
+    handleCollapseClick = (i) => {
+        return () => {
+            let newCollapseArr = [...this.state.isCollapseOpen];
+            // console.log('-----', newCollapseArr);
+            newCollapseArr[i] = !newCollapseArr[i];
+
+            this.setState({
+                isCollapseOpen: newCollapseArr
+            });
+        }
     };
 
-    getValue(value) {
-        return value ? <div>{value}</div> : null;
+    getValue() {
+        let i = 0;
+        return function(value) {
+            i++;
+            return value ? <div key={`value-${i}`}>- {value}</div> : null;
+        }
     }
 
     getListOfTournamentsFields(tournament) {
         if (!tournament) return;
 
         let output = [];
+        const value = this.getValue();
 
-        output.push(this.getValue(tournament.place));
-        output.push(this.getValue(tournament.country));
-        output.push(this.getValue(tournament.covering));
-        output.push(this.getValue(tournament.format));
-        output.push(this.getValue(tournament.games));
-        output.push(this.getValue(tournament.teams));
+        output.push(value(tournament.place));
+        output.push(value(tournament.country));
+        output.push(value(tournament.covering));
+        output.push(value(tournament.format));
+        output.push(value(tournament.games));
+        output.push(value(tournament.teams));
 
         return output;
     }
@@ -78,30 +104,50 @@ class TournamentsList extends React.Component {
         const {tournamentsList, classes} = this.props;
         const list = mapToArr(tournamentsList.list);
 
-        return list.map(tournament => {
+        return list.map((tournament, i) => {
             return (
                 <Link to={`/network/keeper/${tournament.id}`} className={classes.link} key={tournament.id}>
-                    <ListItem button onClick={this.handleClick}>
+                    {/*<ListItem button onClick={this.handleCollapseClick(i)}>*/}
+                    <ListItem button>
                         <ListItemText primary={tournament.name}/>
-                        <ListItemText secondary={tournament.dateStart + ' - ' + tournament.dateEnd}/>
+                        <ListItemText className={classes.dates}>
+                            <span className={classes.dateNowrap}>{tournament.dateStart} -</span>
+                             <span> </span>
+                            <span className={classes.dateNowrap}>{tournament.dateEnd}</span>
+                        </ListItemText>
                         <ListItemText secondary={tournament.place}/>
-                        {this.state.open ? <ExpandLess/> : <ExpandMore/>}
+                        {/*{this.state.isCollapseOpen[i] ? <ExpandLess/> : <ExpandMore/>}*/}
                     </ListItem>
-                    <Collapse in={this.state.open} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding>
-                            <ListItem button className={classes.nested}>
-                                {this.getListOfTournamentsFields(tournament)}
-                            </ListItem>
-                        </List>
-                    </Collapse>
+                    {/*<Collapse in={this.state.isCollapseOpen[i]} timeout="auto" unmountOnExit*/}
+                              {/*className={classes.collapse}>*/}
+                        {/*<List component="div" disablePadding>*/}
+                            {/*<ListItem button className={classes.nested}>*/}
+                                {/*{this.getListOfTournamentsFields(tournament)}*/}
+                            {/*</ListItem>*/}
+                        {/*</List>*/}
+                    {/*</Collapse>*/}
                 </Link>
             )
         })
 
     }
 
+    handleOpenAddTournament = (evt) => {
+        this.setState({
+            isOpenAddTournament: true
+        })
+    };
+
+    handleCloseAddTournament = (evt) =>{
+        this.setState({
+            isOpenAddTournament: false
+        })
+
+    };
+
     render() {
         const {classes} = this.props;
+        const {isOpenAddTournament} = this.state;
 
         return (
             <div className={classes.root}>
@@ -112,9 +158,10 @@ class TournamentsList extends React.Component {
                 >
                     {this.renderTournamentsList()}
                 </List>
-                <Button variant="fab" className={classes.fab} color='secondary'>
+                <Button variant="fab" className={classes.fab} color='secondary' onClick={this.handleOpenAddTournament}>
                     <AddIcon/>
                 </Button>
+                <AddTournament isOpen={isOpenAddTournament} toggleClose={this.handleCloseAddTournament}/>
             </div>
         );
     }
