@@ -97,6 +97,105 @@
         "Открытый",
         "Женский"
       ]
+    },
+    {
+      "id": "C6z65Gq",
+      "name": "dssfsadfadsf",
+      "country": "",
+      "place": "",
+      "dateStart": "28-11-2018",
+      "dateEnd": "28-11-2018",
+      "covering": "",
+      "format": 20,
+      "games": 0,
+      "teams": 0,
+      "divisions": []
+    },
+    {
+      "id": "aHkTADr",
+      "name": "33333333333",
+      "country": "",
+      "place": "",
+      "dateStart": "28-11-2018",
+      "dateEnd": "28-11-2018",
+      "covering": "",
+      "format": 20,
+      "games": 0,
+      "teams": 0,
+      "divisions": []
+    },
+    {
+      "id": "FNAP0o1",
+      "name": "hhhhhhhhhhh",
+      "country": "",
+      "place": "",
+      "dateStart": "28-11-2018",
+      "dateEnd": "28-11-2018",
+      "covering": "",
+      "format": "",
+      "games": 0,
+      "teams": 0,
+      "divisions": []
+    },
+    {
+      "id": "sJiAekc",
+      "name": "прампарас",
+      "country": "",
+      "place": "",
+      "dateStart": "28-11-2018",
+      "dateEnd": "28-11-2018",
+      "covering": 30,
+      "format": 10,
+      "games": 0,
+      "teams": 0,
+      "divisions": [
+        "Смешанный",
+        "Женский"
+      ]
+    },
+    {
+      "id": "ZlWUyyD",
+      "name": "прампарам",
+      "country": "",
+      "place": "но",
+      "dateStart": "28-11-2018",
+      "dateEnd": "28-11-2018",
+      "covering": 40,
+      "format": 20,
+      "games": 0,
+      "teams": 0,
+      "divisions": [
+        "Женский",
+        "Открытый",
+        "Смешанный",
+        "Шляпа"
+      ]
+    },
+    {
+      "id": "dGlXYYY",
+      "name": "ss",
+      "country": "sas",
+      "place": "a",
+      "dateStart": "28-11-2018",
+      "dateEnd": "28-11-2018",
+      "covering": "",
+      "format": "",
+      "games": 0,
+      "teams": 0,
+      "divisions": []
+    },
+    {
+      "id": "cKr8X8h",
+      "name": "eass",
+      "country": "",
+      "place": "asasas",
+      "dateStart": "28-11-2018",
+      "dateEnd": "28-11-2018",
+      "covering": "",
+      "format": "",
+      "games": 0,
+      "teams": 0,
+      "divisions": []
     }
   ],
   "users": [

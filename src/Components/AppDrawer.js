@@ -51,12 +51,10 @@ const styles = theme => ({
             // height: 50
         }
     },
+    // !!!!!!!!!! toolbar height here
     toolBar: {
-        minHeight: 30
+        // minHeight: 30
     },
-    // appBarWrapper: {
-    //   height: 30
-    // },
     menuButton: {
         marginRight: 20,
         [theme.breakpoints.up('md')]: {

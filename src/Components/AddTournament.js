@@ -24,6 +24,21 @@ import {connect} from "react-redux";
 import {pushNewTournament} from "../AC";
 import dateFormat from 'dateformat';
 
+const defaultState = {
+    selectedDateFrom: new Date(),
+    selectedDateTo: new Date(),
+    cover: '',
+    divisions: [],
+    name: '',
+    country: '',
+    place: '',
+    covering: '',
+    format: '',
+    isNameError: false,
+    nameHelper: ' ',
+    dateToHelper: ' ',
+};
+
 
 class AddTournament extends React.Component {
     state = {
@@ -111,7 +126,10 @@ class AddTournament extends React.Component {
             divisions,
             ownerID: user.id
         });
+
         toggleClose();
+
+        this.setState(defaultState);
     };
 
     getStyles(name, that) {
@@ -124,7 +142,7 @@ class AddTournament extends React.Component {
     }
 
     handleFieldChange = event => {
-        if (event.target.value.length < 2) {
+        if (event.target.value.length < 2 && event.target.id === 'name') {
             this.setState({
                 [event.target.id]: event.target.value,
                 isNameError: true,
@@ -173,6 +191,7 @@ class AddTournament extends React.Component {
                 <form className={classes.root} autoComplete="off">
                     <Dialog
                         open={isOpen}
+                        scroll = 'body'
                         // onClose={toggleClose}
                         aria-labelledby="form-dialog-title"
                     >
@@ -341,15 +360,15 @@ const styles = theme => ({
     },
     covering: {
         // margin: theme.spacing.unit,
-        minWidth: 280,
+        minWidth: 230,
         marginTop: 8
     },
     divisions: {
-        minWidth: 280,
+        minWidth: 230,
         marginTop: 8
     },
     format: {
-        minWidth: 280,
+        minWidth: 230,
         marginTop: 8
     },
     selectEmpty: {

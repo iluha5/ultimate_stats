@@ -8,7 +8,7 @@ import TournamentsList from "./TournamentsList";
 import {DRAWER_WIDTH} from "../constants";
 
 
-class Scorekeeper extends Component {
+class Tournament extends Component {
     render() {
         const { classes } = this.props;
 
@@ -16,7 +16,7 @@ class Scorekeeper extends Component {
             <div>
                 <AppDrawer />
                 <main className={classes.content}>
-                    <TournamentsList />
+                    <div>{'Турнир'}</div>
                 </main>
 
             </div>
@@ -24,7 +24,7 @@ class Scorekeeper extends Component {
     }
 }
 
-Scorekeeper.propTypes = {
+Tournament.propTypes = {
     user: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired,
 };
@@ -56,4 +56,4 @@ const mapDispatchToProps = () => {
     return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles, { withTheme: true })(Scorekeeper));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles, { withTheme: true })(Tournament));

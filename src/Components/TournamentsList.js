@@ -11,15 +11,16 @@ import {mapToArr} from "../helpers";
 import {Link} from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
-import Collapse from '@material-ui/core/Collapse';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import Typography from '@material-ui/core/Typography';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import IconButton from '@material-ui/core/IconButton';
+import MoreVert from '@material-ui/icons/MoreVert';
 import AddTournament from "./AddTournament";
+import TournamentDetails from "./TournamentDetails";
 
 const styles = theme => ({
     root: {
         width: '100%',
+        marginBottom: 50,
         // maxWidth: 700,
         backgroundColor: theme.palette.background.paper,
     },
@@ -30,13 +31,14 @@ const styles = theme => ({
         alignItems: 'flex-start'
     },
     mainList: {
-        paddingLeft: 0
+        paddingLeft: 0,
+        marginTop: 64
     },
     link: {
         textDecoration: 'none'
     },
     fab: {
-        position: 'absolute',
+        position: 'fixed',
         bottom: theme.spacing.unit * 2,
         right: theme.spacing.unit * 2,
     },
@@ -50,6 +52,9 @@ const styles = theme => ({
         fontSize: '0.875rem',
         color: 'gray',
         whiteSpace: 'nowrap'
+    },
+    title: {
+
     }
 });
 
@@ -57,6 +62,7 @@ class TournamentsList extends React.Component {
     state = {
         isCollapseOpen: [],
         isOpenAddTournament: false,
+        clickedID: null,
     };
 
     componentDidMount() {
@@ -84,29 +90,11 @@ class TournamentsList extends React.Component {
         }
     };
 
-    getValue() {
-        let i = 0;
-        return function(value) {
-            i++;
-            return value ? <div key={`value-${i}`}>- {value}</div> : null;
-        }
-    }
-
-    getListOfTournamentsFields(tournament) {
-        if (!tournament) return;
-
-        let output = [];
-        const value = this.getValue();
-
-        output.push(value(tournament.place));
-        output.push(value(tournament.country));
-        output.push(value(tournament.covering));
-        output.push(value(tournament.format));
-        output.push(value(tournament.games));
-        output.push(value(tournament.teams));
-
-        return output;
-    }
+    setClickedID = (id) => {
+        this.setState({
+            clickedID: id
+        })
+    };
 
     renderTournamentsList() {
         const {tournamentsList, classes} = this.props;
@@ -124,16 +112,15 @@ class TournamentsList extends React.Component {
                             <span className={classes.dateNowrap}>{tournament.dateEnd}</span>
                         </ListItemText>
                         <ListItemText secondary={tournament.place}/>
-                        {/*{this.state.isCollapseOpen[i] ? <ExpandLess/> : <ExpandMore/>}*/}
+                        <ListItemSecondaryAction>
+                            <IconButton
+                                aria-label="Details"
+                                onClick={() => this.setClickedID(tournament.id)}
+                            >
+                                <MoreVert />
+                            </IconButton>
+                        </ListItemSecondaryAction>
                     </ListItem>
-                    {/*<Collapse in={this.state.isCollapseOpen[i]} timeout="auto" unmountOnExit*/}
-                              {/*className={classes.collapse}>*/}
-                        {/*<List component="div" disablePadding>*/}
-                            {/*<ListItem button className={classes.nested}>*/}
-                                {/*{this.getListOfTournamentsFields(tournament)}*/}
-                            {/*</ListItem>*/}
-                        {/*</List>*/}
-                    {/*</Collapse>*/}
                 </Link>
             )
         })
@@ -153,12 +140,23 @@ class TournamentsList extends React.Component {
 
     };
 
+    resetClickedID = () => {
+      this.setState({
+          clickedID: null
+      });
+    };
+
+
     render() {
         const {classes} = this.props;
-        const {isOpenAddTournament} = this.state;
+        const {isOpenAddTournament, clickedID} = this.state;
 
         return (
             <div className={classes.root}>
+                {/*<Typography className={classes.title} variant="h4" gutterBottom>*/}
+                    {/*Список турниров*/}
+                {/*</Typography>*/}
+
                 <List
                     className={classes.mainList}
                     component="nav"
@@ -170,6 +168,8 @@ class TournamentsList extends React.Component {
                     <AddIcon/>
                 </Button>
                 <AddTournament isOpen={isOpenAddTournament} toggleClose={this.handleCloseAddTournament}/>
+
+                {clickedID ? <TournamentDetails id={clickedID} resetClickedID={this.resetClickedID} /> : null }
             </div>
         );
     }
