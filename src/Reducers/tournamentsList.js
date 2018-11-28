@@ -1,5 +1,5 @@
 import {OrderedMap, OrderedSet, Record} from "immutable";
-import {LOAD_TOURNAMENTS, LOAD_USERS, START, SUCCESS} from "../constants";
+import {LOAD_TOURNAMENTS, LOAD_USERS, SHOULD_RELOAD, START, SUCCESS} from "../constants";
 import {arrToMap} from "../helpers";
 
 const TournamentData = Record({
@@ -21,6 +21,7 @@ const TournamentData = Record({
 
 const TournamentsListState = Record({
     isLoading: false,
+    shouldReload: false,
     list: new OrderedMap({})
 });
 const defaultTournamentList = TournamentsListState();
@@ -55,7 +56,13 @@ export default (tournamentsListState = defaultTournamentList, action) => {
         case LOAD_TOURNAMENTS + SUCCESS:
             return tournamentsListState
                 .set('isLoading', false)
+                .set('shouldReload', false)
                 .set('list', arrToMap(payload, TournamentData));
+
+        case LOAD_TOURNAMENTS + SHOULD_RELOAD:
+            return tournamentsListState
+                .set('shouldReload', true);
+
     }
 
     return tournamentsListState;

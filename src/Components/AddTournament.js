@@ -298,7 +298,7 @@ class AddTournament extends React.Component {
 
                             <div>
                                 <FormControl className={classes.format}>
-                                    <InputLabel htmlFor="format">Покрытие</InputLabel>
+                                    <InputLabel htmlFor="format">Формат</InputLabel>
                                     <Select
                                         value={format}
                                         onChange={this.handleCovering}

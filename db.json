@@ -67,30 +67,36 @@
       "ownerId": "ghjnfjhsaasd"
     },
     {
-      "id": "20P49x4",
-      "name": "sdfgsdfg",
-      "country": "",
-      "place": "",
-      "dateStart": "2018-11-28T11:03:24.557Z",
-      "dateEnd": "2018-11-28T11:03:24.557Z",
-      "covering": "",
-      "format": "",
+      "id": "hZKfXdh",
+      "name": "Лорд-2020",
+      "country": "Россия",
+      "place": "В.Новгород",
+      "dateStart": "12-02-2021",
+      "dateEnd": "14-02-2021",
+      "covering": 40,
+      "format": 10,
       "games": 0,
       "teams": 0,
-      "divisions": []
+      "divisions": [
+        "Открытый",
+        "Женский"
+      ]
     },
     {
-      "id": "jpGi5ZM",
-      "name": "1111111111",
-      "country": "",
-      "place": "",
-      "dateStart": "2018-11-28T11:04:38.811Z",
-      "dateEnd": "2018-11-28T11:04:38.811Z",
-      "covering": "",
-      "format": "",
+      "id": "SQtOkzL",
+      "name": "лорд",
+      "country": "россия",
+      "place": "новгород",
+      "dateStart": "7-02-2019",
+      "dateEnd": "9-02-2019",
+      "covering": 40,
+      "format": 10,
       "games": 0,
       "teams": 0,
-      "divisions": []
+      "divisions": [
+        "Открытый",
+        "Женский"
+      ]
     }
   ],
   "users": [

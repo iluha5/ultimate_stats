@@ -4,7 +4,7 @@ import {
     LOAD_BEARER,
     LOAD_TOURNAMENTS,
     LOAD_USERS,
-    PUSH_NEW_TOURNAMENT,
+    PUSH_NEW_TOURNAMENT, SHOULD_RELOAD,
     START,
     SUCCESS,
     WRONG_USER
@@ -35,7 +35,11 @@ export const pushNewTournament = (tournament) => {
             .then((res) => {
                 dispatch({
                     type: PUSH_NEW_TOURNAMENT + SUCCESS,
-                })
+                });
+                dispatch({
+                    type: LOAD_TOURNAMENTS + SHOULD_RELOAD,
+                });
+
             })
             .catch((err) => {
                 alert("Не получилось обновить таблицу турниров!");

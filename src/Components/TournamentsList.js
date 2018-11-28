@@ -64,6 +64,14 @@ class TournamentsList extends React.Component {
         loadTournamentsList();
     }
 
+    componentDidUpdate(){
+        const {shouldRealod, loadTournamentsList} = this.props;
+
+        if (shouldRealod) {
+            loadTournamentsList();
+        }
+    }
+
     handleCollapseClick = (i) => {
         return () => {
             let newCollapseArr = [...this.state.isCollapseOpen];
@@ -170,11 +178,14 @@ class TournamentsList extends React.Component {
 TournamentsList.propTypes = {
     classes: PropTypes.object.isRequired,
     // from store
-    tournamentsList: PropTypes.object.isRequired
+    tournamentsList: PropTypes.object.isRequired,
+    shouldReload: PropTypes.bool
 };
 const mapStateToProps = (state) => {
+    // debugger
     return {
-        tournamentsList: state.tournamentsList
+        tournamentsList: state.tournamentsList,
+        shouldRealod: state.tournamentsList.shouldReload,
     };
 };
 
