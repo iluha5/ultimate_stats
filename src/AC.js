@@ -1,5 +1,48 @@
-import {API, FAIL, LOAD_BEARER, LOAD_TOURNAMENTS, LOAD_USERS, START, SUCCESS, WRONG_USER} from "./constants";
+import {
+    API,
+    FAIL,
+    LOAD_BEARER,
+    LOAD_TOURNAMENTS,
+    LOAD_USERS,
+    PUSH_NEW_TOURNAMENT,
+    START,
+    SUCCESS,
+    WRONG_USER
+} from "./constants";
 import {push, replace} from 'react-router-redux';
+
+export const pushNewTournament = (tournament) => {
+    return (dispatch) => {
+        dispatch({
+           type: PUSH_NEW_TOURNAMENT + START,
+        });
+
+        // debugger
+        const params = {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(tournament)
+        };
+
+        fetch(API.tournaments, params)
+            .then((resp) => {
+                if ((resp.status < 200) || (resp.status > 300)) {
+                    throw new Error("Response status: " + resp.status);
+                } else return resp;
+            })
+            .then((res) => {
+                dispatch({
+                    type: PUSH_NEW_TOURNAMENT + SUCCESS,
+                })
+            })
+            .catch((err) => {
+                alert("Не получилось обновить таблицу турниров!");
+            })
+
+    }
+};
 
 export const loadTournamentsList = () => {
   return (dispatch) => {

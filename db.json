@@ -25,9 +25,10 @@
       "format": "5х5",
       "games": "112",
       "teams": "44",
-      "isMenDivision": "true",
-      "isWomenDivision": "true",
-      "isMixDivision": "false",
+      "divisions": [
+        "Открытый",
+        "Женский"
+      ],
       "ownerId": "sadfa234sda"
     },
     {
@@ -41,9 +42,11 @@
       "format": "5х5",
       "games": "45",
       "teams": "20",
-      "isMenDivision": "true",
-      "isWomenDivision": "true",
-      "isMixDivision": "false",
+      "divisions": [
+        "Открытый",
+        "Женский",
+        "Смешанный"
+      ],
       "ownerId": "sadfa234sda"
     },
     {
@@ -57,10 +60,37 @@
       "format": "7х7",
       "games": "20",
       "teams": "10",
-      "isMenDivision": "true",
-      "isWomenDivision": "true",
-      "isMixDivision": "false",
+      "divisions": [
+        "Открытый",
+        "Женский"
+      ],
       "ownerId": "ghjnfjhsaasd"
+    },
+    {
+      "id": "20P49x4",
+      "name": "sdfgsdfg",
+      "country": "",
+      "place": "",
+      "dateStart": "2018-11-28T11:03:24.557Z",
+      "dateEnd": "2018-11-28T11:03:24.557Z",
+      "covering": "",
+      "format": "",
+      "games": 0,
+      "teams": 0,
+      "divisions": []
+    },
+    {
+      "id": "jpGi5ZM",
+      "name": "1111111111",
+      "country": "",
+      "place": "",
+      "dateStart": "2018-11-28T11:04:38.811Z",
+      "dateEnd": "2018-11-28T11:04:38.811Z",
+      "covering": "",
+      "format": "",
+      "games": 0,
+      "teams": 0,
+      "divisions": []
     }
   ],
   "users": [

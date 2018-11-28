@@ -9,12 +9,14 @@ export const API = {
     bearer: '/bearer',
     users: '/users',
     tournaments: '/tournaments',
+    pushNewTournament: ''
 };
 
 // commands
 export const LOAD_BEARER = 'LOAD_BEARER';
 export const LOAD_USERS = 'LOAD_USERS';
 export const LOAD_TOURNAMENTS = 'LOAD_TOURNAMENTS';
+export const PUSH_NEW_TOURNAMENT = 'export const PUSH_NEW_TOURNAMENT';
 
 // statuses
 export const WRONG_USER = 'WRONG_USER';
