@@ -196,6 +196,19 @@
       "games": 0,
       "teams": 0,
       "divisions": []
+    },
+    {
+      "id": "LOHAcyg",
+      "name": "ff",
+      "country": "fghfghdfgh",
+      "place": "fgdfgh",
+      "dateStart": "30-11-2018",
+      "dateEnd": "30-11-2018",
+      "covering": "",
+      "format": "",
+      "games": 0,
+      "teams": 0,
+      "divisions": []
     }
   ],
   "users": [

@@ -15,23 +15,35 @@ import {push, replace} from 'react-router-redux';
 
 
 class Login extends Component {
-    constructor(props) {
+    constructor(props){
         super(props);
 
-        this.state = {
-            email: '',
-            password: '',
-            isLoginFailedOpen: false,
-            isButtonClick: false
-        };
+        // this.handleEmailChange = this.handleEmailChange.bind(this);
     }
+    state = {
+        email: '',
+        password: '',
+        isLoginFailedOpen: false,
+        isButtonClick: false
+    };
 
     handleChange = name => event => {
+        console.log('-----', name);
+        debugger
         this.setState({
             [name]: event.target.value,
             isLoginFailedOpen: false,
         });
     };
+
+    // handleEmailChange = name => event => {
+    //     debugger
+    //     this.setState({
+    //         email: event.target.value,
+    //         isLoginFailedOpen: false,
+    //     });
+    //
+    // };
 
     handleButtonClick = event => {
         console.log('----- click');
@@ -39,6 +51,7 @@ class Login extends Component {
 
         const {loadUsersAndLogin, loadBearer} = this.props;
         const {email, password} = this.state;
+        // debugger
 
         if (email && password) {
             // debugger;
@@ -53,6 +66,10 @@ class Login extends Component {
         })
 
     };
+
+    componentDidMount() {
+        // debugger
+    }
 
     static getDerivedStateFromProps(props, state) {
         // debugger;
@@ -71,8 +88,8 @@ class Login extends Component {
     }
 
     // componentDidMount() {
-        // const {loadBearer, user} = this.props;
-        // loadBearer();
+    // const {loadBearer, user} = this.props;
+    // loadBearer();
     // }
 
     render() {
@@ -108,7 +125,7 @@ class Login extends Component {
                     <Button
                         variant="outlined"
                         className={classes.button}
-                        onClick={this.handleButtonClick}
+                        onClick={() => this.handleButtonClick}
                         type="submit"
                     >
                         Войти

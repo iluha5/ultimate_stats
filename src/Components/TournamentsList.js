@@ -90,7 +90,8 @@ class TournamentsList extends React.Component {
         }
     };
 
-    setClickedID = (id) => {
+    setClickedID = (id, evt) => {
+        evt.preventDefault();
         this.setState({
             clickedID: id
         })
@@ -102,7 +103,7 @@ class TournamentsList extends React.Component {
 
         return list.map((tournament, i) => {
             return (
-                <Link to={`/network/keeper/${tournament.id}`} className={classes.link} key={tournament.id}>
+                <Link to={`/network/keeper/tournament/${tournament.id}`} className={classes.link} key={tournament.id}>
                     {/*<ListItem button onClick={this.handleCollapseClick(i)}>*/}
                     <ListItem button>
                         <ListItemText primary={tournament.name}/>
@@ -115,7 +116,7 @@ class TournamentsList extends React.Component {
                         <ListItemSecondaryAction>
                             <IconButton
                                 aria-label="Details"
-                                onClick={() => this.setClickedID(tournament.id)}
+                                onClick={(evt) => this.setClickedID(tournament.id, evt)}
                             >
                                 <MoreVert />
                             </IconButton>

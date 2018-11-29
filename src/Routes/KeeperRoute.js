@@ -13,7 +13,7 @@ class NetworkRoute extends Component {
         const {user} = this.props;
 
         return (user && (user.role === SCOREKEEPER || user.role === ADMIN )) ? (
-            <Tournament />
+            <Scorekeeper />
         ) : (
             <Redirect to='/network' />
         )
@@ -21,15 +21,22 @@ class NetworkRoute extends Component {
 
     redirectKeeper = () => <Redirect to='/network/keeper' />;
 
+    renderTournament = ({match}) => {
+        const {id} = match.params;
+
+        return <Tournament id={id}/>
+    };
     // renderLogin = () => <Redirect to='/network' />;
 
     render() {
         return (
             <div>
                 <Switch>
-                    <Route path='/network/keeper/tournament' render={this.renderKeeper}/>
+                    <Route path='/network/keeper/tournament/:id' render={this.renderTournament}/>
+                    <Redirect path='/network/keeper/tournament' exact to='/network/keeper/'  />
+                    {/*<Route path='/network/keeper/tournament' render={this.renderKeeper}/>*/}
                     <Route path='/network/keeper' exact component={Scorekeeper} />
-                    <Route path='/network/keeper/:any' render={this.redirectKeeper}/>
+                    <Redirect path='/network/keeper/:any' to='/network/keeper/'  />
                 </Switch>
 
             </div>
