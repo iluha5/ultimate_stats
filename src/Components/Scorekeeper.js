@@ -14,7 +14,7 @@ class Scorekeeper extends Component {
 
         return (
             <div>
-                <AppDrawer />
+                <AppDrawer title={'Панель скоркипера'} />
                 <main className={classes.content}>
                     <TournamentsList />
                 </main>

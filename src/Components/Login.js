@@ -15,11 +15,6 @@ import {push, replace} from 'react-router-redux';
 
 
 class Login extends Component {
-    constructor(props){
-        super(props);
-
-        // this.handleEmailChange = this.handleEmailChange.bind(this);
-    }
     state = {
         email: '',
         password: '',
@@ -29,21 +24,11 @@ class Login extends Component {
 
     handleChange = name => event => {
         console.log('-----', name);
-        debugger
         this.setState({
             [name]: event.target.value,
             isLoginFailedOpen: false,
         });
     };
-
-    // handleEmailChange = name => event => {
-    //     debugger
-    //     this.setState({
-    //         email: event.target.value,
-    //         isLoginFailedOpen: false,
-    //     });
-    //
-    // };
 
     handleButtonClick = event => {
         console.log('----- click');
@@ -86,11 +71,6 @@ class Login extends Component {
         return null;
 
     }
-
-    // componentDidMount() {
-    // const {loadBearer, user} = this.props;
-    // loadBearer();
-    // }
 
     render() {
         const {classes} = this.props;

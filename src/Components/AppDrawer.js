@@ -118,7 +118,7 @@ class AppDrawer extends React.Component {
     };
 
     render() {
-        const {classes, theme, goTo, user} = this.props;
+        const {classes, theme, goTo, user, title} = this.props;
         const {anchorEl} = this.state;
         const open = Boolean(anchorEl);
 
@@ -162,7 +162,7 @@ class AppDrawer extends React.Component {
                                 <MenuIcon/>
                             </IconButton>
                             <Typography variant="subtitle1" color="inherit" className={classes.title}>
-                                Панель скоркипера
+                                {title}
                             </Typography>
                             {(
                                 <div className={classes.rightMenuWrapper}>
@@ -248,12 +248,13 @@ class AppDrawer extends React.Component {
 }
 
 AppDrawer.propTypes = {
+    user: PropTypes.object.isRequired,
+    title: PropTypes.string,
     classes: PropTypes.object.isRequired,
     // Injected by the documentation to work in an iframe.
     // You won't need it on your project.
     container: PropTypes.object,
     theme: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired
 };
 const mapStateToProps = (state) => {
     return {
