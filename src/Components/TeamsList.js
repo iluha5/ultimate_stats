@@ -20,6 +20,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import {lighten} from '@material-ui/core/styles/colorManipulator';
 import {connect} from "react-redux";
+import {loadAllTeams, loadTournamentsList} from "../AC";
+import Loader from "./Loader";
 
 let counter = 0;
 
@@ -165,19 +167,19 @@ let EnhancedTableToolbar = props => {
             </div>
             <div className={classes.spacer}/>
             {/*<div className={classes.actions}>*/}
-                {/*{numSelected > 0 ? (*/}
-                    {/*<Tooltip title="Delete">*/}
-                        {/*<IconButton aria-label="Delete">*/}
-                            {/*<DeleteIcon/>*/}
-                        {/*</IconButton>*/}
-                    {/*</Tooltip>*/}
-                {/*) : (*/}
-                    {/*<Tooltip title="Filter list">*/}
-                        {/*<IconButton aria-label="Filter list">*/}
-                            {/*<FilterListIcon/>*/}
-                        {/*</IconButton>*/}
-                    {/*</Tooltip>*/}
-                {/*)}*/}
+            {/*{numSelected > 0 ? (*/}
+            {/*<Tooltip title="Delete">*/}
+            {/*<IconButton aria-label="Delete">*/}
+            {/*<DeleteIcon/>*/}
+            {/*</IconButton>*/}
+            {/*</Tooltip>*/}
+            {/*) : (*/}
+            {/*<Tooltip title="Filter list">*/}
+            {/*<IconButton aria-label="Filter list">*/}
+            {/*<FilterListIcon/>*/}
+            {/*</IconButton>*/}
+            {/*</Tooltip>*/}
+            {/*)}*/}
             {/*</div>*/}
         </Toolbar>
     );
@@ -210,19 +212,63 @@ class TeamsList extends React.Component {
         orderBy: 'players',
         selected: [],
         data: [
-            createData('Новгородские Медведи', 12, 4, 67, 4.3),
-            createData('Долгорукие', 10, 5.0, 51, 4.9),
-            createData('ФС', 11, 6, 24, 6.0),
-            createData('РеалФайв', 5, 4, 67, 4.3),
-            createData('Тени', 9, 5, 51, 4.9),
-            createData('ОксиДискО', 10, 2, 24, 6.0),
-            createData('ЮПитер', 14, 3, 67, 4.3),
-            createData('Космик Гелс', 8, 2, 51, 4.9),
-            createData('Ремпейдж', 10, 1, 24, 6.0),
+            // createData('Новгородские Медведи', 12, 4, 67, 4.3),
+            // createData('Долгорукие', 10, 5.0, 51, 4.9),
+            // createData('ФС', 11, 6, 24, 6.0),
+            // createData('РеалФайв', 5, 4, 67, 4.3),
+            // createData('Тени', 9, 5, 51, 4.9),
+            // createData('ОксиДискО', 10, 2, 24, 6.0),
+            // createData('ЮПитер', 14, 3, 67, 4.3),
+            // createData('Космик Гелс', 8, 2, 51, 4.9),
+            // createData('Ремпейдж', 10, 1, 24, 6.0),
         ],
         page: 0,
         rowsPerPage: 10,
     };
+
+    componentDidMount() {
+        const {tournamentsList, teamsState, loadTournamentsList, loadAllTeams, tournamentID} = this.props;
+
+        if (tournamentsList.shouldReload && !tournamentsList.isLoading) loadTournamentsList();
+        if (teamsState.shouldReload && !teamsState.isLoading) loadAllTeams();
+
+        // debugger
+
+        // if (!tournamentsList.shouldReload && !teamsState.shouldReload) {
+        //     const teams = tournamentsList.list.get(tournamentID).teamsList.map(id => teamsState.list.get(id));
+        //     // debugger
+        //     const data = teams.map(team => createData(team.name, team.players, team.games));
+        //
+        //
+        //     this.setState({
+        //         data: data
+        //     });
+        // }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        const {tournamentsList, teamsState, loadTournamentsList, loadAllTeams, tournamentID} = this.props;
+
+        if (tournamentsList.shouldReload && !tournamentsList.isLoading) {
+            loadTournamentsList();
+        }
+
+        if (teamsState.shouldReload && !teamsState.isLoading) {
+            loadAllTeams();
+        }
+
+        // if (!tournamentsList.shouldReload && !teamsState.shouldReload) {
+        //     const teams = tournamentsList.list.get(tournamentID).teamsList.map(id => teamsState.list.get(id));
+        //     const data = teams.map(team => createData(team.name, team.players, team.games));
+        //
+        //
+        //     this.setState({
+        //         data: data
+        //     });
+        // }
+
+    }
+
 
     handleRequestSort = (event, property) => {
         const orderBy = property;
@@ -276,8 +322,15 @@ class TeamsList extends React.Component {
     isSelected = id => this.state.selected.indexOf(id) !== -1;
 
     render() {
-        const {classes} = this.props;
-        const {data, order, orderBy, selected, rowsPerPage, page} = this.state;
+        const {classes, tournamentsList, teamsState, tournamentID} = this.props;
+        const {order, orderBy, selected, rowsPerPage, page} = this.state;
+
+        if (tournamentsList.shouldReload || teamsState.shouldReload ||
+            tournamentsList.isLoading || teamsState.isLoading) return <Loader />;
+
+        const teams = tournamentsList.list.get(tournamentID).teamsList.map(id => teamsState.list.get(id));
+        const data = teams.map(team => createData(team.name, team.players, team.games));
+
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
         return (
@@ -344,7 +397,7 @@ class TeamsList extends React.Component {
                     onChangePage={this.handleChangePage}
                     onChangeRowsPerPage={this.handleChangeRowsPerPage}
                     labelRowsPerPage={'Строк:'}
-                    labelDisplayedRows={({ from, to, count }) => `${from}-${to} из ${count}`}
+                    labelDisplayedRows={({from, to, count}) => `${from}-${to} из ${count}`}
                 />
             </Paper>
         );
@@ -352,15 +405,30 @@ class TeamsList extends React.Component {
 }
 
 TeamsList.propTypes = {
-    teamsList: PropTypes.array.isRequired,
+    tournamentID: PropTypes.string.isRequired,
     classes: PropTypes.object.isRequired,
+    // from store
+    tournamentsList: PropTypes.object.isRequired,
+    teamsState: PropTypes.object.isRequired,
+    loadAllTeams: PropTypes.func.isRequired,
+    loadTournamentsList: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
+    const {id} = ownProps;
+
+    return {
+        // teamsList: state.tournamentsList.list[id].teamsList,
+        tournamentsList: state.tournamentsList,
+        teamsState: state.teams,
+    }
 };
 
-const mapDispatchToProps = () => {
-    return {};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        loadAllTeams: () => dispatch(loadAllTeams()),
+        loadTournamentsList: () => dispatch(loadTournamentsList())
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(TeamsList));

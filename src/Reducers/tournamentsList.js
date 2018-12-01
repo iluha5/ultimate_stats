@@ -1,5 +1,5 @@
 import {OrderedMap, OrderedSet, Record} from "immutable";
-import {LOAD_TOURNAMENTS, LOAD_USERS, SHOULD_RELOAD, START, SUCCESS} from "../constants";
+import {LOAD_TEAMS, LOAD_USERS, SHOULD_RELOAD, START, SUCCESS} from "../constants";
 import {arrToMap} from "../helpers";
 
 const TournamentData = Record({
@@ -13,6 +13,7 @@ const TournamentData = Record({
     format: '',
     games: null,
     teams: null,
+    teamsList: [],
     isMenDivision: false,
     isWomenDivision: false,
     isMixDivision: false,
@@ -50,29 +51,28 @@ const convertPlainObjectToTournamentsListState = (tournamentsListState) => {
 
 export default (tournamentsListState = defaultTournamentList, action) => {
     const {type, payload} = action;
-// debugger
+
     if (!Record.isRecord(tournamentsListState)) {
         tournamentsListState = convertPlainObjectToTournamentsListState(tournamentsListState);
-        // debugger
     }
 
 
     switch (type) {
-        case LOAD_TOURNAMENTS + START:
+        case LOAD_TEAMS + START:
             return tournamentsListState
                 .set('isLoading', true);
 
-        case LOAD_TOURNAMENTS + SUCCESS:
+        case LOAD_TEAMS + SUCCESS:
             return tournamentsListState
                 .set('isLoading', false)
                 .set('shouldReload', false)
                 .set('list', arrToMap(payload, TournamentData));
 
-        case LOAD_TOURNAMENTS + SHOULD_RELOAD:
+        case LOAD_TEAMS + SHOULD_RELOAD:
             return tournamentsListState
                 .set('shouldReload', true);
-
+        default:
+            return tournamentsListState;
     }
 
-    return tournamentsListState;
 }

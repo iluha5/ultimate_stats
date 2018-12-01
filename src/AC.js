@@ -2,7 +2,7 @@ import {
     API,
     FAIL, LOAD_ALL_TEAMS,
     LOAD_BEARER,
-    LOAD_TOURNAMENTS,
+    LOAD_TEAMS,
     LOAD_USERS,
     PUSH_NEW_TOURNAMENT, SHOULD_RELOAD,
     START,
@@ -64,7 +64,7 @@ export const pushNewTournament = (tournament) => {
                     type: PUSH_NEW_TOURNAMENT + SUCCESS,
                 });
                 dispatch({
-                    type: LOAD_TOURNAMENTS + SHOULD_RELOAD,
+                    type: LOAD_TEAMS + SHOULD_RELOAD,
                 });
 
             })
@@ -78,7 +78,7 @@ export const pushNewTournament = (tournament) => {
 export const loadTournamentsList = () => {
   return (dispatch) => {
       dispatch({
-          type: LOAD_TOURNAMENTS + START,
+          type: LOAD_TEAMS + START,
       });
 
       fetch(API.tournaments)
@@ -89,13 +89,13 @@ export const loadTournamentsList = () => {
               return res.json()
           })
           .then(response => dispatch({
-                  type: LOAD_TOURNAMENTS + SUCCESS,
+                  type: LOAD_TEAMS + SUCCESS,
                   payload: response
               })
           )
           .catch(error => {
               dispatch({
-                  type: LOAD_TOURNAMENTS + FAIL,
+                  type: LOAD_TEAMS + FAIL,
                   payload: {error}
               });
               // dispatch(replace('/error'))

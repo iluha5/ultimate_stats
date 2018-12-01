@@ -63,7 +63,7 @@ class ScrollableTabsButtonForce extends React.Component {
     };
 
     getBody() {
-        const {classes, tournament, tournamentsList} = this.props;
+        const {classes, tournament, tournamentsList, id} = this.props;
         const {value} = this.state;
 // debugger
         if (tournamentsList.isLoading || tournamentsList.shouldReload) return <Loader />;
@@ -90,7 +90,7 @@ class ScrollableTabsButtonForce extends React.Component {
                         {/*<Typography>*/}
                         {/*Список команд*/}
                         {/*</Typography>*/}
-                        <TeamsList teamsList={tournament.teamsList}/>
+                        <TeamsList tournamentID={id}/>
                     </TabContainer>}
                     {value === 1 && <TabContainer>
                         Игры
