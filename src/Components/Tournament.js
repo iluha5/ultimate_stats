@@ -10,6 +10,9 @@ import TeamsList from "./TeamsList";
 import {DRAWER_WIDTH} from "../constants";
 import Test from "./Test";
 import {connect} from "react-redux";
+import Page404 from "./Page404";
+import {loadTournamentsList} from "../AC";
+import Loader from "./Loader";
 
 function TabContainer(props) {
     return (
@@ -46,17 +49,27 @@ class ScrollableTabsButtonForce extends React.Component {
         value: 0,
     };
 
+    componentDidMount() {
+        const {loadTournamentsList, tournamentsList} = this.props;
+// debugger
+        if (tournamentsList.shouldReload) {
+            loadTournamentsList();
+        }
+    }
+
+
     handleChange = (event, value) => {
         this.setState({value});
     };
 
-    render() {
-        const {classes, tournament} = this.props;
+    getBody() {
+        const {classes, tournament, tournamentsList} = this.props;
         const {value} = this.state;
+// debugger
+        if (tournamentsList.isLoading || tournamentsList.shouldReload) return <Loader />;
 
-        return (
-            <div className={classes.root}>
-                <AppDrawer title={tournament.name}/>
+        if (tournament && tournament.name) {
+            return (
                 <div className={classes.content}>
                     <AppBar position="static" color="default" className={classes.tabs}>
                         <Tabs
@@ -74,17 +87,33 @@ class ScrollableTabsButtonForce extends React.Component {
                     </AppBar>
                     {value === 0 &&
                     <TabContainer>
-                        <Typography>
-                            Список команд
-                        </Typography>
-                        <TeamsList/>
+                        {/*<Typography>*/}
+                        {/*Список команд*/}
+                        {/*</Typography>*/}
+                        <TeamsList teamsList={tournament.teamsList}/>
                     </TabContainer>}
                     {value === 1 && <TabContainer>
                         Игры
-                        <Test />
+                        <Test/>
                     </TabContainer>}
                     {value === 2 && <TabContainer>Статистика</TabContainer>}
                 </div>
+            )
+        } else {
+            return <Page404/>;
+        }
+
+    }
+
+    render() {
+        const {classes, tournament} = this.props;
+        // const {value} = this.state;
+        // debugger
+
+        return (
+            <div className={classes.root}>
+                <AppDrawer title={(tournament && tournament.name) ? tournament.name : null}/>
+                {this.getBody()}
             </div>
         );
     }
@@ -98,14 +127,18 @@ ScrollableTabsButtonForce.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
+    // debugger
     const {id} = ownProps;
     return {
-        tournament: state.tournamentsList.list.get(id)
+        tournament: state.tournamentsList.list.get(id),
+        tournamentsList: state.tournamentsList,
     };
 };
 
-const mapDispatchToProps = () => {
-    return {};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        loadTournamentsList: () => dispatch(loadTournamentsList())
+    };
 };
 
 

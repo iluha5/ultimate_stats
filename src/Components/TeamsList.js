@@ -19,6 +19,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import {lighten} from '@material-ui/core/styles/colorManipulator';
+import {connect} from "react-redux";
 
 let counter = 0;
 
@@ -351,7 +352,15 @@ class TeamsList extends React.Component {
 }
 
 TeamsList.propTypes = {
+    teamsList: PropTypes.array.isRequired,
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(TeamsList);
+const mapStateToProps = (state, ownProps) => {
+};
+
+const mapDispatchToProps = () => {
+    return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(TeamsList));

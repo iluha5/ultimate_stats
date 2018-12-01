@@ -16,6 +16,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MoreVert from '@material-ui/icons/MoreVert';
 import AddTournament from "./AddTournament";
 import TournamentDetails from "./TournamentDetails";
+import Loader from "./Loader";
 
 const styles = theme => ({
     root: {
@@ -71,24 +72,24 @@ class TournamentsList extends React.Component {
     }
 
     componentDidUpdate(){
-        const {shouldRealod, loadTournamentsList} = this.props;
+        const {shouldReload, loadTournamentsList} = this.props;
 
-        if (shouldRealod) {
+        if (shouldReload) {
             loadTournamentsList();
         }
     }
 
-    handleCollapseClick = (i) => {
-        return () => {
-            let newCollapseArr = [...this.state.isCollapseOpen];
-            // console.log('-----', newCollapseArr);
-            newCollapseArr[i] = !newCollapseArr[i];
-
-            this.setState({
-                isCollapseOpen: newCollapseArr
-            });
-        }
-    };
+    // handleCollapseClick = (i) => {
+    //     return () => {
+    //         let newCollapseArr = [...this.state.isCollapseOpen];
+    //         // console.log('-----', newCollapseArr);
+    //         newCollapseArr[i] = !newCollapseArr[i];
+    //
+    //         this.setState({
+    //             isCollapseOpen: newCollapseArr
+    //         });
+    //     }
+    // };
 
     setClickedID = (id, evt) => {
         evt.preventDefault();
@@ -100,6 +101,8 @@ class TournamentsList extends React.Component {
     renderTournamentsList() {
         const {tournamentsList, classes} = this.props;
         const list = mapToArr(tournamentsList.list);
+        // console.log('-----', window.store.getState());
+        // debugger
 
         return list.map((tournament, i) => {
             return (
@@ -149,7 +152,7 @@ class TournamentsList extends React.Component {
 
 
     render() {
-        const {classes} = this.props;
+        const {classes, shouldReload, tournamentsList} = this.props;
         const {isOpenAddTournament, clickedID} = this.state;
 
         return (
@@ -163,11 +166,16 @@ class TournamentsList extends React.Component {
                     component="nav"
                     subheader={<ListSubheader component="div">Список турниров</ListSubheader>}
                 >
-                    {this.renderTournamentsList()}
+                    {(shouldReload || tournamentsList.isLoading) ? <Loader /> : this.renderTournamentsList()}
                 </List>
-                <Button variant="fab" className={classes.fab} color='secondary' onClick={this.handleOpenAddTournament}>
-                    <AddIcon/>
-                </Button>
+                {(shouldReload || tournamentsList.isLoading) ?
+                    null
+                    :
+                    <Button variant="fab" className={classes.fab} color='secondary'
+                            onClick={this.handleOpenAddTournament}>
+                        <AddIcon/>
+                    </Button>
+                }
                 <AddTournament isOpen={isOpenAddTournament} toggleClose={this.handleCloseAddTournament}/>
 
                 {clickedID ? <TournamentDetails id={clickedID} resetClickedID={this.resetClickedID} /> : null }
@@ -186,7 +194,7 @@ const mapStateToProps = (state) => {
     // debugger
     return {
         tournamentsList: state.tournamentsList,
-        shouldRealod: state.tournamentsList.shouldReload,
+        shouldReload: state.tournamentsList.shouldReload,
     };
 };
 

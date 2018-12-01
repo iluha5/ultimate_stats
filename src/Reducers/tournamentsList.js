@@ -21,18 +21,26 @@ const TournamentData = Record({
 
 const TournamentsListState = Record({
     isLoading: false,
-    shouldReload: false,
+    shouldReload: true,
     list: new OrderedMap({})
 });
 const defaultTournamentList = TournamentsListState();
 
 
 const convertPlainObjectToTournamentsListState = (tournamentsListState) => {
-    if (tournamentsListState && tournamentsListState.list) {
+    if (tournamentsListState && tournamentsListState.list && Object.keys(tournamentsListState.list).length !== 0) {
 
+        let newMap = Object.keys(tournamentsListState.list).map(key => {
+                return {
+                    [key]: TournamentData(tournamentsListState.list[key])
+                }
+            }
+        );
+
+        // debugger
         return TournamentsListState({
             isLoading: tournamentsListState.isLoading,
-            list: new OrderedMap(tournamentsListState.list)
+            list: new OrderedMap(newMap)
         })
     }
 
@@ -45,6 +53,7 @@ export default (tournamentsListState = defaultTournamentList, action) => {
 // debugger
     if (!Record.isRecord(tournamentsListState)) {
         tournamentsListState = convertPlainObjectToTournamentsListState(tournamentsListState);
+        // debugger
     }
 
 

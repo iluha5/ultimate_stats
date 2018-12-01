@@ -1,6 +1,6 @@
 import {
     API,
-    FAIL,
+    FAIL, LOAD_ALL_TEAMS,
     LOAD_BEARER,
     LOAD_TOURNAMENTS,
     LOAD_USERS,
@@ -10,6 +10,33 @@ import {
     WRONG_USER
 } from "./constants";
 import {push, replace} from 'react-router-redux';
+
+export const loadAllTeams = () => {
+  return (dispatch) => {
+      dispatch({
+          type: LOAD_ALL_TEAMS + START
+      });
+
+      fetch (API.all_teams)
+          .then(res => {
+              if (res.status >= 400) {
+                  throw new Error(res.statusText)
+              }
+              return res.json()
+          })
+          .then(response => dispatch({
+                  type: LOAD_ALL_TEAMS + SUCCESS,
+                  payload: response
+              })
+          )
+          .catch(error => {
+              dispatch({
+                  type: LOAD_ALL_TEAMS + FAIL,
+                  payload: {error}
+              });
+          });
+  }
+};
 
 export const pushNewTournament = (tournament) => {
     return (dispatch) => {

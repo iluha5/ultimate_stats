@@ -1,16 +1,34 @@
 {
-  "posts": [
+  "teams": [
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
+      "id": "01",
+      "name": "РеалФайв",
+      "players": 5,
+      "games": 4
+    },
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "id": "02",
+      "name": "Новгородские Медведи",
+      "players": 15,
+      "games": 5
+    },
+    {
+      "id": "03",
+      "name": "ОксиДискО",
+      "players": 12,
+      "games": 3
+    },
+    {
+      "id": "04",
+      "name": "Ремпейдж",
+      "players": 10,
+      "games": 4
+    },
+    {
+      "id": "05",
+      "name": "Космик Гелс",
+      "players": 8,
+      "games": 5
     }
   ],
   "tournaments": [
@@ -25,6 +43,13 @@
       "format": "5х5",
       "games": "112",
       "teams": "44",
+      "teamsList": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05"
+      ],
       "divisions": [
         "Открытый",
         "Женский"
@@ -42,6 +67,13 @@
       "format": "5х5",
       "games": "45",
       "teams": "20",
+      "teamsList": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05"
+      ],
       "divisions": [
         "Открытый",
         "Женский",
@@ -60,6 +92,13 @@
       "format": "7х7",
       "games": "20",
       "teams": "10",
+      "teamsList": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05"
+      ],
       "divisions": [
         "Открытый",
         "Женский"
@@ -77,6 +116,13 @@
       "format": 10,
       "games": 0,
       "teams": 0,
+      "teamsList": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05"
+      ],
       "divisions": [
         "Открытый",
         "Женский"
@@ -93,6 +139,13 @@
       "format": 10,
       "games": 0,
       "teams": 0,
+      "teamsList": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05"
+      ],
       "divisions": [
         "Открытый",
         "Женский"
@@ -100,15 +153,22 @@
     },
     {
       "id": "C6z65Gq",
-      "name": "dssfsadfadsf",
-      "country": "",
-      "place": "",
+      "name": "Кубок Княза Владимира Храброго 2019",
+      "country": "Россия",
+      "place": "Серпухов",
       "dateStart": "28-11-2018",
       "dateEnd": "28-11-2018",
-      "covering": "",
+      "covering": "Трава",
       "format": 20,
       "games": 0,
       "teams": 0,
+      "teamsList": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05"
+      ],
       "divisions": []
     },
     {
@@ -122,6 +182,13 @@
       "format": 20,
       "games": 0,
       "teams": 0,
+      "teamsList": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05"
+      ],
       "divisions": []
     },
     {
@@ -135,6 +202,13 @@
       "format": "",
       "games": 0,
       "teams": 0,
+      "teamsList": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05"
+      ],
       "divisions": []
     },
     {
@@ -148,6 +222,13 @@
       "format": 10,
       "games": 0,
       "teams": 0,
+      "teamsList": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05"
+      ],
       "divisions": [
         "Смешанный",
         "Женский"
@@ -164,6 +245,13 @@
       "format": 20,
       "games": 0,
       "teams": 0,
+      "teamsList": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05"
+      ],
       "divisions": [
         "Женский",
         "Открытый",
@@ -182,6 +270,13 @@
       "format": "",
       "games": 0,
       "teams": 0,
+      "teamsList": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05"
+      ],
       "divisions": []
     },
     {
@@ -195,6 +290,13 @@
       "format": "",
       "games": 0,
       "teams": 0,
+      "teamsList": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05"
+      ],
       "divisions": []
     },
     {
@@ -208,6 +310,7 @@
       "format": "",
       "games": 0,
       "teams": 0,
+      "teamsList": [],
       "divisions": []
     }
   ],

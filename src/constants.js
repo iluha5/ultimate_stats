@@ -9,7 +9,8 @@ export const API = {
     bearer: '/bearer',
     users: '/users',
     tournaments: '/tournaments',
-    pushNewTournament: ''
+    // pushNewTournament: '',
+    all_teams: '/teams',
 };
 
 // commands
@@ -18,6 +19,7 @@ export const LOAD_USERS = 'LOAD_USERS';
 export const LOAD_TOURNAMENTS = 'LOAD_TOURNAMENTS';
 export const PUSH_NEW_TOURNAMENT = 'PUSH_NEW_TOURNAMENT';
 export const SHOULD_RELOAD = 'SHOULD_RELOAD';
+export const LOAD_ALL_TEAMS = 'LOAD_ALL_TEAMS';
 
 // statuses
 export const WRONG_USER = 'WRONG_USER';

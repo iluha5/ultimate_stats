@@ -23,7 +23,7 @@ class NetworkRoute extends Component {
 
     renderTournament = ({match}) => {
         const {id} = match.params;
-
+// debugger
         return <Tournament id={id}/>
     };
     // renderLogin = () => <Redirect to='/network' />;
