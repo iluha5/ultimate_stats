@@ -7,6 +7,8 @@ import {loadState, saveState} from "./localstorage";
 import throttle from "lodash/throttle";
 
 const persistedStore = loadState();
+console.log('-----persistedStore', persistedStore);
+// debugger
 
 const enhancer = applyMiddleware(thunk, routerMiddleware(history));
 

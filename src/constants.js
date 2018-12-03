@@ -11,6 +11,7 @@ export const API = {
     tournaments: '/tournaments',
     // pushNewTournament: '',
     all_teams: '/teams',
+    games: '/games',
 };
 
 // commands
@@ -20,6 +21,7 @@ export const LOAD_TEAMS = 'LOAD_TEAMS';
 export const PUSH_NEW_TOURNAMENT = 'PUSH_NEW_TOURNAMENT';
 export const SHOULD_RELOAD = 'SHOULD_RELOAD';
 export const LOAD_ALL_TEAMS = 'LOAD_ALL_TEAMS';
+export const LOAD_GAMES = 'LOAD_GAMES';
 
 // statuses
 export const WRONG_USER = 'WRONG_USER';
@@ -31,3 +33,6 @@ export const ADMIN = 'admin';
 // view
 export const DRAWER_WIDTH = 240;
 
+// DB
+export const TEAM_ONE = 'TEAM_ONE';
+export const TEAM_TWO = 'TEAM_TWO';

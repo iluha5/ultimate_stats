@@ -8,18 +8,18 @@ import {connect} from "react-redux";
 import {ADMIN, SCOREKEEPER} from "../constants";
 import Tournament from "../Components/Tournament";
 
-class NetworkRoute extends Component {
-    renderKeeper = () => {
-        const {user} = this.props;
-
-        return (user && (user.role === SCOREKEEPER || user.role === ADMIN )) ? (
-            <Scorekeeper />
-        ) : (
-            <Redirect to='/network' />
-        )
-    };
-
-    redirectKeeper = () => <Redirect to='/network/keeper' />;
+class KeeperRoute extends Component {
+    // renderKeeper = () => {
+    //     const {user} = this.props;
+    //
+    //     return (user && (user.role === SCOREKEEPER || user.role === ADMIN )) ? (
+    //         <Scorekeeper />
+    //     ) : (
+    //         <Redirect to='/network' />
+    //     )
+    // };
+    //
+    // redirectKeeper = () => <Redirect to='/network/keeper' />;
 
     renderTournament = ({match}) => {
         const {id} = match.params;
@@ -44,7 +44,10 @@ class NetworkRoute extends Component {
     }
 }
 
-NetworkRoute.propTypes = {};
+KeeperRoute.propTypes = {
+    // from store
+    user: PropTypes.object.isRequired
+};
 
 const mapStateToProps = (state) => {
     return {
@@ -56,4 +59,4 @@ const mapDispatchToProps = () => {
     return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NetworkRoute);
+export default connect(mapStateToProps, mapDispatchToProps)(KeeperRoute);

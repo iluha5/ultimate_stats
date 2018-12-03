@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-// import TableCell from '@material-ui/core/TableCell';
 import TableCell from './MyTableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
@@ -20,14 +19,25 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import {lighten} from '@material-ui/core/styles/colorManipulator';
 import {connect} from "react-redux";
-import {loadAllTeams, loadTournamentsList} from "../AC";
+import {loadAllTeams, loadGames, loadTournamentsList} from "../AC";
 import Loader from "./Loader";
+import {mapToArr} from "../helpers";
 
 let counter = 0;
 
 function createData(name, players, games, temp1, temp2) {
     counter += 1;
     return {id: counter, name, players: players, games: games, temp1: temp1, temp2: temp2};
+}
+
+function createGameData(teamOne, teamTwo, score) {
+    counter += 1;
+    return {
+        id: counter,
+        teamOne,
+        teamTwo,
+        score,
+    };
 }
 
 function desc(a, b, orderBy) {
@@ -55,9 +65,9 @@ function getSorting(order, orderBy) {
 }
 
 const rows = [
-    {id: 'name', numeric: false, disablePadding: false, label: 'Название'},
-    {id: 'players', numeric: true, disablePadding: false, label: 'Игроков'},
-    {id: 'games', numeric: true, disablePadding: false, label: 'Игр'},
+    {id: 'teamOne', numeric: false, disablePadding: false, label: 'Команда 1'},
+    {id: 'score', numeric: false, disablePadding: false, label: 'Счет'},
+    {id: 'teamTwo', numeric: false, disablePadding: false, label: 'Команда 2'},
 ];
 
 class EnhancedTableHead extends React.Component {
@@ -78,6 +88,7 @@ class EnhancedTableHead extends React.Component {
                                 numeric={row.numeric}
                                 padding={row.disablePadding ? 'none' : 'default'}
                                 sortDirection={orderBy === row.id ? order : false}
+                                style={(row.id === 'teamOne' ? {textAlign: 'right'} : null) || row.id === 'score' ? {textAlign: 'center'} : null}
 
                             >
                                 <Tooltip
@@ -111,31 +122,6 @@ EnhancedTableHead.propTypes = {
     rowCount: PropTypes.number.isRequired,
 };
 
-const toolbarStyles = theme => ({
-    root: {
-        paddingRight: theme.spacing.unit,
-    },
-    highlight:
-        theme.palette.type === 'light'
-            ? {
-                color: theme.palette.secondary.main,
-                backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-            }
-            : {
-                color: theme.palette.text.primary,
-                backgroundColor: theme.palette.secondary.dark,
-            },
-    spacer: {
-        flex: '1 1 100%',
-    },
-    actions: {
-        color: theme.palette.text.secondary,
-    },
-    title: {
-        flex: '0 0 auto',
-    },
-});
-
 const styles = theme => ({
     root: {
         width: '100%',
@@ -153,7 +139,7 @@ const styles = theme => ({
 });
 
 
-class TeamsList extends React.Component {
+class Games extends React.Component {
     state = {
         order: 'asc',
         orderBy: 'players',
@@ -164,14 +150,16 @@ class TeamsList extends React.Component {
     };
 
     componentDidMount() {
-        const {tournamentsList, teamsState, loadTournamentsList, loadAllTeams} = this.props;
+        const {tournamentsList, teamsState, loadTournamentsList, loadAllTeams, gamesState, loadGames} = this.props;
 
         if (tournamentsList.shouldReload && !tournamentsList.isLoading) loadTournamentsList();
         if (teamsState.shouldReload && !teamsState.isLoading) loadAllTeams();
+
+        if (gamesState.shouldReload && !gamesState.isLoading) loadGames();
     }
 
     componentDidUpdate(prevProps, prevState) {
-        const {tournamentsList, teamsState, loadTournamentsList, loadAllTeams} = this.props;
+        const {tournamentsList, teamsState, loadTournamentsList, loadAllTeams, gamesState, loadGames} = this.props;
 
         if (tournamentsList.shouldReload && !tournamentsList.isLoading) {
             loadTournamentsList();
@@ -180,6 +168,8 @@ class TeamsList extends React.Component {
         if (teamsState.shouldReload && !teamsState.isLoading) {
             loadAllTeams();
         }
+
+        if (gamesState.shouldReload && !gamesState.isLoading) loadGames();
     }
 
 
@@ -204,24 +194,6 @@ class TeamsList extends React.Component {
 
     handleClick = (event, id) => {
         console.log('----- clicked ', id);
-        // const { selected } = this.state;
-        // const selectedIndex = selected.indexOf(id);
-        // let newSelected = [];
-        //
-        // if (selectedIndex === -1) {
-        //     newSelected = newSelected.concat(selected, id);
-        // } else if (selectedIndex === 0) {
-        //     newSelected = newSelected.concat(selected.slice(1));
-        // } else if (selectedIndex === selected.length - 1) {
-        //     newSelected = newSelected.concat(selected.slice(0, -1));
-        // } else if (selectedIndex > 0) {
-        //     newSelected = newSelected.concat(
-        //         selected.slice(0, selectedIndex),
-        //         selected.slice(selectedIndex + 1),
-        //     );
-        // }
-        //
-        // this.setState({ selected: newSelected });
     };
 
     handleChangePage = (event, page) => {
@@ -235,14 +207,25 @@ class TeamsList extends React.Component {
     isSelected = id => this.state.selected.indexOf(id) !== -1;
 
     render() {
-        const {classes, tournamentsList, teamsState, tournamentID} = this.props;
+        const {classes, tournamentsList, teamsState, tournamentID, gamesState, loadGames} = this.props;
         const {order, orderBy, selected, rowsPerPage, page} = this.state;
 
         if (tournamentsList.shouldReload || teamsState.shouldReload ||
             tournamentsList.isLoading || teamsState.isLoading) return <Loader/>;
 
+        if (gamesState.shouldReload || gamesState.isLoading) return <Loader/>;
+
         const teams = tournamentsList.list.get(tournamentID).teamsList.map(id => teamsState.list.get(id));
         const data = teams.map(team => createData(team.name, team.players, team.games));
+// debugger
+        const games = mapToArr(gamesState.list).filter(game => game.tournamentID === tournamentID);
+        const dataGames = games.map(game => {
+            const teamOne = `${teamsState.list.get(game.teamOneID).name} ${game.codeOne}`;
+            const teamTwo = `${game.codeTwo} ${teamsState.list.get(game.teamTwoID).name}`;
+            const score = `${game.teamOneScore} : ${game.teamTwoScore}`;
+
+            return createGameData(teamOne, teamTwo, score);
+        });
 
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
@@ -257,10 +240,10 @@ class TeamsList extends React.Component {
                             orderBy={orderBy}
                             onSelectAllClick={this.handleSelectAllClick}
                             onRequestSort={this.handleRequestSort}
-                            rowCount={data.length}
+                            rowCount={dataGames.length}
                         />
                         <TableBody>
-                            {stableSort(data, getSorting(order, orderBy))
+                            {stableSort(dataGames, getSorting(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map(n => {
                                     const isSelected = this.isSelected(n.id);
@@ -275,11 +258,11 @@ class TeamsList extends React.Component {
                                             selected={isSelected}
                                             className={classes.hover}
                                         >
-                                            <TableCell component="th" scope="row" padding="default">
-                                                {n.name}
+                                            <TableCell component="th" scope="row" padding="default" style={{textAlign: 'right'}}>
+                                                {n.teamOne}
                                             </TableCell>
-                                            <TableCell numeric>{n.players}</TableCell>
-                                            <TableCell numeric>{n.games}</TableCell>
+                                            <TableCell style={{textAlign: 'center'}}>{n.score}</TableCell>
+                                            <TableCell style={{textAlign: 'left'}}>{n.teamTwo}</TableCell>
                                         </TableRow>
                                     );
                                 })}
@@ -294,7 +277,7 @@ class TeamsList extends React.Component {
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
-                    count={data.length}
+                    count={dataGames.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     backIconButtonProps={{
@@ -313,7 +296,7 @@ class TeamsList extends React.Component {
     }
 }
 
-TeamsList.propTypes = {
+Games.propTypes = {
     tournamentID: PropTypes.string.isRequired,
     classes: PropTypes.object.isRequired,
     // from store
@@ -321,6 +304,8 @@ TeamsList.propTypes = {
     teamsState: PropTypes.object.isRequired,
     loadAllTeams: PropTypes.func.isRequired,
     loadTournamentsList: PropTypes.func.isRequired,
+    loadGames: PropTypes.func.isRequired,
+    gamesState: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -330,14 +315,16 @@ const mapStateToProps = (state, ownProps) => {
         // teamsList: state.tournamentsList.list[id].teamsList,
         tournamentsList: state.tournamentsList,
         teamsState: state.teams,
+        gamesState: state.games,
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         loadAllTeams: () => dispatch(loadAllTeams()),
-        loadTournamentsList: () => dispatch(loadTournamentsList())
+        loadTournamentsList: () => dispatch(loadTournamentsList()),
+        loadGames: () => dispatch(loadGames()),
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(TeamsList));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Games));

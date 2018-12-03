@@ -1,4 +1,15 @@
-// import {Record} from 'immutable';
+import {Record} from 'immutable';
+import {convertPlainObjectToState} from "./helpers";
+import {
+    GameData,
+    GamesState,
+    TeamData,
+    TeamsState,
+    TournamentData,
+    TournamentsListState,
+    UserData,
+    UserState
+} from "./model";
 
 export const loadState = () => {
   try {
@@ -8,9 +19,36 @@ export const loadState = () => {
           return undefined;
       }
 
-      // const loadedState = JSON.parse(serializedState);
+      let loadedState = JSON.parse(serializedState);
+      let { tournamentsList, user, games, teams } = loadedState;
+      const defaultTournamentList = TournamentsListState();
+      const defaultUser = UserState();
+      const defaultGame = GamesState();
+      const defaultTeams = TeamsState();
 
-      return JSON.parse(serializedState);
+      if (tournamentsList && tournamentsList.list && !Record.isRecord(tournamentsList)) {
+          tournamentsList = convertPlainObjectToState(tournamentsList, TournamentData, defaultTournamentList);
+          loadedState = {...loadedState, tournamentsList};
+      }
+
+      if (user && user.userData && !Record.isRecord(user)) {
+          user = convertPlainObjectToState(user, UserData, defaultUser, 'userData');
+          loadedState = {...loadedState, user};
+      }
+
+      if (games && games.list && !Record.isRecord(games)) {
+          games = convertPlainObjectToState(games, GameData, defaultGame);
+          loadedState = {...loadedState, games};
+      }
+
+      if (teams && teams.list && !Record.isRecord(teams)) {
+          teams = convertPlainObjectToState(teams, TeamData, defaultTeams);
+          loadedState = {...loadedState, teams};
+      }
+
+      // console.log('-----loadedState', loadedState);
+      // debugger
+      return loadedState;
   }  catch (err) {
         return undefined;
   }
@@ -21,6 +59,8 @@ export const saveState = (state) => {
   try {
       const serializedState = JSON.stringify(state);
       // console.log('----- saveState, serializedState', serializedState);
+      const test = localStorage.getItem('state');
+      console.log('-----localstorage', test);
 
       localStorage.setItem('state', serializedState);
       // debugger

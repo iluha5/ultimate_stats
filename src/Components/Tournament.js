@@ -13,10 +13,11 @@ import {connect} from "react-redux";
 import Page404 from "./Page404";
 import {loadTournamentsList} from "../AC";
 import Loader from "./Loader";
+import Games from "./Games";
 
 function TabContainer(props) {
     return (
-        <Typography component="div" style={{padding: 8 * 3}}>
+        <Typography component="div" style={{padding: 8 * 0}}>
             {props.children}
         </Typography>
     );
@@ -87,14 +88,10 @@ class ScrollableTabsButtonForce extends React.Component {
                     </AppBar>
                     {value === 0 &&
                     <TabContainer>
-                        {/*<Typography>*/}
-                        {/*Список команд*/}
-                        {/*</Typography>*/}
                         <TeamsList tournamentID={id}/>
                     </TabContainer>}
                     {value === 1 && <TabContainer>
-                        Игры
-                        <Test/>
+                        <Games tournamentID={id}/>
                     </TabContainer>}
                     {value === 2 && <TabContainer>Статистика</TabContainer>}
                 </div>
@@ -123,7 +120,7 @@ ScrollableTabsButtonForce.propTypes = {
     classes: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
     // from store
-    tournament: PropTypes.object.isRequired,
+    tournament: PropTypes.object,
 };
 
 const mapStateToProps = (state, ownProps) => {

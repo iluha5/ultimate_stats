@@ -1,32 +1,9 @@
 import {OrderedMap, OrderedSet, Record} from "immutable";
 import {LOAD_TEAMS, LOAD_USERS, SHOULD_RELOAD, START, SUCCESS} from "../constants";
 import {arrToMap} from "../helpers";
+import {TournamentData, TournamentsListState} from "../model";
 
-const TournamentData = Record({
-    id: '',
-    name: '',
-    country: '',
-    place: '',
-    dateStart: '',
-    dateEnd: '',
-    covering: '',
-    format: '',
-    games: null,
-    teams: null,
-    teamsList: [],
-    isMenDivision: false,
-    isWomenDivision: false,
-    isMixDivision: false,
-    ownerId: ''
-});
-
-const TournamentsListState = Record({
-    isLoading: false,
-    shouldReload: true,
-    list: new OrderedMap({})
-});
 const defaultTournamentList = TournamentsListState();
-
 
 const convertPlainObjectToTournamentsListState = (tournamentsListState) => {
     if (tournamentsListState && tournamentsListState.list && Object.keys(tournamentsListState.list).length !== 0) {
@@ -51,11 +28,6 @@ const convertPlainObjectToTournamentsListState = (tournamentsListState) => {
 
 export default (tournamentsListState = defaultTournamentList, action) => {
     const {type, payload} = action;
-
-    if (!Record.isRecord(tournamentsListState)) {
-        tournamentsListState = convertPlainObjectToTournamentsListState(tournamentsListState);
-    }
-
 
     switch (type) {
         case LOAD_TEAMS + START:

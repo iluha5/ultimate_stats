@@ -1,7 +1,7 @@
 import {
     API,
     FAIL, LOAD_ALL_TEAMS,
-    LOAD_BEARER,
+    LOAD_BEARER, LOAD_GAMES,
     LOAD_TEAMS,
     LOAD_USERS,
     PUSH_NEW_TOURNAMENT, SHOULD_RELOAD,
@@ -10,6 +10,35 @@ import {
     WRONG_USER
 } from "./constants";
 import {push, replace} from 'react-router-redux';
+
+
+export const loadGames = () => {
+    return (dispatch) => {
+        dispatch({
+            type: LOAD_GAMES + START
+        });
+
+        fetch (API.games)
+            .then(res => {
+                if (res.status >= 400) {
+                    throw new Error(res.statusText)
+                }
+                return res.json()
+            })
+            .then(response => dispatch({
+                    type: LOAD_GAMES + SUCCESS,
+                    payload: response
+                })
+            )
+            .catch(error => {
+                dispatch({
+                    type: LOAD_GAMES + FAIL,
+                    payload: {error}
+                });
+            });
+    }
+};
+
 
 export const loadAllTeams = () => {
   return (dispatch) => {

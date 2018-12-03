@@ -4,6 +4,7 @@ import bearer from "./bearer";
 import user from "./user";
 import tournamentsList from './tournamentsList';
 import teams from "./teams";
+import games from "./games";
 
 export default combineReducers({
     router: routerReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
     user,
     tournamentsList,
     teams,
+    games
 })

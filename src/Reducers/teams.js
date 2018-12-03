@@ -2,26 +2,15 @@
 import {OrderedMap, Record} from "immutable";
 import {LOAD_ALL_TEAMS, LOAD_TEAMS, SHOULD_RELOAD, START, SUCCESS} from "../constants";
 import {arrToMap} from "../helpers";
+import {TeamData, TeamsState} from "../model";
 
-const TeamsData = Record({
-    id: '',
-    name: '',
-    players: '',
-    games: '',
-});
-
-const TeamsState = Record({
-    isLoading: false,
-    shouldReload: true,
-    list: new OrderedMap({})
-});
 const defaultTeamsState = TeamsState();
 
 const convertPlainObjectToTeamsState = (teamsState) => {
     if (teamsState && teamsState.list && Object.keys(teamsState.list).length !== 0) {
         let newMap = Object.keys(teamsState.list).map(key => {
                 return {
-                    [key]: TeamsData(teamsState.list[key])
+                    [key]: TeamData(teamsState.list[key])
                 }
             }
         );
@@ -48,11 +37,11 @@ export default (teamsState = defaultTeamsState, action) => {
                 .set('isLoading', true);
 
         case LOAD_ALL_TEAMS + SUCCESS:
-            debugger
+            // debugger
             return teamsState
                 .set('isLoading', false)
                 .set('shouldReload', false)
-                .set('list', arrToMap(payload, TeamsData));
+                .set('list', arrToMap(payload, TeamData));
 
         case LOAD_ALL_TEAMS + SHOULD_RELOAD:
             return teamsState
