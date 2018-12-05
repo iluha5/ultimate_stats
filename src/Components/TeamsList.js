@@ -22,6 +22,11 @@ import {lighten} from '@material-ui/core/styles/colorManipulator';
 import {connect} from "react-redux";
 import {loadAllTeams, loadTournamentsList} from "../AC";
 import Loader from "./Loader";
+import AddTournament from "./AddTournament";
+import AddTeam from "./AddTeam";
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
+
 
 let counter = 0;
 
@@ -149,7 +154,12 @@ const styles = theme => ({
     },
     hover: {
         cursor: 'pointer'
-    }
+    },
+    fab: {
+        position: 'fixed',
+        bottom: theme.spacing.unit * 2,
+        right: theme.spacing.unit * 2,
+    },
 });
 
 
@@ -161,6 +171,7 @@ class TeamsList extends React.Component {
         data: [],
         page: 0,
         rowsPerPage: 10,
+        isOpenAddTeam: false,
     };
 
     componentDidMount() {
@@ -232,11 +243,24 @@ class TeamsList extends React.Component {
         this.setState({rowsPerPage: event.target.value});
     };
 
+    handleCloseAddTeam = () =>{
+        this.setState({
+            isOpenAddTeam: false
+        })
+    };
+
+    handleOpenAddTeam = () => {
+        this.setState({
+            isOpenAddTeam: true
+        })
+    };
+
+
     isSelected = id => this.state.selected.indexOf(id) !== -1;
 
     render() {
         const {classes, tournamentsList, teamsState, tournamentID} = this.props;
-        const {order, orderBy, selected, rowsPerPage, page} = this.state;
+        const {order, orderBy, selected, rowsPerPage, page, isOpenAddTeam} = this.state;
 
         if (tournamentsList.shouldReload || teamsState.shouldReload ||
             tournamentsList.isLoading || teamsState.isLoading) return <Loader/>;
@@ -308,6 +332,13 @@ class TeamsList extends React.Component {
                     labelRowsPerPage={'Строк:'}
                     labelDisplayedRows={({from, to, count}) => `${from}-${to} из ${count}`}
                 />
+                <Button variant="fab" className={classes.fab} color='secondary'
+                        onClick={this.handleOpenAddTeam}>
+                    <AddIcon/>
+                </Button>
+
+                <AddTeam isOpen={isOpenAddTeam} toggleClose={this.handleCloseAddTeam}/>
+
             </div>
         );
     }

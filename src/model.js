@@ -1,4 +1,4 @@
-import {OrderedMap, Record} from "immutable";
+import {OrderedMap, Record, Map} from "immutable";
 import {TEAM_ONE} from "./constants";
 
 export const TournamentData = Record({
@@ -76,10 +76,10 @@ export const GameData = Record({
     SotgCommentsTeamTwo: '',
     passesTeamOne: 0,
     passesTeamTwo: 0,
-    takenTimeOutsTeamOne: 0,
-    takenTimeOutsTeamTwo: 0,
-    takenSotgTimeOutsTeamOne: 0,
-    takenSotgTimeOutsTeamTwo: 0,
+    takenTimeOutsTeamOne: [],
+    takenTimeOutsTeamTwo: [],
+    takenSotgTimeOutsTeamOne: [],
+    takenSotgTimeOutsTeamTwo: [],
     injuryStoppageTeamOne: 0,
     injuryStoppageTeamTwo: 0,
     otherCallsTeamOne: 0,
@@ -89,7 +89,9 @@ export const GameData = Record({
     shouldReload: false,
     date: '',
     timeStart: '',
-    timePassed: ''
+    timePassed: '',
+    statisticID: '',
+    rosterID: ''
 });
 
 export const GamesState = Record({
@@ -100,4 +102,48 @@ export const GamesState = Record({
 });
 
 
+///////// new
+export const PlayerScoreData = Record({
+    id: '',
+    playerID: '',
+    goals: 0,
+    assists: 0,
+    callahans: 0
+});
+export const GameStatisticData = Record({
+    id: '',
+    scoreList: new Map({}),
+});
+export const GamesStatisticsState = Record({
+    isLoading: false,
+    shouldUpload: false,
+    shouldReload: true,
+    list: new OrderedMap({})
+});
 
+export const PlayerData = Record({
+    id: '',
+    firstName: '',
+    secondName: '',
+    patronymic: '',
+    dateOfBirth: '',
+    g175: '',
+    vk: '',
+    fb: '',
+    email: '',
+    avatar: '',
+    isCaptian: false,
+    isCoach: false,
+    isSotgCaptain: false,
+    description: ''
+});
+export const RosterData = Record({
+    id: '',
+    players: new Map({})
+});
+export const RostersState = Record({
+    isLoading: false,
+    shouldUpload: false,
+    shouldReload: true,
+    list: new OrderedMap({})
+});

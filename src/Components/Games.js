@@ -22,6 +22,7 @@ import {connect} from "react-redux";
 import {loadAllTeams, loadGames, loadTournamentsList} from "../AC";
 import Loader from "./Loader";
 import {mapToArr} from "../helpers";
+import dateFormat from 'dateformat';
 
 let counter = 0;
 
@@ -30,13 +31,15 @@ function createData(name, players, games, temp1, temp2) {
     return {id: counter, name, players: players, games: games, temp1: temp1, temp2: temp2};
 }
 
-function createGameData(teamOne, teamTwo, score) {
+function createGameData(teamOne, teamTwo, score, date, time) {
     counter += 1;
     return {
         id: counter,
         teamOne,
         teamTwo,
         score,
+        date,
+        time
     };
 }
 
@@ -65,9 +68,11 @@ function getSorting(order, orderBy) {
 }
 
 const rows = [
-    {id: 'teamOne', numeric: false, disablePadding: false, label: 'Команда 1'},
+    {id: 'date', numeric: true, disablePadding: false, label: 'Дата'},
+    {id: 'teamOne', numeric: true, disablePadding: false, label: 'Команда1'},
     {id: 'score', numeric: false, disablePadding: false, label: 'Счет'},
-    {id: 'teamTwo', numeric: false, disablePadding: false, label: 'Команда 2'},
+    {id: 'teamTwo', numeric: false, disablePadding: false, label: 'Команда2'},
+    {id: 'time', numeric: false, disablePadding: false, label: 'Время'},
 ];
 
 class EnhancedTableHead extends React.Component {
@@ -88,12 +93,16 @@ class EnhancedTableHead extends React.Component {
                                 numeric={row.numeric}
                                 padding={row.disablePadding ? 'none' : 'default'}
                                 sortDirection={orderBy === row.id ? order : false}
-                                style={(row.id === 'teamOne' ? {textAlign: 'right'} : null) || row.id === 'score' ? {textAlign: 'center'} : null}
+                                style={
+                                    row.id === 'teamOne' ? {textAlign: 'right'} : null ||
+                                    row.id === 'score' ? {textAlign: 'center'} : null ||
+                                    row.id === 'date' ? {textAlign: 'right'} : null
+                                }
 
                             >
                                 <Tooltip
                                     title="Sort"
-                                    placement={row.numeric ? 'bottom-end' : 'bottom-start'}
+                                    placement= {row.numeric ? 'bottom-end' : 'bottom-start'}
                                     enterDelay={300}
                                 >
                                     <TableSortLabel
@@ -220,11 +229,13 @@ class Games extends React.Component {
 // debugger
         const games = mapToArr(gamesState.list).filter(game => game.tournamentID === tournamentID);
         const dataGames = games.map(game => {
-            const teamOne = `${teamsState.list.get(game.teamOneID).name} ${game.codeOne}`;
-            const teamTwo = `${game.codeTwo} ${teamsState.list.get(game.teamTwoID).name}`;
+            const teamOne = `${teamsState.list.get(game.teamOneID).name} [${game.codeOne}]`;
+            const teamTwo = `[${game.codeTwo}] ${teamsState.list.get(game.teamTwoID).name}`;
             const score = `${game.teamOneScore} : ${game.teamTwoScore}`;
+            const date = game.date;//`${game.date} ${game.timeStart}`;
+            const time = `${Math.ceil(+game.timePassed / 60)}:${+game.timePassed % 60}`;
 
-            return createGameData(teamOne, teamTwo, score);
+            return createGameData(teamOne, teamTwo, score, date, time);
         });
 
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
@@ -258,11 +269,13 @@ class Games extends React.Component {
                                             selected={isSelected}
                                             className={classes.hover}
                                         >
+                                            <TableCell style={{textAlign: 'right'}}>{dateFormat(new Date(+n.date), 'dd-mm-yy mm:hh')}</TableCell>
                                             <TableCell component="th" scope="row" padding="default" style={{textAlign: 'right'}}>
                                                 {n.teamOne}
                                             </TableCell>
                                             <TableCell style={{textAlign: 'center'}}>{n.score}</TableCell>
                                             <TableCell style={{textAlign: 'left'}}>{n.teamTwo}</TableCell>
+                                            <TableCell style={{textAlign: 'left', fontWeight: 700}}>{n.time}</TableCell>
                                         </TableRow>
                                     );
                                 })}
