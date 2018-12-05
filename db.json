@@ -323,6 +323,54 @@
       "name": "Космик Гелс",
       "players": 8,
       "games": 5
+    },
+    {
+      "id": "GD2Xvs3",
+      "name": "Молодые"
+    },
+    {
+      "id": "poVDMrs",
+      "name": "КомандаА"
+    },
+    {
+      "id": "V_Oh4Uy",
+      "name": "Новая команда"
+    },
+    {
+      "id": "11acfc1a-3cab-447a-8a27-ed60ea752ca0",
+      "name": "НовКоманда"
+    },
+    {
+      "id": "de065fb9-17dd-4db5-bc65-0be396ba3e18",
+      "name": "11111"
+    },
+    {
+      "id": "e46cf35a-e45c-4df0-90d9-0e735ea8d27b",
+      "name": "22222222"
+    },
+    {
+      "id": "afca1807-cf96-4df0-b8ba-da30631d5502",
+      "name": "333333333"
+    },
+    {
+      "id": "b9431ffd-f1c9-4f3b-9ee0-a71d8a358216",
+      "name": "333333333"
+    },
+    {
+      "id": "71efcac9-6da8-4916-8bdc-e513ec841210",
+      "name": "44444444"
+    },
+    {
+      "id": "3e87b192-760e-444a-991c-fad48d61f56c",
+      "name": "555555555"
+    },
+    {
+      "id": "e115fff4-e382-43c8-ae86-9b2af48281cb",
+      "name": "555555555"
+    },
+    {
+      "id": "ef2d5bcb-89dc-41b9-819a-af4b99e9b7f2",
+      "name": "777777777"
     }
   ],
   "tournaments": [
@@ -404,12 +452,18 @@
         "02",
         "03",
         "04",
-        "05"
+        "05",
+        "e46cf35a-e45c-4df0-90d9-0e735ea8d27b",
+        "afca1807-cf96-4df0-b8ba-da30631d5502",
+        "71efcac9-6da8-4916-8bdc-e513ec841210",
+        "3e87b192-760e-444a-991c-fad48d61f56c",
+        "e115fff4-e382-43c8-ae86-9b2af48281cb",
+        "ef2d5bcb-89dc-41b9-819a-af4b99e9b7f2"
       ],
-      "divisions": [
-        "Открытый",
-        "Женский"
-      ]
+      "isMenDivision": false,
+      "isWomenDivision": false,
+      "isMixDivision": false,
+      "ownerId": ""
     },
     {
       "id": "SQtOkzL",
@@ -594,6 +648,19 @@
       "games": 0,
       "teams": 0,
       "teamsList": [],
+      "divisions": []
+    },
+    {
+      "id": "vSKhbjh",
+      "name": "Мой трунир",
+      "country": "",
+      "place": "",
+      "dateStart": "6-12-2018",
+      "dateEnd": "7-12-2018",
+      "covering": "",
+      "format": "",
+      "games": 0,
+      "teams": 0,
       "divisions": []
     }
   ],

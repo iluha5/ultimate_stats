@@ -30,6 +30,7 @@ export const TeamData = Record({
     name: '',
     players: '',
     games: '',
+    rosterID: '',
 });
 
 export const TeamsState = Record({

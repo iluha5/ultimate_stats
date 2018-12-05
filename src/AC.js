@@ -2,14 +2,93 @@ import {
     API,
     FAIL, LOAD_ALL_TEAMS,
     LOAD_BEARER, LOAD_GAMES,
-    LOAD_TEAMS,
-    LOAD_USERS,
+    LOAD_TEAMS, LOAD_TOURNAMENTS,
+    LOAD_USERS, PUSH_NEW_TEAM,
     PUSH_NEW_TOURNAMENT, SHOULD_RELOAD,
     START,
-    SUCCESS,
+    SUCCESS, UPDATE_TOURNAMENT,
     WRONG_USER
 } from "./constants";
 import {push, replace} from 'react-router-redux';
+import uuidv4 from 'uuid/v4';
+
+export const updateTournament = (newTournamentData) => {
+    return (dispatch) => {
+        dispatch({
+            type: UPDATE_TOURNAMENT + START,
+        });
+
+        // debugger
+        const params = {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newTournamentData)
+        };
+
+        const path = `${API.tournaments}/${newTournamentData.id}`;
+
+        fetch(path, params)
+            .then((resp) => {
+                if ((resp.status < 200) || (resp.status > 300)) {
+                    throw new Error("Response status: " + resp.status);
+                } else return resp;
+            })
+            .then((res) => {
+                dispatch({
+                    type: UPDATE_TOURNAMENT + SUCCESS,
+                });
+                dispatch({
+                    type: LOAD_TOURNAMENTS + SHOULD_RELOAD,
+                });
+
+            })
+            .catch((err) => {
+                alert("Не получилось обновить таблицу турниров!");
+            })
+
+    }
+
+};
+
+export const pushNewTeam = (team) => {
+    return (dispatch) => {
+        dispatch({
+            type: PUSH_NEW_TEAM + START,
+        });
+
+        // debugger
+        const params = {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(team)
+        };
+
+        fetch(API.all_teams, params)
+            .then((resp) => {
+                if ((resp.status < 200) || (resp.status > 300)) {
+                    throw new Error("Response status: " + resp.status);
+                } else return resp;
+            })
+            .then((res) => {
+                console.log('-----res', res);
+                dispatch({
+                    type: PUSH_NEW_TEAM + SUCCESS,
+                });
+                dispatch({
+                    type: LOAD_ALL_TEAMS + SHOULD_RELOAD,
+                });
+
+            })
+            .catch((err) => {
+                alert("Не получилось обновить таблицу команд!");
+            })
+
+    }
+};
 
 
 export const loadGames = () => {
@@ -93,7 +172,7 @@ export const pushNewTournament = (tournament) => {
                     type: PUSH_NEW_TOURNAMENT + SUCCESS,
                 });
                 dispatch({
-                    type: LOAD_TEAMS + SHOULD_RELOAD,
+                    type: LOAD_TOURNAMENTS + SHOULD_RELOAD,
                 });
 
             })
@@ -107,7 +186,7 @@ export const pushNewTournament = (tournament) => {
 export const loadTournamentsList = () => {
   return (dispatch) => {
       dispatch({
-          type: LOAD_TEAMS + START,
+          type: LOAD_TOURNAMENTS + START,
       });
 
       fetch(API.tournaments)
@@ -118,13 +197,13 @@ export const loadTournamentsList = () => {
               return res.json()
           })
           .then(response => dispatch({
-                  type: LOAD_TEAMS + SUCCESS,
+                  type: LOAD_TOURNAMENTS + SUCCESS,
                   payload: response
               })
           )
           .catch(error => {
               dispatch({
-                  type: LOAD_TEAMS + FAIL,
+                  type: LOAD_TOURNAMENTS + FAIL,
                   payload: {error}
               });
               // dispatch(replace('/error'))

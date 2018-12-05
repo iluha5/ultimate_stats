@@ -262,8 +262,9 @@ class TeamsList extends React.Component {
         const {classes, tournamentsList, teamsState, tournamentID} = this.props;
         const {order, orderBy, selected, rowsPerPage, page, isOpenAddTeam} = this.state;
 
+        // debugger
         if (tournamentsList.shouldReload || teamsState.shouldReload ||
-            tournamentsList.isLoading || teamsState.isLoading) return <Loader/>;
+            tournamentsList.isLoading || teamsState.isLoading) return (<div> загрузка</div>);//<Loader/>;
 
         const teams = tournamentsList.list.get(tournamentID).teamsList.map(id => teamsState.list.get(id));
         const data = teams.map(team => createData(team.name, team.players, team.games));
@@ -337,7 +338,7 @@ class TeamsList extends React.Component {
                     <AddIcon/>
                 </Button>
 
-                <AddTeam isOpen={isOpenAddTeam} toggleClose={this.handleCloseAddTeam}/>
+                <AddTeam isOpen={isOpenAddTeam} toggleClose={this.handleCloseAddTeam} tournamentID={tournamentID}/>
 
             </div>
         );

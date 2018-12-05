@@ -155,6 +155,7 @@ class TournamentsList extends React.Component {
         const {classes, shouldReload, tournamentsList} = this.props;
         const {isOpenAddTournament, clickedID} = this.state;
 
+        // debugger
         return (
             <div className={classes.root}>
                 {/*<Typography className={classes.title} variant="h4" gutterBottom>*/}
@@ -166,7 +167,7 @@ class TournamentsList extends React.Component {
                     component="nav"
                     subheader={<ListSubheader component="div">Список турниров</ListSubheader>}
                 >
-                    {(shouldReload || tournamentsList.isLoading) ? <Loader /> : this.renderTournamentsList()}
+                    {(shouldReload || tournamentsList.isLoading) ? <Loader />  : this.renderTournamentsList()}
                 </List>
                 {(shouldReload || tournamentsList.isLoading) ?
                     null

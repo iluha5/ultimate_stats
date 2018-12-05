@@ -21,22 +21,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Chip from '@material-ui/core/Chip';
 import Input from '@material-ui/core/Input';
 import {connect} from "react-redux";
-import {pushNewTournament} from "../AC";
+import {pushNewTeam, pushNewTournament, updateTournament} from "../AC";
 import dateFormat from 'dateformat';
+import uuidv4 from "uuid/v4";
 
 const defaultState = {
-    selectedDateFrom: new Date(),
-    selectedDateTo: new Date(),
-    cover: '',
-    divisions: [],
     name: '',
-    country: '',
-    place: '',
-    covering: '',
-    format: '',
-    isNameError: false,
-    nameHelper: ' ',
-    dateToHelper: ' ',
 };
 
 
@@ -86,9 +76,9 @@ class AddTeam extends React.Component {
         this.setState({divisions: event.target.value});
     };
 
-    handleAddTournament = evt => {
-        const {selectedDateFrom, selectedDateTo, country, place, covering, format, divisions, name, dateToHelper} = this.state;
-        const {toggleClose, pushNewTournament, user} = this.props;
+    handleAddTeam = evt => {
+        const {name} = this.state;
+        const {toggleClose, pushNewTeam, user, updateTournament, tournament} = this.props;
 
         let nameError = false;
         if (!name || name.length < 2) nameError = true;
@@ -100,24 +90,15 @@ class AddTeam extends React.Component {
             return;
         }
 
-        if (dateToHelper !== ' '){
-            return;
-        }
+        const newID = uuidv4();
 
-        pushNewTournament({
-            id: '',
+        pushNewTeam({
+            id: newID,
             name,
-            country,
-            place,
-            dateStart: dateFormat(selectedDateFrom, 'd-mm-yyyy'),
-            dateEnd: dateFormat(selectedDateTo, 'd-mm-yyyy'),
-            covering,
-            format,
-            games: 0,
-            teams: 0,
-            divisions,
-            ownerID: user.id
         });
+
+        // debugger
+        updateTournament(tournament.set('teamsList', [...tournament.teamsList, newID]));
 
         toggleClose();
 
@@ -189,39 +170,6 @@ class AddTeam extends React.Component {
                     >
                         <DialogTitle id="form-dialog-title">Добавление команды</DialogTitle>
                         <DialogContent>
-                            {/*<DialogContentText>*/}
-                            {/*Все поля кроме Название - необязательные, но очень рекомендуемые :)*/}
-                            {/*</DialogContentText>*/}
-
-                            {/*<MuiPickersUtilsProvider utils={DateFnsUtils} locale={ruLocale}>*/}
-                                {/*<DatePicker*/}
-                                    {/*value={selectedDateFrom}*/}
-                                    {/*onChange={this.handleDateFromChange}*/}
-                                    {/*leftArrowIcon={<ArrowLeft/>}*/}
-                                    {/*rightArrowIcon={<ArrowRight/>}*/}
-                                    {/*label={'C:'}*/}
-                                    {/*format="dd-MM-yyyy"*/}
-                                    {/*required*/}
-                                    {/*// error={isDateFromError}*/}
-                                {/*/>*/}
-
-                                {/*<span>&#8195;</span>*/}
-
-                                {/*<DatePicker*/}
-                                    {/*value={selectedDateTo}*/}
-                                    {/*onChange={this.handleDateToChange}*/}
-                                    {/*leftArrowIcon={<ArrowLeft/>}*/}
-                                    {/*rightArrowIcon={<ArrowRight/>}*/}
-                                    {/*label={'По:'}*/}
-                                    {/*format="dd-MM-yyyy"*/}
-                                    {/*required*/}
-                                    {/*minDate={selectedDateFrom}*/}
-                                    {/*// minDateMessage='Должна быть не меньше даты начала'*/}
-                                    {/*helperText={dateToHelper}*/}
-                                    {/*// error={isDateToError}*/}
-                                {/*/>*/}
-                            {/*</MuiPickersUtilsProvider>*/}
-
                             <TextField
                                 value={name}
                                 autoFocus
@@ -236,105 +184,12 @@ class AddTeam extends React.Component {
                                 helperText={nameHelper}
                             />
 
-                            <TextField
-                                value={place}
-                                margin="dense"
-                                id="place"
-                                label="Город/Место"
-                                type="name"
-                                onChange={this.handleFieldChange}
-                            />
-
-                            <span>&#8195;</span>
-
-                            <TextField
-                                value={country}
-                                margin="dense"
-                                id="country"
-                                label="Страна"
-                                type="name"
-                                onChange={this.handleFieldChange}
-
-                            />
-
-                            <div>
-                                <FormControl className={classes.covering}>
-                                    <InputLabel htmlFor="covering">Покрытие</InputLabel>
-                                    <Select
-                                        value={covering}
-                                        onChange={this.handleCovering}
-                                        inputProps={{
-                                            name: 'covering',
-                                            id: 'coveringID',
-                                        }}
-                                    >
-                                        <MenuItem value="">
-                                            <em>(Пусто)</em>
-                                        </MenuItem>
-                                        <MenuItem value={10}>Натуральная трава </MenuItem>
-                                        <MenuItem value={20}>Искусственная трава (улица)</MenuItem>
-                                        <MenuItem value={30}>Искусственная трава (зал)</MenuItem>
-                                        <MenuItem value={40}>Паркет (зал)</MenuItem>
-                                        <MenuItem value={50}>Песок (улица)</MenuItem>
-                                        <MenuItem value={60}>Песок (зал)</MenuItem>
-                                        <MenuItem value={70}>Искусственное (зал)</MenuItem>
-                                        <MenuItem value={80}>Другое</MenuItem>
-                                    </Select>
-                                </FormControl>
-                            </div>
-
-                            <FormControl className={classes.divisions}>
-                                <InputLabel htmlFor="select-multiple-chip">Дивизионы</InputLabel>
-                                <Select
-                                    multiple
-                                    value={divisions}
-                                    onChange={this.handleChange}
-                                    input={<Input id="select-multiple-chip"/>}
-                                    renderValue={selected => (
-                                        <div className={classes.chips}>
-                                            {selected.map(value => (
-                                                <Chip key={value} label={value} className={classes.chip}/>
-                                            ))}
-                                        </div>
-                                    )}
-                                    MenuProps={MenuProps}
-                                >
-                                    {names.map(name => (
-                                        <MenuItem key={name} value={name} style={this.getStyles(name, this)}>
-                                            {name}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-
-                            <div>
-                                <FormControl className={classes.format}>
-                                    <InputLabel htmlFor="format">Формат</InputLabel>
-                                    <Select
-                                        value={format}
-                                        onChange={this.handleCovering}
-                                        inputProps={{
-                                            name: 'format',
-                                            id: 'formatID',
-                                        }}
-                                    >
-                                        <MenuItem value="">
-                                            <em>(Пусто)</em>
-                                        </MenuItem>
-                                        <MenuItem value={10}>5x5</MenuItem>
-                                        <MenuItem value={20}>7x7</MenuItem>
-                                        <MenuItem value={30}>4x4</MenuItem>
-                                        <MenuItem value={40}>Другое</MenuItem>
-                                    </Select>
-                                </FormControl>
-
-                            </div>
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={toggleClose} color="primary">
                                 Отмена
                             </Button>
-                            <Button onClick={this.handleAddTournament} color="primary">
+                            <Button onClick={this.handleAddTeam} color="primary">
                                 Добавить
                             </Button>
                         </DialogActions>
@@ -378,19 +233,23 @@ const styles = theme => ({
 AddTeam.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     toggleClose: PropTypes.func.isRequired,
+    tournamentID: PropTypes.string.isRequired,
     //from store
-    pushNewTournament: PropTypes.func,
+    pushNewTeam: PropTypes.func,
+    updateTournament: PropTypes.func,
     user: PropTypes.object,
 };
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
     return {
-        user: state.user
+        user: state.user,
+        tournament: state.tournamentsList.list.get(ownProps.tournamentID)
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        pushNewTournament: (tournament) => dispatch(pushNewTournament(tournament)),
+        pushNewTeam: (team) => dispatch(pushNewTeam(team)),
+        updateTournament: (tournament) => dispatch(updateTournament(tournament))
     };
 };
 
