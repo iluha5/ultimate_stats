@@ -18,6 +18,7 @@ class NetworkRoute extends Component {
         )
     };
 
+
     redirectNetwork = () => <Redirect to='/network' />;
 
     // renderLogin = () => <Redirect to='/network' />;

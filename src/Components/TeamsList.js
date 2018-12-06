@@ -264,10 +264,13 @@ class TeamsList extends React.Component {
 
         // debugger
         if (tournamentsList.shouldReload || teamsState.shouldReload ||
-            tournamentsList.isLoading || teamsState.isLoading) return (<div> загрузка</div>);//<Loader/>;
+            tournamentsList.isLoading || teamsState.isLoading) return <Loader/>;
 
-        const teams = tournamentsList.list.get(tournamentID).teamsList.map(id => teamsState.list.get(id));
-        const data = teams.map(team => createData(team.name, team.players, team.games));
+        const teams = tournamentsList.list.get(tournamentID).teamsList.map(id => {
+            if (!teamsState.list.get(id)) return null;
+            return teamsState.list.get(id)
+        });
+        const data = teams.filter(team => team).map(team => createData(team.name, team.players, team.games));
 
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 

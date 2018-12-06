@@ -13,7 +13,7 @@ import {connect} from "react-redux";
 import Page404 from "./Page404";
 import {loadTournamentsList} from "../AC";
 import Loader from "./Loader";
-import Games from "./Games";
+import Games from "./GamesList";
 
 function TabContainer(props) {
     return (
@@ -42,6 +42,7 @@ const styles = theme => ({
             width: `calc(100% - ${DRAWER_WIDTH}px)`,
             marginLeft: DRAWER_WIDTH,
         },
+        paddingBottom: 50,
     }
 });
 
@@ -52,12 +53,18 @@ class ScrollableTabsButtonForce extends React.Component {
 
     componentDidMount() {
         const {loadTournamentsList, tournamentsList} = this.props;
-// debugger
         if (tournamentsList.shouldReload) {
             loadTournamentsList();
         }
     }
 
+    componentDidUpdate() {
+        const {loadTournamentsList, tournamentsList} = this.props;
+        if (tournamentsList.shouldReload) {
+            loadTournamentsList();
+        }
+
+    }
 
     handleChange = (event, value) => {
         this.setState({value});
@@ -66,7 +73,7 @@ class ScrollableTabsButtonForce extends React.Component {
     getBody() {
         const {classes, tournament, tournamentsList, id} = this.props;
         const {value} = this.state;
-// debugger
+        // debugger
         if (tournamentsList.isLoading || tournamentsList.shouldReload) return <Loader />;
 
         if (tournament && tournament.name) {

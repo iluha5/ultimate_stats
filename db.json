@@ -113,7 +113,7 @@
       ]
     },
     {
-      "id": "ros02",
+      "id": "ros03",
       "players": [
         "r0003"
       ]
@@ -298,79 +298,36 @@
       "id": "01",
       "name": "РеалФайв",
       "players": 5,
-      "games": 4
+      "games": 4,
+      "rosterID": "ros01"
     },
     {
       "id": "02",
       "name": "Новгородские Медведи",
       "players": 15,
-      "games": 5
+      "games": 5,
+      "rosterID": "ros02"
     },
     {
       "id": "03",
       "name": "ОксиДискО",
       "players": 12,
-      "games": 3
+      "games": 3,
+      "rosterID": "ros03"
     },
     {
       "id": "04",
       "name": "Ремпейдж",
       "players": 10,
-      "games": 4
+      "games": 4,
+      "rosterID": "ros02"
     },
     {
       "id": "05",
       "name": "Космик Гелс",
       "players": 8,
-      "games": 5
-    },
-    {
-      "id": "GD2Xvs3",
-      "name": "Молодые"
-    },
-    {
-      "id": "poVDMrs",
-      "name": "КомандаА"
-    },
-    {
-      "id": "V_Oh4Uy",
-      "name": "Новая команда"
-    },
-    {
-      "id": "11acfc1a-3cab-447a-8a27-ed60ea752ca0",
-      "name": "НовКоманда"
-    },
-    {
-      "id": "de065fb9-17dd-4db5-bc65-0be396ba3e18",
-      "name": "11111"
-    },
-    {
-      "id": "e46cf35a-e45c-4df0-90d9-0e735ea8d27b",
-      "name": "22222222"
-    },
-    {
-      "id": "afca1807-cf96-4df0-b8ba-da30631d5502",
-      "name": "333333333"
-    },
-    {
-      "id": "b9431ffd-f1c9-4f3b-9ee0-a71d8a358216",
-      "name": "333333333"
-    },
-    {
-      "id": "71efcac9-6da8-4916-8bdc-e513ec841210",
-      "name": "44444444"
-    },
-    {
-      "id": "3e87b192-760e-444a-991c-fad48d61f56c",
-      "name": "555555555"
-    },
-    {
-      "id": "e115fff4-e382-43c8-ae86-9b2af48281cb",
-      "name": "555555555"
-    },
-    {
-      "id": "ef2d5bcb-89dc-41b9-819a-af4b99e9b7f2",
-      "name": "777777777"
+      "games": 5,
+      "rosterID": "ros03"
     }
   ],
   "tournaments": [
@@ -458,7 +415,11 @@
         "71efcac9-6da8-4916-8bdc-e513ec841210",
         "3e87b192-760e-444a-991c-fad48d61f56c",
         "e115fff4-e382-43c8-ae86-9b2af48281cb",
-        "ef2d5bcb-89dc-41b9-819a-af4b99e9b7f2"
+        "ef2d5bcb-89dc-41b9-819a-af4b99e9b7f2",
+        "46e35e1a-2f9a-496c-87ee-ae8bd7a92a8e",
+        "17e4939d-527e-4159-bbd6-68419b3c4466",
+        "62f8aa7b-c42b-4c87-b54b-7885ed659d0d",
+        "8dbdf951-c9e7-4fcf-9651-4f44bfc539d0"
       ],
       "isMenDivision": false,
       "isWomenDivision": false,

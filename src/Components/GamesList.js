@@ -19,10 +19,11 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import {lighten} from '@material-ui/core/styles/colorManipulator';
 import {connect} from "react-redux";
-import {loadAllTeams, loadGames, loadTournamentsList} from "../AC";
+import {goTo, loadAllTeams, loadGames, loadTournamentsList} from "../AC";
 import Loader from "./Loader";
 import {mapToArr} from "../helpers";
 import dateFormat from 'dateformat';
+import {withRouter} from 'react-router-dom';
 
 let counter = 0;
 
@@ -31,7 +32,7 @@ function createData(name, players, games, temp1, temp2) {
     return {id: counter, name, players: players, games: games, temp1: temp1, temp2: temp2};
 }
 
-function createGameData(teamOne, teamTwo, score, date, time) {
+function createGameData(teamOne, teamTwo, score, date, time, gameID) {
     counter += 1;
     return {
         id: counter,
@@ -39,7 +40,8 @@ function createGameData(teamOne, teamTwo, score, date, time) {
         teamTwo,
         score,
         date,
-        time
+        time,
+        gameID,
     };
 }
 
@@ -148,7 +150,7 @@ const styles = theme => ({
 });
 
 
-class Games extends React.Component {
+class GamesList extends React.Component {
     state = {
         order: 'asc',
         orderBy: 'players',
@@ -202,7 +204,10 @@ class Games extends React.Component {
     };
 
     handleClick = (event, id) => {
-        console.log('----- clicked ', id);
+        const {goTo, location} = this.props;
+        // console.log('----- clicked ', location, `${location.pathname}/game/${id}`);
+
+       goTo(`${location}/game/${id}`)
     };
 
     handleChangePage = (event, page) => {
@@ -224,9 +229,13 @@ class Games extends React.Component {
 
         if (gamesState.shouldReload || gamesState.isLoading) return <Loader/>;
 
-        const teams = tournamentsList.list.get(tournamentID).teamsList.map(id => teamsState.list.get(id));
-        const data = teams.map(team => createData(team.name, team.players, team.games));
-// debugger
+        const teams = tournamentsList.list.get(tournamentID).teamsList.map(id => {
+            if (!teamsState.list.get(id)) return null;
+            return teamsState.list.get(id)
+        });
+        const data = teams.filter(team => team).map(team => createData(team.name, team.players, team.games));
+
+        // debugger
         const games = mapToArr(gamesState.list).filter(game => game.tournamentID === tournamentID);
         const dataGames = games.map(game => {
             const teamOne = `${teamsState.list.get(game.teamOneID).name} [${game.codeOne}]`;
@@ -234,8 +243,9 @@ class Games extends React.Component {
             const score = `${game.teamOneScore} : ${game.teamTwoScore}`;
             const date = game.date;//`${game.date} ${game.timeStart}`;
             const time = `${Math.ceil(+game.timePassed / 60)}:${+game.timePassed % 60}`;
+            const gameID = game.id;
 
-            return createGameData(teamOne, teamTwo, score, date, time);
+            return createGameData(teamOne, teamTwo, score, date, time, gameID);
         });
 
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
@@ -261,7 +271,7 @@ class Games extends React.Component {
                                     return (
                                         <TableRow
                                             hover
-                                            onClick={event => this.handleClick(event, n.id)}
+                                            onClick={event => this.handleClick(event, n.gameID)}
                                             role="checkbox"
                                             aria-checked={isSelected}
                                             tabIndex={-1}
@@ -309,7 +319,7 @@ class Games extends React.Component {
     }
 }
 
-Games.propTypes = {
+GamesList.propTypes = {
     tournamentID: PropTypes.string.isRequired,
     classes: PropTypes.object.isRequired,
     // from store
@@ -337,7 +347,8 @@ const mapDispatchToProps = (dispatch) => {
         loadAllTeams: () => dispatch(loadAllTeams()),
         loadTournamentsList: () => dispatch(loadTournamentsList()),
         loadGames: () => dispatch(loadGames()),
+        goTo: (path) => dispatch(goTo(path)),
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Games));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withRouter(props => <GamesList {...props}/>)));

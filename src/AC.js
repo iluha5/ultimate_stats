@@ -12,6 +12,7 @@ import {
 import {push, replace} from 'react-router-redux';
 import uuidv4 from 'uuid/v4';
 
+
 export const updateTournament = (newTournamentData) => {
     return (dispatch) => {
         dispatch({
