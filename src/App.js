@@ -27,6 +27,7 @@ class App extends Component {
                     <div>
                         <Switch>
                             {/*<Route path='/network' component={Login}/>*/}
+                            <Route path='/network/keeper/:any' component={KeeperRoute}/>
                             <Route path='/network/keeper' component={KeeperRoute}/>
                             <Route path='/network' component={NetworkRoute}/>
                             <Route path='/:any' render={() => <Redirect to='/' />}/>

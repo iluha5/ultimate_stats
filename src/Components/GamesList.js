@@ -207,7 +207,7 @@ class GamesList extends React.Component {
         const {goTo, location} = this.props;
         // console.log('----- clicked ', location, `${location.pathname}/game/${id}`);
 
-       goTo(`${location}/game/${id}`)
+       goTo(`${location.pathname}/game/${id}`)
     };
 
     handleChangePage = (event, page) => {

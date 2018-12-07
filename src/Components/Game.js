@@ -31,7 +31,7 @@ class Game extends Component {
                 <AppDrawer title={'Таймер'} />
                 <main className={classes.content}>
                     Панель ведения игры.
-                    gameID: {id}
+                    gameID: {id},
                     tournamentID: {tournamentID}
                 </main>
 

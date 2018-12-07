@@ -5,8 +5,34 @@ import history from './history';
 import reducer from './Reducers'
 import {loadState, saveState} from "./localstorage";
 import throttle from "lodash/throttle";
+import {OrderedMap, Record} from 'immutable';
+import {convertPlainObjectToState} from "./helpers";
+import {
+    GameData,
+    GamesState,
+    TeamData,
+    TeamsState,
+    TournamentData,
+    TournamentsListState,
+    UserData,
+    UserState
+} from "./model";
 
-const persistedStore = loadState();
+
+// debugger
+const persistedStore = loadState({
+    Record,
+    convertPlainObjectToState,
+    GameData,
+    GamesState,
+    TeamData,
+    TeamsState,
+    TournamentData,
+    TournamentsListState,
+    UserData,
+    UserState,
+    OrderedMap
+});
 // console.log('-----persistedStore', persistedStore);
 // debugger
 

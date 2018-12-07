@@ -12,12 +12,12 @@ import Game from "../Components/Game";
 class KeeperRoute extends Component {
 
     renderTournament = ({match}) => {
-        const {id} = match.params;
+        const {tournamentID} = match.params;
         const {user} = this.props;
-
+// debugger
 
         return (user && (user.role === SCOREKEEPER || user.role === ADMIN )) ? (
-            <Tournament id={id}/>
+            <Tournament id={tournamentID}/>
         ) : (
             <Redirect to='/network' />
         )
@@ -26,7 +26,8 @@ class KeeperRoute extends Component {
     renderGame = ({match}) => {
         const {id, tournamentID} = match.params;
         const {user} = this.props;
-
+        // console.dir(tournamentID);
+        // debugger
         return (user && (user.role === SCOREKEEPER || user.role === ADMIN )) ? (
             <Game id={id} tournamentID={tournamentID} />
         ) : (
@@ -39,7 +40,7 @@ class KeeperRoute extends Component {
             <div>
                 <Switch>
                     <Route path='/network/keeper/tournament/:tournamentID/game/:id' render={this.renderGame}/>
-                    <Route path='/network/keeper/tournament/:id' render={this.renderTournament}/>
+                    <Route path='/network/keeper/tournament/:tournamentID' render={this.renderTournament}/>
                     <Redirect path='/network/keeper/tournament' exact to='/network/keeper/'  />
                     <Route path='/network/keeper' exact component={Scorekeeper} />
                     <Redirect path='/network/keeper/:any' to='/network/keeper/'  />
