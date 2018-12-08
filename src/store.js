@@ -20,19 +20,20 @@ import {
 
 
 // debugger
-const persistedStore = loadState({
-    Record,
-    convertPlainObjectToState,
-    GameData,
-    GamesState,
-    TeamData,
-    TeamsState,
-    TournamentData,
-    TournamentsListState,
-    UserData,
-    UserState,
-    OrderedMap
-});
+// {
+//     Record,
+//         convertPlainObjectToState,
+//         GameData,
+//         GamesState,
+//         TeamData,
+//         TeamsState,
+//         TournamentData,
+//         TournamentsListState,
+//         UserData,
+//         UserState,
+//         OrderedMap
+// }
+const persistedStore = loadState();
 // console.log('-----persistedStore', persistedStore);
 // debugger
 

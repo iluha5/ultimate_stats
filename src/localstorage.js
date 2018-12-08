@@ -1,32 +1,32 @@
-// import {Record} from 'immutable';
-// import {convertPlainObjectToState} from "./helpers";
-// import {
-//     GameData,
-//     GamesState,
-//     TeamData,
-//     TeamsState,
-//     TournamentData,
-//     TournamentsListState,
-//     UserData,
-//     UserState
-// } from "./model";
+import {OrderedMap, Record} from 'immutable';
+import {convertPlainObjectToState} from "./helpers";
+import {
+    GameData,
+    GamesState,
+    TeamData,
+    TeamsState,
+    TournamentData,
+    TournamentsListState,
+    UserData,
+    UserState
+} from "./model";
 // import {Record} from "immutable";
 
 export const loadState = (data) => {
 
-    const {
-        Record,
-        convertPlainObjectToState,
-        GameData,
-        GamesState,
-        TeamData,
-        TeamsState,
-        TournamentData,
-        TournamentsListState,
-        UserData,
-        UserState,
-        OrderedMap
-    } = data;
+    // const {
+    //     Record,
+    //     convertPlainObjectToState,
+    //     GameData,
+    //     GamesState,
+    //     TeamData,
+    //     TeamsState,
+    //     TournamentData,
+    //     TournamentsListState,
+    //     UserData,
+    //     UserState,
+    //     OrderedMap
+    // } = data;
     // debugger
   try {
       const serializedState = localStorage.getItem('state');

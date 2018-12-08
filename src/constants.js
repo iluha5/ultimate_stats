@@ -25,6 +25,7 @@ export const SHOULD_RELOAD = 'SHOULD_RELOAD';
 export const LOAD_ALL_TEAMS = 'LOAD_ALL_TEAMS';
 export const LOAD_GAMES = 'LOAD_GAMES';
 export const UPDATE_TOURNAMENT = 'UPDATE_TOURNAMENT';
+export const UPDATE_TIMER_GAME = 'UPDATE_TIMER_GAME';
 
 // statuses
 export const WRONG_USER = 'WRONG_USER';

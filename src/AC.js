@@ -6,12 +6,20 @@ import {
     LOAD_USERS, PUSH_NEW_TEAM,
     PUSH_NEW_TOURNAMENT, SHOULD_RELOAD,
     START,
-    SUCCESS, UPDATE_TOURNAMENT,
+    SUCCESS, UPDATE_TIMER_GAME, UPDATE_TOURNAMENT,
     WRONG_USER
 } from "./constants";
 import {push, replace} from 'react-router-redux';
 import uuidv4 from 'uuid/v4';
 
+export const updateGameTimer = (gameID, time) => {
+    return (dispatch) => {
+        dispatch({
+            type: UPDATE_TIMER_GAME,
+            payload: {gameID, time},
+        })
+    }
+};
 
 export const updateTournament = (newTournamentData) => {
     return (dispatch) => {

@@ -90,7 +90,7 @@ export const GameData = Record({
     shouldReload: false,
     date: '',
     timeStart: '',
-    timePassed: '',
+    timePassed: 0,
     statisticID: '',
     rosterID: ''
 });

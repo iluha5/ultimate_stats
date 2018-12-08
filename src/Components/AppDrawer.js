@@ -19,6 +19,10 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MailIcon from '@material-ui/icons/Mail';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import PlayCircleOutline from '@material-ui/icons/PlayCircleOutline';
+import PauseCircleOutline from '@material-ui/icons/PauseCircleOutline';
+import StopOutlined from '@material-ui/icons/StopOutlined';
+import Stop from '@material-ui/icons/Stop';
 import {connect} from "react-redux";
 import {goTo} from "../AC";
 import {DRAWER_WIDTH} from "../constants";
@@ -33,8 +37,17 @@ const styles = theme => ({
     },
     title: {
         // border: '1px solid #fff',
-        lineHeight: '1em',
-        paddingTop: 0
+        lineHeight: '1.5em',
+        verticalAlign: 'middle',
+        paddingTop: 0,
+        textAlign: 'left'
+    },
+    timer: {
+        // color: '#ff5d00'
+    },
+    controls: {
+        padding: 0,
+        paddingLeft: 5
     },
     drawer: {
         [theme.breakpoints.up('md')]: {
@@ -53,10 +66,12 @@ const styles = theme => ({
     },
     // !!!!!!!!!! toolbar height here
     toolBar: {
+        paddingLeft: 4,
+        paddingRight: 4,
         // minHeight: 30
     },
     menuButton: {
-        marginRight: 20,
+        marginRight: 0,
         [theme.breakpoints.up('md')]: {
             display: 'none',
         },
@@ -118,7 +133,7 @@ class AppDrawer extends React.Component {
     };
 
     render() {
-        const {classes, theme, goTo, user, title} = this.props;
+        const {classes, theme, goTo, user, title, isGame} = this.props;
         const {anchorEl} = this.state;
         const open = Boolean(anchorEl);
 
@@ -151,65 +166,94 @@ class AppDrawer extends React.Component {
             <div className={classes.root}>
                 <CssBaseline/>
                 {/*<div className={classes.appBarWrapper}>*/}
-                    <AppBar position="fixed" className={classes.appBar}>
-                        <Toolbar className={classes.toolBar} >
-                            <IconButton
-                                className={classes.menuButton}
-                                color="inherit"
-                                aria-label="Open drawer"
-                                onClick={this.handleDrawerToggle}
-                            >
-                                <MenuIcon/>
-                            </IconButton>
-                            <Typography variant="subtitle1" color="inherit" className={classes.title}>
-                                {title}
-                            </Typography>
-                            {(
-                                <div className={classes.rightMenuWrapper}>
-                                    {/*<Typography variant="body2" gutterBottom color="inherit"*/}
-                                                {/*className={classes.userName}>*/}
-                                        {/*{user.name}*/}
-                                    {/*</Typography>*/}
-                                    <IconButton
-                                        aria-owns={open ? 'menu-appbar' : undefined}
-                                        aria-haspopup="true"
-                                        onClick={this.handleMenu}
+                <AppBar position="fixed" className={classes.appBar}>
+                    <Toolbar className={classes.toolBar}>
+                        <IconButton
+                            className={classes.menuButton}
+                            color="inherit"
+                            aria-label="Open drawer"
+                            onClick={this.handleDrawerToggle}
+                        >
+                            <MenuIcon/>
+                        </IconButton>
+                        <Typography variant="subtitle1" color="inherit" className={classes.title}>
+                            {!isGame && title}
+                            {isGame &&
+                            (
+                                <span>
+                                    <span className={classes.timer}>
+                                        {title}
+                                    </span>
+                                    < IconButton
+                                        aria-haspopup="false"
                                         color="inherit"
-                                        className={classes.rightMenuButton}
+                                        className={classes.controls}
                                     >
-                                        <AccountCircle/>
+                                        <PauseCircleOutline /> <PlayCircleOutline />
                                     </IconButton>
-                                    <Menu
-                                        id="menu-appbar"
-                                        anchorEl={anchorEl}
-                                        anchorOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
-                                        }}
-                                        transformOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
-                                        }}
-                                        open={open}
-                                        onClose={this.handleClose}
+                                    < IconButton
+                                        aria-haspopup="false"
+                                        color="inherit"
+                                        className={classes.controls}
                                     >
-                                        <div></div>
-                                        <Typography
-                                            variant={"subtitle2"}
-                                            color={"inherit"}
-                                            gutterBottom
-                                            style={{textAlign: 'center', border: 0, color: '#f44336', paddingLeft: 5, paddingRight: 5}}
-                                            className={classes.name}
-                                        >
-                                            {user.name}
-                                        </Typography>
-                                        <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                                        <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                                    </Menu>
-                                </div>
-                            )}
-                        </Toolbar>
-                    </AppBar>
+                                        <StopOutlined />
+                                    </IconButton>
+                                </span>
+                            )
+                            }
+                        </Typography>
+                        {(
+                            <div className={classes.rightMenuWrapper}>
+                                {/*<Typography variant="body2" gutterBottom color="inherit"*/}
+                                {/*className={classes.userName}>*/}
+                                {/*{user.name}*/}
+                                {/*</Typography>*/}
+                                <IconButton
+                                    aria-owns={open ? 'menu-appbar' : undefined}
+                                    aria-haspopup="true"
+                                    onClick={this.handleMenu}
+                                    color="inherit"
+                                    className={classes.rightMenuButton}
+                                >
+                                    <AccountCircle/>
+                                </IconButton>
+                                <Menu
+                                    id="menu-appbar"
+                                    anchorEl={anchorEl}
+                                    anchorOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    open={open}
+                                    onClose={this.handleClose}
+                                >
+                                    <div></div>
+                                    <Typography
+                                        variant={"subtitle2"}
+                                        color={"inherit"}
+                                        gutterBottom
+                                        style={{
+                                            textAlign: 'center',
+                                            border: 0,
+                                            color: '#f44336',
+                                            paddingLeft: 5,
+                                            paddingRight: 5
+                                        }}
+                                        className={classes.name}
+                                    >
+                                        {user.name}
+                                    </Typography>
+                                    <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                                    <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                                </Menu>
+                            </div>
+                        )}
+                    </Toolbar>
+                </AppBar>
                 {/*</div>*/}
                 <nav className={classes.drawer}>
                     {/* The implementation can be swap with js to avoid SEO duplication of links. */}
@@ -249,7 +293,11 @@ class AppDrawer extends React.Component {
 
 AppDrawer.propTypes = {
     user: PropTypes.object.isRequired,
-    title: PropTypes.string,
+    title: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object
+    ]),
+    isGame: PropTypes.bool,
     classes: PropTypes.object.isRequired,
     // Injected by the documentation to work in an iframe.
     // You won't need it on your project.
