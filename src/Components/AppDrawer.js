@@ -133,7 +133,7 @@ class AppDrawer extends React.Component {
     };
 
     render() {
-        const {classes, theme, goTo, user, title, isGame} = this.props;
+        const {classes, theme, goTo, user, title, isGame, toggleTimer, handlerStop, isTimerOn} = this.props;
         const {anchorEl} = this.state;
         const open = Boolean(anchorEl);
 
@@ -188,13 +188,15 @@ class AppDrawer extends React.Component {
                                         aria-haspopup="false"
                                         color="inherit"
                                         className={classes.controls}
+                                        onClick={toggleTimer}
                                     >
-                                        <PauseCircleOutline /> <PlayCircleOutline />
+                                        {isTimerOn ? <PauseCircleOutline /> : <PlayCircleOutline />}
                                     </IconButton>
                                     < IconButton
                                         aria-haspopup="false"
                                         color="inherit"
                                         className={classes.controls}
+                                        onClick={handlerStop}
                                     >
                                         <StopOutlined />
                                     </IconButton>
@@ -299,6 +301,9 @@ AppDrawer.propTypes = {
     ]),
     isGame: PropTypes.bool,
     classes: PropTypes.object.isRequired,
+    toggleTimer: PropTypes.func,
+    handlerStop: PropTypes.func,
+    isTimerOn: PropTypes.bool,
     // Injected by the documentation to work in an iframe.
     // You won't need it on your project.
     container: PropTypes.object,

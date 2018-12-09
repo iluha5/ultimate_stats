@@ -13,16 +13,20 @@ class GameTimer extends Component {
     };
 
     render() {
-        // const {saveTimerToStore} = this.props;
+        const {initialTime, isTimerOn} = this.props;
 
         return (
-            <Timer>
+            <Timer
+                initialTime={initialTime ? +initialTime : 0}
+                startImmediately={false}
+            >
                 {(timer) => (
                     <span>
                             <Timer.Minutes/>
                             :
                             <Timer.Seconds/>
                         {this.saveTimerToStore(timer.getTime())}
+                        {isTimerOn ? timer.start() : timer.stop()}
                         </span>
                 )
                 }
@@ -34,6 +38,8 @@ class GameTimer extends Component {
 GameTimer.propTypes = {
     // saveTimerToStore: PropTypes.func.isRequired,
     gameID: PropTypes.string.isRequired,
+    initialTime: PropTypes.number,
+    isTimerOn: PropTypes.bool,
     //from store
     updateGameTimer: PropTypes.func.isRequired
 };

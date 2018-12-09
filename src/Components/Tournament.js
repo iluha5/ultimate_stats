@@ -8,12 +8,11 @@ import Typography from '@material-ui/core/Typography';
 import AppDrawer from './AppDrawer';
 import TeamsList from "./TeamsList";
 import {DRAWER_WIDTH} from "../constants";
-import Test from "./Test";
 import {connect} from "react-redux";
 import Page404 from "./Page404";
 import {loadTournamentsList} from "../AC";
 import Loader from "./Loader";
-import Games from "./GamesList";
+import GamesList from "./GamesList";
 
 function TabContainer(props) {
     return (
@@ -93,12 +92,13 @@ class ScrollableTabsButtonForce extends React.Component {
                             <Tab label="Статистика"/>
                         </Tabs>
                     </AppBar>
+
                     {value === 0 &&
                     <TabContainer>
                         <TeamsList tournamentID={id}/>
                     </TabContainer>}
                     {value === 1 && <TabContainer>
-                        <Games tournamentID={id}/>
+                        <GamesList tournamentID={id}/>
                     </TabContainer>}
                     {value === 2 && <TabContainer>Статистика</TabContainer>}
                 </div>
