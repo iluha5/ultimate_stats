@@ -9,15 +9,18 @@ export const API = {
     bearer: '/bearer',
     users: '/users',
     tournaments: '/tournaments',
-    // pushNewTournament: '',
     all_teams: '/teams',
     games: '/games',
+    rosters: '/rosters',
+    players: '/players',
 };
 
 // commands
 export const LOAD_BEARER = 'LOAD_BEARER';
 export const LOAD_USERS = 'LOAD_USERS';
 export const LOAD_TEAMS = 'LOAD_TEAMS';
+export const LOAD_ROSTERS = 'LOAD_ROSTERS';
+export const LOAD_PLAYERS = 'LOAD_PLAYERS';
 export const LOAD_TOURNAMENTS = 'LOAD_TOURNAMENTS';
 export const PUSH_NEW_TOURNAMENT = 'PUSH_NEW_TOURNAMENT';
 export const PUSH_NEW_TEAM = 'PUSH_NEW_TEAM';

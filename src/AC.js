@@ -1,7 +1,7 @@
 import {
     API,
     FAIL, LOAD_ALL_TEAMS,
-    LOAD_BEARER, LOAD_GAMES,
+    LOAD_BEARER, LOAD_GAMES, LOAD_PLAYERS, LOAD_ROSTERS,
     LOAD_TEAMS, LOAD_TOURNAMENTS,
     LOAD_USERS, PUSH_NEW_TEAM,
     PUSH_NEW_TOURNAMENT, SHOULD_RELOAD,
@@ -11,6 +11,61 @@ import {
 } from "./constants";
 import {push, replace} from 'react-router-redux';
 import uuidv4 from 'uuid/v4';
+
+export const loadRosters = () => {
+    return (dispatch) => {
+        dispatch({
+            type: LOAD_ROSTERS + START
+        });
+
+        fetch (API.rosters)
+            .then(res => {
+                if (res.status >= 400) {
+                    throw new Error(res.statusText)
+                }
+                return res.json()
+            })
+            .then(response => dispatch({
+                    type: LOAD_ROSTERS + SUCCESS,
+                    payload: response
+                })
+            )
+            .catch(error => {
+                dispatch({
+                    type: LOAD_ROSTERS + FAIL,
+                    payload: {error}
+                });
+            });
+    }
+};
+
+export const loadPlayers = () => {
+    return (dispatch) => {
+        dispatch({
+            type: LOAD_PLAYERS + START
+        });
+
+        fetch (API.players)
+            .then(res => {
+                if (res.status >= 400) {
+                    throw new Error(res.statusText)
+                }
+                return res.json()
+            })
+            .then(response => dispatch({
+                    type: LOAD_PLAYERS + SUCCESS,
+                    payload: response
+                })
+            )
+            .catch(error => {
+                dispatch({
+                    type: LOAD_PLAYERS + FAIL,
+                    payload: {error}
+                });
+            });
+    }
+};
+
 
 export const updateGameTimer = (gameID, time) => {
     return (dispatch) => {

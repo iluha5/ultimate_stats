@@ -10,6 +10,8 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Tooltip from '@material-ui/core/Tooltip';
 import {connect} from "react-redux";
 import {withStyles} from "@material-ui/core/styles/index";
+import {loadGames, loadPlayers, loadRosters} from "../AC";
+import Loader from "./Loader";
 
 const styles = theme => ({
     root: {
@@ -131,6 +133,25 @@ class GameControlRoster extends Component {
 
     };
 
+    componentDidMount() {
+        const {loadRosters, loadPlayers} = this.props;
+        loadRosters();
+        loadPlayers();
+    }
+
+    componentDidUpdate(){
+        const {rosters, players, loadRosters, loadPlayers} = this.props;
+
+        if (rosters.shouldReload) {
+            loadRosters();
+        }
+
+        if (players.shouldReload) {
+            loadPlayers();
+        }
+    }
+
+
     handleRequestSort = (event, property) => {
         const orderBy = property;
         let order = 'desc';
@@ -159,7 +180,10 @@ class GameControlRoster extends Component {
 
     render() {
         const {order, orderBy, data} = this.state;
-        const {classes} = this.props;
+        const {classes, rosters, players} = this.props;
+
+        if (rosters.isLoading || rosters.shouldReload ||
+            players.isLoading || players.shouldReload) return <Loader />;
 
         return (
             <div className={classes.tableWrapper}>
@@ -211,11 +235,18 @@ class GameControlRoster extends Component {
 GameControlRoster.propTypes = {};
 
 const mapStateToProps = (state) => {
-    return {};
+    return {
+         rosters: state.rosters,
+        players: state.players
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {};
+    return {
+        loadRosters: () => dispatch(loadRosters()),
+        loadPlayers: () => dispatch(loadPlayers()),
+
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(GameControlRoster));

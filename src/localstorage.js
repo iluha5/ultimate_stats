@@ -8,26 +8,15 @@ import {
     TournamentData,
     TournamentsListState,
     UserData,
-    UserState
+    UserState,
+    RosterData,
+    RostersState,
+    PlayerData,
+    PlayersState
 } from "./model";
-// import {Record} from "immutable";
 
 export const loadState = (data) => {
 
-    // const {
-    //     Record,
-    //     convertPlainObjectToState,
-    //     GameData,
-    //     GamesState,
-    //     TeamData,
-    //     TeamsState,
-    //     TournamentData,
-    //     TournamentsListState,
-    //     UserData,
-    //     UserState,
-    //     OrderedMap
-    // } = data;
-    // debugger
   try {
       const serializedState = localStorage.getItem('state');
 
@@ -36,11 +25,13 @@ export const loadState = (data) => {
       }
 
       let loadedState = JSON.parse(serializedState);
-      let { tournamentsList, user, games, teams } = loadedState;
+      let { tournamentsList, user, games, teams, rosters, players } = loadedState;
       const defaultTournamentList = TournamentsListState();
       const defaultUser = UserState();
       const defaultGame = GamesState();
       const defaultTeams = TeamsState();
+      const defaultRosters = RostersState();
+      const defaultPlayers = PlayersState();
 // debugger
       if (tournamentsList && tournamentsList.list && !Record.isRecord(tournamentsList)) {
           tournamentsList = convertPlainObjectToState(tournamentsList, TournamentData, defaultTournamentList, TournamentsListState, OrderedMap);
@@ -62,7 +53,17 @@ export const loadState = (data) => {
           loadedState = {...loadedState, teams};
       }
 
-      console.log('-----localstorage, все ок', loadedState);
+      if (rosters && rosters.list && !Record.isRecord(rosters)) {
+          rosters = convertPlainObjectToState(rosters, RosterData, defaultRosters, RostersState, OrderedMap);
+          loadedState = {...loadedState, rosters};
+      }
+
+      if (players && players.list && !Record.isRecord(players)) {
+          players = convertPlainObjectToState(players, PlayerData, defaultPlayers, PlayersState, OrderedMap);
+          loadedState = {...loadedState, players};
+      }
+
+      // console.log('-----localstorage, все ок', loadedState);
       // debugger
       return loadedState;
   }  catch (err) {

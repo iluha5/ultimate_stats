@@ -86,7 +86,7 @@ class GameControl extends Component {
                 </div>
                 <div className={classes.rosterRoot}>
                     <div>
-                        <GameControlRoster />
+                        <GameControlRoster rosterID={game.rosterID} />
                     </div>
                     <div></div>
                 </div>

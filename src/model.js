@@ -138,6 +138,13 @@ export const PlayerData = Record({
     isSotgCaptain: false,
     description: ''
 });
+export const PlayersState = Record({
+    isLoading: false,
+    shouldUpload: false,
+    shouldReload: true,
+    list: new OrderedMap({})
+});
+
 export const RosterData = Record({
     id: '',
     players: new Map({})
