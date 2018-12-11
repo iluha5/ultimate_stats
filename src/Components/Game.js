@@ -24,9 +24,12 @@ const styles = theme => ({
             width: `calc(100% - ${DRAWER_WIDTH}px)`,
             marginLeft: DRAWER_WIDTH,
         },
-        paddingTop: 70,
+        paddingTop: 32,
 
     },
+    tab: {
+        minHeight: 30,
+    }
 });
 
 function TabContainer(props) {
@@ -96,31 +99,38 @@ class Game extends Component {
                             scrollButtons="off"
                             indicatorColor="primary"
                             textColor="primary"
+                            className={classes.tab}
                         >
-                            <Tab label="Управление"/>
-                            <Tab label="Лог"/>
-                            <Tab label="Статистика"/>
+                            <Tab label="Управление" className={classes.tab} />
+                            <Tab label="Лог" className={classes.tab} />
+                            <Tab label="Статистика" className={classes.tab} />
                         </Tabs>
                     </AppBar>
 
-                    <SwipeableViews
-                        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-                        index={this.state.tabValue}
-                        onChangeIndex={this.handleChangeIndex}
-                    >
-                        <TabContainer>
-                            <GameControl gameID={id}/>
-                            {/*Панель ведения игры.*/}
-                            {/*gameID: {id},*/}
-                            {/*tournamentID: {tournamentID}*/}
-                        </TabContainer>
-                        <TabContainer>
-                            Лог
-                        </TabContainer>
-                        <TabContainer>
-                            Статистика
-                        </TabContainer>
-                    </SwipeableViews>
+                    {/*<SwipeableViews*/}
+                        {/*axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}*/}
+                        {/*index={this.state.tabValue}*/}
+                        {/*onChangeIndex={this.handleChangeIndex}*/}
+                    {/*>*/}
+                    {tabValue === 0 &&
+                    <TabContainer>
+                        <GameControl gameID={id}/>
+                        {/*Панель ведения игры.*/}
+                        {/*gameID: {id},*/}
+                        {/*tournamentID: {tournamentID}*/}
+                    </TabContainer>
+                    }
+                    {tabValue === 1 &&
+                    <TabContainer>
+                        Лог
+                    </TabContainer>
+                    }
+                    {tabValue === 2 &&
+                    <TabContainer>
+                        Статистика
+                    </TabContainer>
+                    }
+                    {/*</SwipeableViews>*/}
                 </main>
 
             </div>

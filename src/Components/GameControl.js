@@ -9,8 +9,11 @@ import GameControlRoster from "./GameControlRoster";
 
 const styles = theme => ({
     root: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
         paddingTop: 15,
-
+        // textAlign: 'center',
     },
     code: {
         textAlign: 'center',
@@ -47,27 +50,89 @@ const styles = theme => ({
         lineHeight: 1,
         width: '40%',
         textAlign: 'right',
-        overflow: 'scroll',
+        overflow: 'hidden',
+        [theme.breakpoints.down('sm')]: {
+            overflowX: 'auto',
+        }
     },
     scoreItem2: {
         // border: '1px solid #000',
         lineHeight: 1,
         width: '40%',
-        overflow: 'scroll',
+        overflow: 'hidden',
+        [theme.breakpoints.down('sm')]: {
+            overflowX: 'auto',
+        }
     },
 
     rosterRoot: {
-        display: 'flex'
+        display: 'flex',
+        overflow: 'hidden',
+        backgroundColor: '#e3f2fd',
+        justifyContent: 'space-between',
+        [theme.breakpoints.down('sm')]: {
+            height: 300, // ROSTER H
+            width: '100%',
+        },
+        [theme.breakpoints.up('sm')]: {
+            height: 350,
+            width: 600,
+        },
+    },
+    rosterWrapper: {
+        width: '50%',
+        '&:nth-child(2)': {
+            borderLeft: '1px solid #000'
+        }
+        // overflowY: 'scroll',
+        // paddingRight: 17,
+        // boxSizing: 'content-box'
+    },
+    roster: {
+        width: '100%',
+        height: '100%',
+        // paddingRight: 0,
+        [theme.breakpoints.down('sm')]: {
+            overflowY: 'scroll',
+            paddingRight: 17,
+            boxSizing: 'content-box',
+        },
+        [theme.breakpoints.up('sm')]: {
+            overflowY: 'scroll',
+            paddingRight: 0,
+            // boxSizing: 'content-box',
+        }
+
     }
 });
 
 
-
 class GameControl extends Component {
+    state = {
+      viewPortH: 0
+    };
 
+    componentDidMount() {
+        const h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+        this.setState({
+            viewPortH: h
+        })
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        const h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+        console.log('-----h', h-200);
+
+        if (prevState.viewPortH !== h) {
+            this.setState({
+                viewPortH: h
+            })
+        }
+    }
 
     render() {
         const {game, teamsNames, classes} = this.props;
+        const {viewPortH} = this.state;
 
         return (
             <div className={classes.root}>
@@ -77,18 +142,26 @@ class GameControl extends Component {
                     </Typography>
 
                     <Typography variant="h6" gutterBottom className={classes.score}>
-                        <span className={classes.code}>[{game.takenTimeOutsTeamOne.length}]</span>{`${game.teamOneScore} - ${game.teamTwoScore}`}<span className={classes.code}>[{game.takenTimeOutsTeamTwo.length}]</span>
+                        <span
+                            className={classes.code}>[{game.takenTimeOutsTeamOne.length}]</span>{`${game.teamOneScore} - ${game.teamTwoScore}`}<span
+                        className={classes.code}>[{game.takenTimeOutsTeamTwo.length}]</span>
                     </Typography>
 
                     <Typography variant="overline" gutterBottom className={classes.scoreItem2}>
                         {teamsNames[1]} [{game.codeTwo}]
                     </Typography>
                 </div>
-                <div className={classes.rosterRoot}>
-                    <div>
-                        <GameControlRoster rosterID={game.rosterID} />
+                <div className={classes.rosterRoot} style={{height: viewPortH - 200}}>
+                    <div className={classes.rosterWrapper}>
+                        <div className={classes.roster}>
+                            <GameControlRoster rosterID={game.rosterID}/>
+                        </div>
                     </div>
-                    <div></div>
+                    <div className={classes.rosterWrapper}>
+                        <div className={classes.roster}>
+                            <GameControlRoster rosterID={game.rosterID}/>
+                        </div>
+                    </div>
                 </div>
             </div>
 

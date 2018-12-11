@@ -33,6 +33,7 @@ import {DRAWER_WIDTH} from "../constants";
 const styles = theme => ({
     root: {
         display: 'flex',
+        // minHeight: 0,
         // flexGrow: 1,
     },
     title: {
@@ -61,14 +62,14 @@ const styles = theme => ({
             width: `calc(100% - ${DRAWER_WIDTH}px)`,
         },
         [theme.breakpoints.down('sm')]: {
-            // height: 50
+            // minHeight: 0
         }
     },
     // !!!!!!!!!! toolbar height here
     toolBar: {
         paddingLeft: 4,
         paddingRight: 4,
-        // minHeight: 30
+        // minHeight: 0
     },
     menuButton: {
         marginRight: 0,
@@ -167,7 +168,7 @@ class AppDrawer extends React.Component {
                 <CssBaseline/>
                 {/*<div className={classes.appBarWrapper}>*/}
                 <AppBar position="fixed" className={classes.appBar}>
-                    <Toolbar className={classes.toolBar}>
+                    <Toolbar className={classes.toolBar} style={isGame ? {minHeight: 32} : null}>
                         <IconButton
                             className={classes.menuButton}
                             color="inherit"

@@ -50,7 +50,7 @@
     {
       "id": "r0001",
       "firstName": "Александр",
-      "secondName": "Васин",
+      "secondName": "Кацнельсон",
       "patronymic": "",
       "dateOfBirth": "03-02-1988",
       "g175": "",
@@ -82,7 +82,87 @@
     {
       "id": "r0003",
       "firstName": "Ярослав",
-      "secondName": "Петин",
+      "secondName": "Оболенский-Иванчиков",
+      "patronymic": "",
+      "dateOfBirth": "23-09-1983",
+      "g175": "",
+      "vk": "",
+      "fb": "",
+      "email": "",
+      "avatar": "",
+      "isCaptian": false,
+      "isCoach": false,
+      "isSotgCaptain": false,
+      "description": ""
+    },
+    {
+      "id": "r0004",
+      "firstName": "Ярослав",
+      "secondName": "Симин",
+      "patronymic": "",
+      "dateOfBirth": "23-09-1983",
+      "g175": "",
+      "vk": "",
+      "fb": "",
+      "email": "",
+      "avatar": "",
+      "isCaptian": false,
+      "isCoach": false,
+      "isSotgCaptain": false,
+      "description": ""
+    },
+    {
+      "id": "r0005",
+      "firstName": "Ярослав",
+      "secondName": "Торонов",
+      "patronymic": "",
+      "dateOfBirth": "23-09-1983",
+      "g175": "",
+      "vk": "",
+      "fb": "",
+      "email": "",
+      "avatar": "",
+      "isCaptian": false,
+      "isCoach": false,
+      "isSotgCaptain": false,
+      "description": ""
+    },
+    {
+      "id": "r0006",
+      "firstName": "Ярослав",
+      "secondName": "Велин",
+      "patronymic": "",
+      "dateOfBirth": "23-09-1983",
+      "g175": "",
+      "vk": "",
+      "fb": "",
+      "email": "",
+      "avatar": "",
+      "isCaptian": false,
+      "isCoach": false,
+      "isSotgCaptain": false,
+      "description": ""
+    },
+    {
+      "id": "r0007",
+      "firstName": "Ярослав",
+      "secondName": "Иванов",
+      "patronymic": "",
+      "dateOfBirth": "23-09-1983",
+      "g175": "",
+      "vk": "",
+      "fb": "",
+      "email": "",
+      "avatar": "",
+      "isCaptian": false,
+      "isCoach": false,
+      "isSotgCaptain": false,
+      "description": ""
+    },
+    {
+      "id": "r0008",
+      "firstName": "Ярослав",
+      "secondName": "Маковкин",
       "patronymic": "",
       "dateOfBirth": "23-09-1983",
       "g175": "",
@@ -100,22 +180,27 @@
     {
       "id": "ros01",
       "players": [
-        "r0001",
-        "r0002",
-        "r0003"
+        {"id": "r0001", "num": 4},
+        {"id": "r0002", "num": 5},
+        {"id": "r0003", "num": 23},
+        {"id": "r0004", "num": 16},
+        {"id": "r0005", "num": 3},
+        {"id": "r0006", "num": 1},
+        {"id": "r0007", "num": 89},
+        {"id": "r0008", "num": 99}
       ]
     },
     {
       "id": "ros02",
       "players": [
-        "r0001",
-        "r0002"
+        {"id": "r0001", "num": 4},
+        {"id": "r0002", "num": 5}
       ]
     },
     {
       "id": "ros03",
       "players": [
-        "r0003"
+        {"id": "r0003", "num": 23}
       ]
     }
   ],

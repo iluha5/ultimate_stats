@@ -16,21 +16,29 @@ import Loader from "./Loader";
 const styles = theme => ({
     root: {
         width: '100%',
+        height: 'auto',
         // marginTop: theme.spacing.unit * 3,
     },
     table: {
+        overflowX: 'auto',
+        // padding: 0,
         // minWidth: 400,
     },
     tableWrapper: {
         overflowX: 'auto',
     },
-    hover: {
-        cursor: 'pointer'
+    row: {
+        cursor: 'pointer',
+        height: 30,
+        lineHeight: 1,
     },
     fab: {
         position: 'fixed',
         bottom: theme.spacing.unit * 2,
         right: theme.spacing.unit * 2,
+    },
+    thCell: {
+      padding:0,
     },
 });
 
@@ -60,6 +68,7 @@ function desc(a, b, orderBy) {
 }
 
 let counter = 0;
+
 function createData(name, num) {
     counter += 1;
     return {id: counter, name, num};
@@ -80,8 +89,8 @@ class EnhancedTableHead extends React.Component {
         const {onSelectAllClick, order, orderBy, numSelected, rowCount} = this.props;
 
         return (
-            <TableHead>
-                <TableRow>
+            <TableHead >
+                <TableRow style={{height: 25}}>
                     {rows.map(row => {
                         return (
                             <TableCell
@@ -89,7 +98,8 @@ class EnhancedTableHead extends React.Component {
                                 numeric={row.numeric}
                                 padding={row.disablePadding ? 'none' : 'default'}
                                 sortDirection={orderBy === row.id ? order : false}
-
+                                style={{padding: '0px 4px 0px 4px'}}
+                                // className={classes.thCell}
                             >
                                 <Tooltip
                                     title="Sort"
@@ -123,7 +133,6 @@ EnhancedTableHead.propTypes = {
 };
 
 
-
 class GameControlRoster extends Component {
     state = {
         order: 'asc',
@@ -137,10 +146,11 @@ class GameControlRoster extends Component {
         const {loadRosters, loadPlayers} = this.props;
         loadRosters();
         loadPlayers();
+
     }
 
-    componentDidUpdate(){
-        const {rosters, players, loadRosters, loadPlayers} = this.props;
+    componentDidUpdate(prevProps, prevState) {
+        const {rosters, players, loadRosters, loadPlayers, rosterID} = this.props;
 
         if (rosters.shouldReload) {
             loadRosters();
@@ -149,6 +159,11 @@ class GameControlRoster extends Component {
         if (players.shouldReload) {
             loadPlayers();
         }
+
+        // this.setState({
+        //     data: rosters.list.get(rosterID).players
+        //     .map(player => createData(players.list.get(player.id).name, player.num))
+        // })
     }
 
 
@@ -179,11 +194,19 @@ class GameControlRoster extends Component {
 
 
     render() {
-        const {order, orderBy, data} = this.state;
-        const {classes, rosters, players} = this.props;
+        const {order, orderBy} = this.state;
+        const {classes, rosters, players, rosterID} = this.props;
 
         if (rosters.isLoading || rosters.shouldReload ||
-            players.isLoading || players.shouldReload) return <Loader />;
+            players.isLoading || players.shouldReload) return <Loader/>;
+
+        const data = rosters.list.get(rosterID).players
+            .map(player => createData(
+                `${players.list.get(player.id).secondName} ${players.list.get(player.id).firstName[0]}.`,
+                player.num
+            ));
+
+        // debugger
 
         return (
             <div className={classes.tableWrapper}>
@@ -210,13 +233,18 @@ class GameControlRoster extends Component {
                                         tabIndex={-1}
                                         key={n.id}
                                         selected={isSelected}
-                                        className={classes.hover}
+                                        className={classes.row}
                                     >
-                                        <TableCell component="th" scope="row" padding="default">
-                                            {n.name}
+                                        <TableCell
+                                            numeric
+                                            component="th"
+                                            scope="row"
+                                            padding="default"
+                                            style={{padding: '0px 4px 0px 0px'}}
+                                        >
+                                            {n.num}
                                         </TableCell>
-                                        <TableCell numeric>{n.players}</TableCell>
-                                        <TableCell numeric>{n.games}</TableCell>
+                                        <TableCell style={{padding: '0px 0px 0px 4px'}}>{n.name}</TableCell>
                                     </TableRow>
                                 );
                             })}
@@ -232,11 +260,19 @@ class GameControlRoster extends Component {
     }
 }
 
-GameControlRoster.propTypes = {};
+GameControlRoster.propTypes = {
+    rosterID: PropTypes.string.isRequired,
+    classes: PropTypes.object.isRequired,
+    loadRosters: PropTypes.func.isRequired,
+    loadPlayers: PropTypes.func.isRequired,
+    //from store
+    rosters: PropTypes.object.isRequired,
+    players: PropTypes.object.isRequired,
+};
 
 const mapStateToProps = (state) => {
     return {
-         rosters: state.rosters,
+        rosters: state.rosters,
         players: state.players
     };
 };
