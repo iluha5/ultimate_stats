@@ -6,6 +6,7 @@ import {withStyles} from "@material-ui/core/styles/index";
 import {DRAWER_WIDTH} from "../constants";
 import GameControlRoster from "./GameControlRoster";
 import Button from '@material-ui/core/Button';
+import GameControlOtherButs from "./GameControlOtherButs";
 
 
 const styles = theme => ({
@@ -71,11 +72,11 @@ const styles = theme => ({
         overflow: 'hidden',
         justifyContent: 'space-between',
         [theme.breakpoints.down('sm')]: {
-            height: 300, // ROSTER H
+            // height: 200, // ROSTER H
             width: '100%',
         },
         [theme.breakpoints.up('sm')]: {
-            height: 350,
+            // height: 300,
             width: 600,
         },
     },
@@ -110,7 +111,7 @@ const styles = theme => ({
     },
     throwAndTurnLine: {
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         width: '100%',
         padding: '0px 15px'
     },
@@ -118,11 +119,23 @@ const styles = theme => ({
         flexDirection: 'row-reverse'
     },
     throw: {
-        width: '40%'
+        width: '40%',
+        marginTop: 3,
+        padding: 1,
+        minHeight: 20
     },
     turnOver: {
-        width: '40%'
-    }
+        width: '40%',
+        padding: 1,
+        marginTop: 3,
+        minHeight: 20
+    },
+    othersButs: {
+        display: 'flex',
+        justifyContent: 'space-around',
+        padding: '0px 3px',
+        width: '100%',
+    },
 });
 
 
@@ -164,7 +177,12 @@ class GameControl extends Component {
         this.setState({
             isTeamOneOffence: !isTeamOneOffence
         })
-    }
+    };
+
+    handleOtherBut = id => e =>{
+        console.log(e.target.innerHTML);
+        console.log(id);
+    };
 
     render() {
         const {game, teamsNames, classes} = this.props;
@@ -188,7 +206,7 @@ class GameControl extends Component {
                     </Typography>
                 </div>
 
-                <div className={classes.rosterRoot} style={{height: viewPortH - 200}}>
+                <div className={classes.rosterRoot} style={{height: viewPortH - 250}}>
                     <div className={[classes.rosterWrapper, isTeamOneOffence && classes.rosterRootIsOffence].join(' ')}>
                         <div className={classes.roster}>
                             <GameControlRoster rosterID={game.rosterID}/>
@@ -210,6 +228,11 @@ class GameControl extends Component {
                     <Button variant="outlined" color="primary" className={classes.turnOver} onClick={this.handleTurn}>
                         Турновер!
                     </Button>
+                </div>
+
+                <div className={classes.othersButs}>
+                    <GameControlOtherButs handleOtherBut={this.handleOtherBut} teamID={game.teamOneID}/>
+                    <GameControlOtherButs handleOtherBut={this.handleOtherBut} teamID={game.teamTwoID}/>
                 </div>
 
 

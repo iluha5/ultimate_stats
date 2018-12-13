@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c3e26b6-b516-4db4-9859-08cea4fb132c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Components/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Game.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/GameControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/GameControl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/GameControlRoster.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/GameControlRoster.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -24,8 +23,20 @@
       <file leaf-file-name="GameControl.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Components/GameControl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="152" column="24" selection-start-line="152" selection-start-column="24" selection-end-line="152" selection-end-column="24" />
+            <state relative-caret-position="714">
+              <caret line="208" column="82" selection-start-line="208" selection-start-column="82" selection-end-line="208" selection-end-column="82" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameControlOtherButs.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Components/GameControlOtherButs.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="20" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -78,7 +89,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/Reducers/bearer.js" />
         <option value="$PROJECT_DIR$/src/Components/LoginFailed.js" />
         <option value="$PROJECT_DIR$/src/Components/AlarmSnackBar.js" />
@@ -128,6 +138,7 @@
         <option value="$PROJECT_DIR$/src/Components/AppDrawer.js" />
         <option value="$PROJECT_DIR$/src/Components/Game.js" />
         <option value="$PROJECT_DIR$/src/Components/GameControlRoster.js" />
+        <option value="$PROJECT_DIR$/src/Components/GameControlOtherButs.js" />
         <option value="$PROJECT_DIR$/src/Components/GameControl.js" />
       </list>
     </option>
@@ -229,18 +240,18 @@
       <workItem from="1543997649869" duration="31683000" />
       <workItem from="1544273812916" duration="16442000" />
       <workItem from="1544447286784" duration="15771000" />
-      <workItem from="1544718163034" duration="3536000" />
+      <workItem from="1544718163034" duration="6996000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="266110000" />
+    <option name="totallyTimeSpent" value="269570000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="3" sideWeight="0.49848485" visible="true" weight="0.25297618" />
+      <window_info active="true" content_ui="combo" id="Project" order="3" sideWeight="0.49848485" visible="true" weight="0.17913593" />
       <window_info anchor="bottom" id="TODO" order="10" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" weight="0.32982087" />
@@ -273,7 +284,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Components/header.js" />
     <entry file="file://$PROJECT_DIR$/src/Components/Root.js" />
     <entry file="file://$PROJECT_DIR$/src/history.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -624,10 +634,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/GameControlOtherButs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="20" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Components/GameControl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="152" column="24" selection-start-line="152" selection-start-column="24" selection-end-line="152" selection-end-column="24" />
+        <state relative-caret-position="714">
+          <caret line="208" column="82" selection-start-line="208" selection-start-column="82" selection-end-line="208" selection-end-column="82" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
