@@ -263,11 +263,11 @@ class GameControlRoster extends Component {
 GameControlRoster.propTypes = {
     rosterID: PropTypes.string.isRequired,
     classes: PropTypes.object.isRequired,
-    loadRosters: PropTypes.func.isRequired,
-    loadPlayers: PropTypes.func.isRequired,
     //from store
     rosters: PropTypes.object.isRequired,
     players: PropTypes.object.isRequired,
+    loadRosters: PropTypes.func.isRequired,
+    loadPlayers: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {

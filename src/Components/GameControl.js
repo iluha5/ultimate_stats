@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import {withStyles} from "@material-ui/core/styles/index";
 import {DRAWER_WIDTH} from "../constants";
 import GameControlRoster from "./GameControlRoster";
+import Button from '@material-ui/core/Button';
 
 
 const styles = theme => ({
@@ -68,7 +69,6 @@ const styles = theme => ({
     rosterRoot: {
         display: 'flex',
         overflow: 'hidden',
-        backgroundColor: '#e3f2fd',
         justifyContent: 'space-between',
         [theme.breakpoints.down('sm')]: {
             height: 300, // ROSTER H
@@ -79,8 +79,12 @@ const styles = theme => ({
             width: 600,
         },
     },
+    rosterRootIsOffence: {
+        backgroundColor: '#fdd3d5',
+    },
     rosterWrapper: {
         width: '50%',
+        // backgroundColor: '#fdd3d5',
         '&:nth-child(2)': {
             borderLeft: '1px solid #000'
         }
@@ -103,13 +107,29 @@ const styles = theme => ({
             // boxSizing: 'content-box',
         }
 
+    },
+    throwAndTurnLine: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        width: '100%',
+        padding: '0px 15px'
+    },
+    throwAndTurnLineReverse: {
+        flexDirection: 'row-reverse'
+    },
+    throw: {
+        width: '40%'
+    },
+    turnOver: {
+        width: '40%'
     }
 });
 
 
 class GameControl extends Component {
     state = {
-      viewPortH: 0
+        viewPortH: 0,
+        isTeamOneOffence: true,
     };
 
     componentDidMount() {
@@ -121,7 +141,7 @@ class GameControl extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         const h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-        console.log('-----h', h-200);
+        console.log('-----h', h - 200);
 
         if (prevState.viewPortH !== h) {
             this.setState({
@@ -130,9 +150,25 @@ class GameControl extends Component {
         }
     }
 
+    handleThrow = (e) => {
+        e.preventDefault();
+        const {isTeamOneOffence} = this.state;
+
+        console.log('----- throw team one?', isTeamOneOffence);
+    }
+
+    handleTurn = (e) => {
+        e.preventDefault();
+        const {isTeamOneOffence} = this.state;
+
+        this.setState({
+            isTeamOneOffence: !isTeamOneOffence
+        })
+    }
+
     render() {
         const {game, teamsNames, classes} = this.props;
-        const {viewPortH} = this.state;
+        const {viewPortH, isTeamOneOffence} = this.state;
 
         return (
             <div className={classes.root}>
@@ -151,18 +187,32 @@ class GameControl extends Component {
                         {teamsNames[1]} [{game.codeTwo}]
                     </Typography>
                 </div>
+
                 <div className={classes.rosterRoot} style={{height: viewPortH - 200}}>
-                    <div className={classes.rosterWrapper}>
+                    <div className={[classes.rosterWrapper, isTeamOneOffence && classes.rosterRootIsOffence].join(' ')}>
                         <div className={classes.roster}>
                             <GameControlRoster rosterID={game.rosterID}/>
                         </div>
                     </div>
-                    <div className={classes.rosterWrapper}>
+                    <div
+                        className={[classes.rosterWrapper, !isTeamOneOffence && classes.rosterRootIsOffence].join(' ')}>
                         <div className={classes.roster}>
                             <GameControlRoster rosterID={game.rosterID}/>
                         </div>
                     </div>
                 </div>
+
+                <div
+                    className={[classes.throwAndTurnLine, !isTeamOneOffence && classes.throwAndTurnLineReverse].join(' ')}>
+                    <Button variant="outlined" color="secondary" className={classes.throw} onClick={this.handleThrow}>
+                        Пас!
+                    </Button>
+                    <Button variant="outlined" color="primary" className={classes.turnOver} onClick={this.handleTurn}>
+                        Турновер!
+                    </Button>
+                </div>
+
+
             </div>
 
         );

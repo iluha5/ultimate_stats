@@ -115,9 +115,6 @@ class Game extends Component {
                     {tabValue === 0 &&
                     <TabContainer>
                         <GameControl gameID={id}/>
-                        {/*Панель ведения игры.*/}
-                        {/*gameID: {id},*/}
-                        {/*tournamentID: {tournamentID}*/}
                     </TabContainer>
                     }
                     {tabValue === 1 &&
