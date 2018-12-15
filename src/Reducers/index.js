@@ -7,6 +7,7 @@ import teams from "./teams";
 import games from "./games";
 import rosters from "./rosters";
 import players from "./players";
+import logs from "./logs";
 
 export default combineReducers({
     router: routerReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
     teams,
     games,
     rosters,
-    players
+    players,
+    logs
 })

@@ -1,7 +1,7 @@
 import {
     API,
     FAIL, LOAD_ALL_TEAMS,
-    LOAD_BEARER, LOAD_GAMES, LOAD_PLAYERS, LOAD_ROSTERS,
+    LOAD_BEARER, LOAD_GAMES, LOAD_LOG, LOAD_LOG_LIST, LOAD_PLAYERS, LOAD_ROSTERS,
     LOAD_TEAMS, LOAD_TOURNAMENTS,
     LOAD_USERS, PUSH_NEW_TEAM,
     PUSH_NEW_TOURNAMENT, SHOULD_RELOAD,
@@ -11,6 +11,62 @@ import {
 } from "./constants";
 import {push, replace} from 'react-router-redux';
 import uuidv4 from 'uuid/v4';
+
+// export const loadAllLogs = () => {
+//     return (dispatch) => {
+//         dispatch({
+//             type: LOAD_LOG_LIST + START
+//         });
+//
+//         fetch (API.logs)
+//             .then(res => {
+//                 if (res.status >= 400) {
+//                     throw new Error(res.statusText)
+//                 }
+//                 return res.json()
+//             })
+//             .then(response => dispatch({
+//                     type: LOAD_LOG_LIST + SUCCESS,
+//                     payload: response
+//                 })
+//             )
+//             .catch(error => {
+//                 dispatch({
+//                     type: LOAD_LOG_LIST + FAIL,
+//                     payload: {error}
+//                 });
+//             });
+//     }
+// };
+
+export const loadLog = (logID) => {
+    return (dispatch) => {
+        dispatch({
+            type: LOAD_LOG + START,
+            payload: {id: logID}
+        });
+
+        fetch (API.logs + '/' + logID)
+            .then(res => {
+                if (res.status >= 400) {
+                    throw new Error(res.statusText)
+                }
+                return res.json()
+            })
+            .then(response => dispatch({
+                    type: LOAD_LOG + SUCCESS,
+                    payload: response
+                })
+            )
+            .catch(error => {
+                dispatch({
+                    type: LOAD_LOG + FAIL,
+                    payload: {error}
+                });
+            });
+    }
+};
+
 
 export const loadRosters = () => {
     return (dispatch) => {

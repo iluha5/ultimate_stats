@@ -13,6 +13,7 @@ export const API = {
     games: '/games',
     rosters: '/rosters',
     players: '/players',
+    logs: '/logs',
 };
 
 // commands
@@ -29,6 +30,8 @@ export const LOAD_ALL_TEAMS = 'LOAD_ALL_TEAMS';
 export const LOAD_GAMES = 'LOAD_GAMES';
 export const UPDATE_TOURNAMENT = 'UPDATE_TOURNAMENT';
 export const UPDATE_TIMER_GAME = 'UPDATE_TIMER_GAME';
+export const LOAD_LOG_LIST = 'LOAD_LOG_LIST';
+export const LOAD_LOG = 'LOAD_LOG';
 
 // statuses
 export const WRONG_USER = 'WRONG_USER';
@@ -43,3 +46,17 @@ export const DRAWER_WIDTH = 240;
 // DB
 export const TEAM_ONE = 'TEAM_ONE';
 export const TEAM_TWO = 'TEAM_TWO';
+
+//Log
+export const GOAL = 'GOAL';
+export const TURNOVER = 'TURNOVER';
+export const THROW = 'THROW';
+export const TIMEOUT = 'TIMEOUT';
+export const SOTG = 'SOTG';
+export const INJURY = 'INJURY';
+export const OTHER = 'OTHER';
+export const TIME_STOP = 'TIME_STOP';
+export const TIME_START = 'TIME_START';
+export const TIME_PAUSE = 'TIME_PAUSE';
+
+export const UNDEFINED_PLAYER = 'UNDEFINED_PLAYER';

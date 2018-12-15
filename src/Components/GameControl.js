@@ -266,3 +266,5 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(GameControl));
+
+// #TODO добавить неизвестного игрока в ростер

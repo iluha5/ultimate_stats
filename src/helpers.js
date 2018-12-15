@@ -1,13 +1,23 @@
-import {OrderedMap, Map} from 'immutable'
+import {OrderedMap, Map, Record} from 'immutable'
 
 export function arrToMap(arr, DataRecord = Map) {
+    // debugger
     return arr.reduce((acc, item) =>
             acc.set(item.id, DataRecord(item))
         , OrderedMap({}))
 }
 
+export function arrToDataArr(arr, DataRecord = Map) {
+    return arr.map(item => DataRecord(item))
+}
+
 export function mapToArr(obj) {
     return obj.valueSeq().toArray()
+}
+
+export function convertLogObjToRecord(log, LogLineData = Map) {
+    const newList = log.list.map(line => LogLineData(line));
+    return {...log, list: newList};
 }
 
 export function convertPlainObjectToState (state, DataRecord, defaultState, DataStateRecord,  OrderedMap, listKey = 'list')  {

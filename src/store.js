@@ -38,7 +38,7 @@ const persistedStore = loadState();
 // debugger
 
 const enhancer = applyMiddleware(thunk, routerMiddleware(history));
-
+// debugger
 const store = createStore(reducer, persistedStore, enhancer);
 
 const unSubscribeLocalStorage = store.subscribe(throttle(() => {

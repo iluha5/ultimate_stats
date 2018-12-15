@@ -11,6 +11,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import SwipeableViews from 'react-swipeable-views';
 import GameControl from "./GameControl";
+import GameLog from "./GameLog";
 
 
 const styles = theme => ({
@@ -119,7 +120,7 @@ class Game extends Component {
                     }
                     {tabValue === 1 &&
                     <TabContainer>
-                        Лог
+                        <GameLog gameID={id}/>
                     </TabContainer>
                     }
                     {tabValue === 2 &&

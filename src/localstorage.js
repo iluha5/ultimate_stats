@@ -12,7 +12,7 @@ import {
     RosterData,
     RostersState,
     PlayerData,
-    PlayersState
+    PlayersState, LogData, LogsState
 } from "./model";
 
 export const loadState = (data) => {
@@ -25,13 +25,14 @@ export const loadState = (data) => {
       }
 
       let loadedState = JSON.parse(serializedState);
-      let { tournamentsList, user, games, teams, rosters, players } = loadedState;
+      let { tournamentsList, user, games, teams, rosters, players, logs } = loadedState;
       const defaultTournamentList = TournamentsListState();
       const defaultUser = UserState();
       const defaultGame = GamesState();
       const defaultTeams = TeamsState();
       const defaultRosters = RostersState();
       const defaultPlayers = PlayersState();
+      const defaultLogs = LogsState();
 // debugger
       if (tournamentsList && tournamentsList.list && !Record.isRecord(tournamentsList)) {
           tournamentsList = convertPlainObjectToState(tournamentsList, TournamentData, defaultTournamentList, TournamentsListState, OrderedMap);
@@ -62,6 +63,12 @@ export const loadState = (data) => {
           players = convertPlainObjectToState(players, PlayerData, defaultPlayers, PlayersState, OrderedMap);
           loadedState = {...loadedState, players};
       }
+
+      // if (logs && logs.list && !Record.isRecord(logs)) {
+          // logs = convertPlainObjectToState(players, LogData, defaultLogs, LogsState, Map);
+          logs = LogsState();
+          loadedState = {...loadedState, logs};
+      // }
 
       // console.log('-----localstorage, все ок', loadedState);
       // debugger

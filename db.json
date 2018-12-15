@@ -1,4 +1,83 @@
 {
+  "logs": [
+    {
+      "id": "log001",
+      "list": [
+        {
+          "type": "TIME_START",
+          "team": "",
+          "time": 0,
+          "playerGoalID": "",
+          "playerAssistID": "",
+          "currScoreTeamOne": 0,
+          "currScoreTeamTwo": 0
+        },
+        {
+          "type": "THROW",
+          "team": "TEAM_ONE",
+          "time": 30,
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": 0,
+          "currScoreTeamTwo": 0
+        },
+        {
+          "type": "THROW",
+          "team": "TEAM_ONE",
+          "time": 69,
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": 0,
+          "currScoreTeamTwo": 0
+        },
+        {
+          "type": "GOAL",
+          "team": "TEAM_ONE",
+          "time": 123,
+          "playerGoal": "r0001",
+          "playerAssist": "r0002",
+          "currScoreTeamOne": 1,
+          "currScoreTeamTwo": 0
+        },
+        {
+          "type": "GOAL",
+          "team": "TEAM_TWO",
+          "time": 345,
+          "playerGoal": "r0003",
+          "playerAssist": "r0004",
+          "currScoreTeamOne": 1,
+          "currScoreTeamTwo": 1
+        },
+        {
+          "type": "THROW",
+          "team": "TEAM_ONE",
+          "time": 380,
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": 1,
+          "currScoreTeamTwo": 1
+        },
+        {
+          "type": "THROW",
+          "team": "TEAM_ONE",
+          "time": 410,
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": 1,
+          "currScoreTeamTwo": 1
+        },
+        {
+          "type": "TIMEOUT",
+          "team": "TEAM_ONE",
+          "time": 450,
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": 1,
+          "currScoreTeamTwo": 1
+        }
+      ]
+    }
+  ],
   "playersScores": [
     {
       "id": "s0001",
@@ -208,7 +287,7 @@
     {
       "id": "3564gfdfg",
       "tournamentID": "sdsrd0-8sdfg098xcv0b-vcbn9",
-      "logID": "001",
+      "logID": "log001",
       "ownerID": "sadfa234sda",
       "teamOneID": "01",
       "teamTwoID": "02",
@@ -268,7 +347,7 @@
     {
       "id": "234wefg",
       "tournamentID": "sdsrd0-8sdfg098xcv0b-vcbn9",
-      "logID": "002",
+      "logID": "log002",
       "ownerID": "sadfa234sda",
       "teamOneID": "03",
       "teamTwoID": "04",
@@ -325,7 +404,7 @@
     {
       "id": "234wefwed3g",
       "tournamentID": "sdsrd0-8sdfg098xcv0b-vcbn9",
-      "logID": "003",
+      "logID": "log003",
       "ownerID": "sadfa234sda",
       "teamOneID": "04",
       "teamTwoID": "02",

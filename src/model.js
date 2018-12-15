@@ -102,26 +102,6 @@ export const GamesState = Record({
     list: new OrderedMap({})
 });
 
-
-///////// new
-export const PlayerScoreData = Record({
-    id: '',
-    playerID: '',
-    goals: 0,
-    assists: 0,
-    callahans: 0
-});
-export const GameStatisticData = Record({
-    id: '',
-    scoreList: new Map({}),
-});
-export const GamesStatisticsState = Record({
-    isLoading: false,
-    shouldUpload: false,
-    shouldReload: true,
-    list: new OrderedMap({})
-});
-
 export const PlayerData = Record({
     id: '',
     firstName: '',
@@ -150,6 +130,49 @@ export const RosterData = Record({
     players: new Map({})
 });
 export const RostersState = Record({
+    isLoading: false,
+    shouldUpload: false,
+    shouldReload: true,
+    list: new OrderedMap({})
+});
+
+export const LogsState = Record({
+    // isLoading: false,
+    // shouldUpload: false,
+    // shouldReload: true,
+    list: Map({})
+});
+export const LogData = Record({
+    id: '',
+    isLoading: false,
+    shouldUpload: false,
+    shouldReload: true,
+    logList: new OrderedMap({}),
+});
+export const LogLineData = Record({
+    id: '',
+    type: '',
+    team: '',
+    time: 0,
+    playerGoal: '',
+    playerAssist: '',
+    currScoreTeamOne: 0,
+    currScoreTeamTwo: 0,
+
+});
+
+export const PlayerScoreData = Record({
+    id: '',
+    playerID: '',
+    goals: 0,
+    assists: 0,
+    callahans: 0
+});
+export const GameStatisticData = Record({
+    id: '',
+    scoreList: new Map({}),
+});
+export const GamesStatisticsState = Record({
     isLoading: false,
     shouldUpload: false,
     shouldReload: true,
