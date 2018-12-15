@@ -168,7 +168,7 @@ class GameControl extends Component {
         const {isTeamOneOffence} = this.state;
 
         console.log('----- throw team one?', isTeamOneOffence);
-    }
+    };
 
     handleTurn = (e) => {
         e.preventDefault();

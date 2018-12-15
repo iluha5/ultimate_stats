@@ -22,10 +22,12 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import PlayCircleOutline from '@material-ui/icons/PlayCircleOutline';
 import PauseCircleOutline from '@material-ui/icons/PauseCircleOutline';
 import StopOutlined from '@material-ui/icons/StopOutlined';
+import FiberManualRecord from '@material-ui/icons/FiberManualRecord';
+import FiberSmartRecord from '@material-ui/icons/FiberSmartRecord';
 import Stop from '@material-ui/icons/Stop';
 import {connect} from "react-redux";
 import {goTo} from "../AC";
-import {DRAWER_WIDTH} from "../constants";
+import {DRAWER_WIDTH, NOW_UPLOADING, SHOULD_UPLOAD, STANDBY} from "../constants";
 
 
 // const drawerWidth = 240;
@@ -112,6 +114,27 @@ const styles = theme => ({
         color: '#f44336',
         paddingLeft: 5,
         paddingRight: 5
+    },
+    uploadNotNeeded: {
+        color: '#0aff68',
+        [theme.breakpoints.down('sm')]: {
+            paddingTop: 4,
+            paddingBottom: 4
+        }
+    },
+    uploadNeeded: {
+        color: '#f44336',
+        [theme.breakpoints.down('sm')]: {
+            paddingTop: 4,
+            paddingBottom: 4
+        }
+    },
+    uploadingInProgress: {
+        color: '#ffbc00',
+        [theme.breakpoints.down('sm')]: {
+            paddingTop: 4,
+            paddingBottom: 4
+        }
     }
 });
 
@@ -134,7 +157,10 @@ class AppDrawer extends React.Component {
     };
 
     render() {
-        const {classes, theme, goTo, user, title, isGame, toggleTimer, handlerStop, isTimerOn} = this.props;
+        const {
+            classes, theme, goTo, user, title, isGame, toggleTimer, handlerStop, isTimerOn, forceUpdateFromServer,
+            uploadingStatus
+        } = this.props;
         const {anchorEl} = this.state;
         const open = Boolean(anchorEl);
 
@@ -191,7 +217,7 @@ class AppDrawer extends React.Component {
                                         className={classes.controls}
                                         onClick={toggleTimer}
                                     >
-                                        {isTimerOn ? <PauseCircleOutline /> : <PlayCircleOutline />}
+                                        {isTimerOn ? <PauseCircleOutline/> : <PlayCircleOutline/>}
                                     </IconButton>
                                     < IconButton
                                         aria-haspopup="false"
@@ -199,7 +225,7 @@ class AppDrawer extends React.Component {
                                         className={classes.controls}
                                         onClick={handlerStop}
                                     >
-                                        <StopOutlined />
+                                        <StopOutlined/>
                                     </IconButton>
                                 </span>
                             )
@@ -211,6 +237,34 @@ class AppDrawer extends React.Component {
                                 {/*className={classes.userName}>*/}
                                 {/*{user.name}*/}
                                 {/*</Typography>*/}
+
+                                {uploadingStatus === STANDBY && (
+                                    <IconButton
+                                        onClick={forceUpdateFromServer}
+                                        className={classes.uploadNotNeeded}
+                                    >
+                                        <FiberManualRecord/>
+                                    </IconButton>
+                                )}
+
+                                {uploadingStatus === SHOULD_UPLOAD && (
+                                    <IconButton
+                                        onClick={forceUpdateFromServer}
+                                        className={classes.uploadNeeded}
+                                    >
+                                        <FiberManualRecord/>
+                                    </IconButton>
+                                )}
+
+                                {uploadingStatus === NOW_UPLOADING && (
+                                    <IconButton
+                                        onClick={forceUpdateFromServer}
+                                        className={classes.uploadingInProgress}
+                                    >
+                                        <FiberSmartRecord/>
+                                    </IconButton>
+                                )}
+
                                 <IconButton
                                     aria-owns={open ? 'menu-appbar' : undefined}
                                     aria-haspopup="true"
@@ -304,7 +358,9 @@ AppDrawer.propTypes = {
     classes: PropTypes.object.isRequired,
     toggleTimer: PropTypes.func,
     handlerStop: PropTypes.func,
+    forceUpdateFromServer: PropTypes.func,
     isTimerOn: PropTypes.bool,
+    uploadingStatus: PropTypes.string,
     // Injected by the documentation to work in an iframe.
     // You won't need it on your project.
     container: PropTypes.object,

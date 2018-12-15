@@ -60,3 +60,8 @@ export const TIME_START = 'TIME_START';
 export const TIME_PAUSE = 'TIME_PAUSE';
 
 export const UNDEFINED_PLAYER = 'UNDEFINED_PLAYER';
+
+// Uploading statuses
+export const STANDBY = 'STANDBY';
+export const SHOULD_UPLOAD = 'SHOULD_UPLOAD';
+export const NOW_UPLOADING = 'NOW_UPLOADING';

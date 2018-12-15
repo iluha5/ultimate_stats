@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import {withStyles} from "@material-ui/core/styles/index";
 import AppDrawer from "./AppDrawer";
-import {DRAWER_WIDTH} from "../constants";
+import {DRAWER_WIDTH, NOW_UPLOADING, SHOULD_UPLOAD, STANDBY} from "../constants";
 import GameTimer from "./GameTimer";
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -12,6 +12,9 @@ import Typography from '@material-ui/core/Typography';
 import SwipeableViews from 'react-swipeable-views';
 import GameControl from "./GameControl";
 import GameLog from "./GameLog";
+import {loadGames} from "../AC";
+import store from "../store";
+import throttle from "lodash/throttle";
 
 
 const styles = theme => ({
@@ -45,15 +48,51 @@ TabContainer.propTypes = {
     children: PropTypes.node.isRequired,
 };
 
+let uploadIntervalID;
+
 class Game extends Component {
     state = {
         isTimerOn: false,
         tabValue: 0,
+        isForceLoadFromServer: false,
+        uploadingStatus: STANDBY,
     };
     // saveTimerToStore = (currTime) => {
     //     console.log('-----currTime', currTime);
     //
     // };
+
+
+    componentDidMount() {
+        const {id, game, uploadGame} = this.props;
+        const {uploadingStatus} = this.state;
+
+        uploadIntervalID = setInterval(
+            throttle(() => {
+                if (uploadingStatus === SHOULD_UPLOAD) {
+                    // uploadGame(id, game);
+                    this.setState({
+                        uploadingStatus: NOW_UPLOADING
+                    })
+                }
+            }, 2000)
+        )
+
+    };
+
+    componentDidUpdate(prevProps, prevState) {
+        const {loadGames} = this.props;
+        if (this.state.isForceLoadFromServer) {
+            loadGames();
+            this.setState({
+                isForceLoadFromServer: false
+            })
+        }
+    };
+
+    componentWillUnmount() {
+        clearInterval(uploadIntervalID);
+    }
 
     toggleTimer = () => {
         this.setState({
@@ -71,13 +110,21 @@ class Game extends Component {
         this.setState({tabValue});
     };
 
+    forceUpdateFromServer = () => {
+        // TODO debug needed
+        console.log('-----this.state.isForceLoadFromServer', this.state.isForceLoadFromServer);
+        this.setState({
+            isForceLoadFromServer: true
+        });
+    };
+
     handleChangeIndex = index => {
-        this.setState({ tabValue: index });
+        this.setState({tabValue: index});
     };
 
     render() {
         const {classes, id, tournamentID, game, theme} = this.props;
-        const {isTimerOn, tabValue} = this.state;
+        const {isTimerOn, tabValue, uploadingStatus} = this.state;
         console.log('-----timePassed', game.timePassed);
         // debugger
 
@@ -90,6 +137,8 @@ class Game extends Component {
                     isTimerOn={isTimerOn}
                     toggleTimer={this.toggleTimer}
                     handlerStop={this.handlerStop}
+                    forceUpdateFromServer={this.forceUpdateFromServer}
+                    uploadingStatus={uploadingStatus}
                 />
                 <main className={classes.content}>
                     <AppBar position="static" color="default" className={classes.tabs}>
@@ -102,16 +151,16 @@ class Game extends Component {
                             textColor="primary"
                             className={classes.tab}
                         >
-                            <Tab label="Управление" className={classes.tab} />
-                            <Tab label="Лог" className={classes.tab} />
-                            <Tab label="Статистика" className={classes.tab} />
+                            <Tab label="Управление" className={classes.tab}/>
+                            <Tab label="Лог" className={classes.tab}/>
+                            <Tab label="Статистика" className={classes.tab}/>
                         </Tabs>
                     </AppBar>
 
                     {/*<SwipeableViews*/}
-                        {/*axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}*/}
-                        {/*index={this.state.tabValue}*/}
-                        {/*onChangeIndex={this.handleChangeIndex}*/}
+                    {/*axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}*/}
+                    {/*index={this.state.tabValue}*/}
+                    {/*onChangeIndex={this.handleChangeIndex}*/}
                     {/*>*/}
                     {tabValue === 0 &&
                     <TabContainer>
@@ -154,8 +203,10 @@ const mapStateToProps = (state, ownProps) => {
     }
 };
 
-const mapDispatchToProps = () => {
-    return {};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        loadGames: () => dispatch(loadGames()),
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles, {withTheme: true})(Game));

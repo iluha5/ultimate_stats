@@ -253,6 +253,22 @@
       "isCoach": false,
       "isSotgCaptain": false,
       "description": ""
+    },
+    {
+      "id": "r0009",
+      "firstName": "Петька",
+      "secondName": "ТОпов",
+      "patronymic": "",
+      "dateOfBirth": "23-09-1983",
+      "g175": "",
+      "vk": "",
+      "fb": "",
+      "email": "",
+      "avatar": "",
+      "isCaptian": false,
+      "isCoach": false,
+      "isSotgCaptain": false,
+      "description": ""
     }
   ],
   "rosters": [
@@ -266,6 +282,7 @@
         {"id": "r0005", "num": 3},
         {"id": "r0006", "num": 1},
         {"id": "r0007", "num": 89},
+        {"id": "r0009", "num": 89},
         {"id": "r0008", "num": 99}
       ]
     },
@@ -291,15 +308,15 @@
       "ownerID": "sadfa234sda",
       "teamOneID": "01",
       "teamTwoID": "02",
-      "inProgress": false,
+      "inProgress": true,
       "isFinished": true,
       "offense": "TEAM_ONE",
       "win": "TEAM_TWO",
       "teamOneScore": "5",
-      "teamTwoScore": "11",
+      "teamTwoScore": "9",
       "codeOne": "C1",
       "codeTwo": "C3",
-      "teamOneTurnovers": 3,
+      "teamOneTurnovers": 4,
       "teamTwoTurnovers": 9,
       "fullTimeDuration": 26.5,
       "teamOneOffenceDuration": 14,
