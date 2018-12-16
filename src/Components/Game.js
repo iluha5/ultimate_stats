@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import SwipeableViews from 'react-swipeable-views';
 import GameControl from "./GameControl";
 import GameLog from "./GameLog";
-import {gameShouldUpload, loadGames, updateGame} from "../AC";
+import {gameShouldUpload, loadGames, loadLog, loadPlayers, loadRosters, updateGame} from "../AC";
 import store from "../store";
 import throttle from "lodash/throttle";
 
@@ -115,10 +115,13 @@ class Game extends Component {
     };
 
     forceUpdateFromServer = () => {
-        const {loadGames} = this.props;
+        const {loadGames, loadLog, loadPlayers, loadRosters, game} = this.props;
         
         if (window.confirm('Загрузить версию игры с сервера? (возможна потеря последних данных, введенных с Вашего устройства)')) {
             loadGames();
+            loadLog(game.logID);
+            loadPlayers();
+            loadRosters();
         }
 
     };
@@ -174,7 +177,7 @@ class Game extends Component {
                     }
                     {tabValue === 1 &&
                     <TabContainer>
-                        <GameLog gameID={id}/>
+                        <GameLog gameID={id} logID={game.logID}/>
                     </TabContainer>
                     }
                     {tabValue === 2 &&
@@ -196,6 +199,8 @@ Game.propTypes = {
     //from store
     user: PropTypes.object.isRequired,
     game: PropTypes.object.isRequired,
+    // teams: PropTypes.object.isRequired,
+    // rosters: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired,
 };
 
@@ -204,6 +209,8 @@ const mapStateToProps = (state, ownProps) => {
     return {
         user: state.user.userData,
         game: state.games.list.get(id),
+        // teams: state.teams.list,
+        // rosters: state.rosters,
         // timePassed: state.games.list.get(id).timePassed
     }
 };
@@ -211,6 +218,9 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         loadGames: () => dispatch(loadGames()),
+        loadLog: (logID) => dispatch(loadLog(logID)),
+        loadRosters: () => dispatch(loadRosters()),
+        loadPlayers: () => dispatch(loadPlayers()),
         updateGame: (game) => dispatch(updateGame(game)),
         gameShouldUpload: (game) => dispatch(gameShouldUpload(game)),
     };

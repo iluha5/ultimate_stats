@@ -40,6 +40,51 @@
           "currScoreTeamTwo": 0
         },
         {
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": 160,
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": 1,
+          "currScoreTeamTwo": 1
+        },
+        {
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": 190,
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": 1,
+          "currScoreTeamTwo": 1
+        },
+        {
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": 203,
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": 1,
+          "currScoreTeamTwo": 1
+        },
+        {
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": 209,
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": 1,
+          "currScoreTeamTwo": 1
+        },
+        {
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": 223,
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": 1,
+          "currScoreTeamTwo": 1
+        },
+        {
           "type": "GOAL",
           "team": "TEAM_TWO",
           "time": 345,
@@ -290,7 +335,14 @@
       "id": "ros02",
       "players": [
         {"id": "r0001", "num": 4},
-        {"id": "r0002", "num": 5}
+        {"id": "r0002", "num": 5},
+        {"id": "r0003", "num": 23},
+        {"id": "r0004", "num": 16},
+        {"id": "r0005", "num": 3},
+        {"id": "r0006", "num": 1},
+        {"id": "r0007", "num": 89},
+        {"id": "r0009", "num": 89},
+        {"id": "r0008", "num": 99}
       ]
     },
     {

@@ -12,12 +12,19 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Tooltip from '@material-ui/core/Tooltip';
+import {getColorForLogLine, getLogLineToRender} from "../helpers";
 
 let counter = 0;
 
-function createData(name, players, games, temp1, temp2) {
+function createData(logLine, players, rosterTeamOne, rosterTeamTwo) {
     counter += 1;
-    return {id: counter, name, players: players, games: games, temp1: temp1, temp2: temp2};
+    // debugger
+    const data = getLogLineToRender(logLine, players, rosterTeamOne, rosterTeamTwo);
+
+    return {
+        id: counter,
+        type: logLine.type,
+        ...data};
 }
 
 function desc(a, b, orderBy) {
@@ -45,9 +52,9 @@ function getSorting(order, orderBy) {
 }
 
 const rows = [
-    {id: 'name', numeric: false, disablePadding: false, label: 'Название'},
-    {id: 'players', numeric: true, disablePadding: false, label: 'Игроков'},
-    {id: 'games', numeric: true, disablePadding: false, label: 'Игр'},
+    {id: 'time', numeric: true, disablePadding: false, label: 'Вр.'},
+    {id: 'score', numeric: false, disablePadding: false, label: 'Сч.'},
+    {id: 'details', numeric: false, disablePadding: false, label: 'Описание'},
 ];
 
 
@@ -57,11 +64,11 @@ class EnhancedTableHead extends React.Component {
     };
 
     render() {
-        const {onSelectAllClick, order, orderBy, numSelected, rowCount} = this.props;
+        const {order, orderBy, numSelected, rowCount} = this.props;
 
         return (
             <TableHead>
-                <TableRow>
+                <TableRow style={{height: 30, lineHeight: 1}}>
                     {rows.map(row => {
                         return (
                             <TableCell
@@ -69,6 +76,7 @@ class EnhancedTableHead extends React.Component {
                                 numeric={row.numeric}
                                 padding={row.disablePadding ? 'none' : 'default'}
                                 sortDirection={orderBy === row.id ? order : false}
+                                style={row.id === 'score' ? {padding: '0px 4px 0px 4px', textAlign: 'center'} : {padding: '0px 4px 0px 4px'}}
 
                             >
                                 <Tooltip
@@ -96,7 +104,7 @@ class EnhancedTableHead extends React.Component {
 EnhancedTableHead.propTypes = {
     numSelected: PropTypes.number.isRequired,
     onRequestSort: PropTypes.func.isRequired,
-    onSelectAllClick: PropTypes.func.isRequired,
+    // onSelectAllClick: PropTypes.func.isRequired,
     order: PropTypes.string.isRequired,
     orderBy: PropTypes.string.isRequired,
     rowCount: PropTypes.number.isRequired,
@@ -113,13 +121,22 @@ const styles = theme => ({
     tableWrapper: {
         overflowX: 'auto',
     },
-    hover: {
-        cursor: 'pointer'
+    hover:{
+        cursor: 'pointer',
     },
     fab: {
         position: 'fixed',
         bottom: theme.spacing.unit * 2,
         right: theme.spacing.unit * 2,
+    },
+    time: {
+        width: '10%'
+    },
+    score: {
+        width: '10%'
+    },
+    details: {
+        width: '80%'
     },
 });
 
@@ -138,11 +155,11 @@ class GameLog extends Component {
 
 
     componentDidMount() {
-        const {loadLog, log, game} = this.props;
+        const {loadLog, log, logID} = this.props;
         // debugger
         if (!log || (log.shouldReload && !log.isLoading)) {
             // window.alert(game);
-            loadLog(game.logID);
+            loadLog(logID);
         }
     }
 
@@ -180,15 +197,16 @@ class GameLog extends Component {
 
 
     render() {
-        const {log, classes} = this.props;
+        const {log, classes, players, rosterTeamOne, rosterTeamTwo} = this.props;
         const {order, orderBy, selected, rowsPerPage, page} = this.state;
 
         if (!log || log.isLoading || log.shouldReload) return <Loader />;
+        // console.log('-----log', log);
 
-        const data = [createData('name1', 3, 4 ), createData('name2', '35', '14' )];
+        const data = log.logList.map(line => createData(line, players, rosterTeamOne, rosterTeamTwo));
+        // console.log('-----data', data);
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
-        console.log('-----log', log);
         return (
               <div>
                 <div className={classes.tableWrapper}>
@@ -201,27 +219,29 @@ class GameLog extends Component {
                             onRequestSort={this.handleRequestSort}
                             rowCount={data.length}
                         />
-                        <TableBody>
+                        <TableBody >
                             {stableSort(data, getSorting(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map(n => {
+                                    // debugger
                                     const isSelected = this.isSelected(n.id);
                                     return (
                                         <TableRow
                                             hover
                                             onClick={event => this.handleClick(event, n.id)}
-                                            role="checkbox"
-                                            aria-checked={isSelected}
+                                            // role="checkbox"
+                                            // aria-checked={isSelected}
                                             tabIndex={-1}
                                             key={n.id}
                                             selected={isSelected}
                                             className={classes.hover}
+                                            style={getColorForLogLine(n.type)}
                                         >
-                                            <TableCell component="th" scope="row" padding="default">
-                                                {n.name}
+                                            <TableCell numeric component="th" scope="row" padding="default" className={classes.time} style={{padding: '0px 4px 0px 0px'}}>
+                                                {`${Math.floor(n.time / 60)}:${n.time % 60}`}
                                             </TableCell>
-                                            <TableCell numeric>{n.players}</TableCell>
-                                            <TableCell numeric>{n.games}</TableCell>
+                                            <TableCell className={classes.score} style={{padding: '0px 4px 0px 6px', textAlign: 'center'}}>{n.score}</TableCell>
+                                            <TableCell className={classes.details} style={{padding: '0px 4px 0px 0px'}}>{n.details}</TableCell>
                                         </TableRow>
                                     );
                                 })}
@@ -258,20 +278,34 @@ class GameLog extends Component {
 
 GameLog.propTypes = {
     gameID: PropTypes.string.isRequired,
+    logID: PropTypes.string.isRequired,
     //from store
-    game: PropTypes.object.isRequired,
+    // game: PropTypes.object.isRequired,
     log: PropTypes.object,
+    teams: PropTypes.object.isRequired,
+    rosters: PropTypes.object.isRequired,
+    players: PropTypes.object.isRequired,
+    rosterTeamOne: PropTypes.object.isRequired,
+    rosterTeamTwo: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
     const {gameID} = ownProps;
+    const game = state.games.list.get(gameID);
     const logID = state.games.list.get(gameID).logID;
     const log = !state.logs.list.isEmpty() ?  state.logs.list.get(logID) : null;
+    const rosterTeamOne = state.rosters.list.get(state.teams.list.get(game.teamOneID).rosterID);
+    const rosterTeamTwo = state.rosters.list.get(state.teams.list.get(game.teamTwoID).rosterID);
 // debugger
 
     return {
-        game: state.games.list.get(gameID),
+        // game: game, //state.games.list.get(gameID),
         log: log,
+        players: state.players.list,
+        teams: state.teams.list,
+        rosters: state.rosters.list,
+        rosterTeamOne: rosterTeamOne,
+        rosterTeamTwo: rosterTeamTwo,
     };
 };
 
