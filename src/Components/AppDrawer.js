@@ -238,7 +238,7 @@ class AppDrawer extends React.Component {
                                 {/*{user.name}*/}
                                 {/*</Typography>*/}
 
-                                {uploadingStatus === STANDBY && (
+                                {!uploadingStatus && (
                                     <IconButton
                                         onClick={forceUpdateFromServer}
                                         className={classes.uploadNotNeeded}
@@ -247,16 +247,16 @@ class AppDrawer extends React.Component {
                                     </IconButton>
                                 )}
 
-                                {uploadingStatus === SHOULD_UPLOAD && (
-                                    <IconButton
-                                        onClick={forceUpdateFromServer}
-                                        className={classes.uploadNeeded}
-                                    >
-                                        <FiberManualRecord/>
-                                    </IconButton>
-                                )}
+                                {/*{uploadingStatus === SHOULD_UPLOAD && (*/}
+                                    {/*<IconButton*/}
+                                        {/*onClick={forceUpdateFromServer}*/}
+                                        {/*className={classes.uploadNeeded}*/}
+                                    {/*>*/}
+                                        {/*<FiberManualRecord/>*/}
+                                    {/*</IconButton>*/}
+                                {/*)}*/}
 
-                                {uploadingStatus === NOW_UPLOADING && (
+                                {uploadingStatus && (
                                     <IconButton
                                         onClick={forceUpdateFromServer}
                                         className={classes.uploadingInProgress}
@@ -288,7 +288,7 @@ class AppDrawer extends React.Component {
                                     open={open}
                                     onClose={this.handleClose}
                                 >
-                                    <div></div>
+
                                     <Typography
                                         variant={"subtitle2"}
                                         color={"inherit"}
@@ -360,7 +360,7 @@ AppDrawer.propTypes = {
     handlerStop: PropTypes.func,
     forceUpdateFromServer: PropTypes.func,
     isTimerOn: PropTypes.bool,
-    uploadingStatus: PropTypes.string,
+    uploadingStatus: PropTypes.bool,
     // Injected by the documentation to work in an iframe.
     // You won't need it on your project.
     container: PropTypes.object,

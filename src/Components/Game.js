@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import SwipeableViews from 'react-swipeable-views';
 import GameControl from "./GameControl";
 import GameLog from "./GameLog";
-import {loadGames} from "../AC";
+import {gameShouldUpload, loadGames, updateGame} from "../AC";
 import store from "../store";
 import throttle from "lodash/throttle";
 
@@ -48,15 +48,15 @@ TabContainer.propTypes = {
     children: PropTypes.node.isRequired,
 };
 
-let uploadIntervalID;
+// let uploadIntervalID;
 
 class Game extends Component {
     state = {
         isTimerOn: false,
         tabValue: 0,
         isForceLoadFromServer: false,
-        uploadingStatus: STANDBY,
     };
+
     // saveTimerToStore = (currTime) => {
     //     console.log('-----currTime', currTime);
     //
@@ -64,35 +64,40 @@ class Game extends Component {
 
 
     componentDidMount() {
-        const {id, game, uploadGame} = this.props;
-        const {uploadingStatus} = this.state;
+        // const {id, game, uploadGame} = this.props;
+        // const {uploadingStatus} = this.state;
 
-        uploadIntervalID = setInterval(
-            throttle(() => {
-                if (uploadingStatus === SHOULD_UPLOAD) {
-                    // uploadGame(id, game);
-                    this.setState({
-                        uploadingStatus: NOW_UPLOADING
-                    })
-                }
-            }, 2000)
-        )
+        // uploadIntervalID = setInterval(
+        //     throttle(() => {
+        //         if (uploadingStatus === SHOULD_UPLOAD || game.shouldUpload) {
+        //             updateGame(game);
+        //             this.setState({
+        //                 uploadingStatus: NOW_UPLOADING
+        //             })
+        //         }
+        //     }, 2000)
+        // )
 
     };
 
     componentDidUpdate(prevProps, prevState) {
-        const {loadGames} = this.props;
-        if (this.state.isForceLoadFromServer) {
-            loadGames();
-            this.setState({
-                isForceLoadFromServer: false
-            })
-        }
-    };
+        const {game, updateGame, loadGames} = this.props;
 
-    componentWillUnmount() {
-        clearInterval(uploadIntervalID);
-    }
+        // console.log('-----this.state.isForceLoadFromServer (DidUpdate)', this.state.isForceLoadFromServer);
+        // debugger
+
+        // if (this.state.isForceLoadFromServer) {
+        //     this.setState({
+        //         isForceLoadFromServer: false
+        //     }, loadGames())
+        // }
+
+        // debugger
+        if (game.shouldUpload) {
+            updateGame(game);
+        }
+
+    };
 
     toggleTimer = () => {
         this.setState({
@@ -103,7 +108,6 @@ class Game extends Component {
     handlerStop = () => {
         let anw = window.confirm('Вы хотите завершить игру?');
         anw && this.toggleTimer();
-        // console.log('-----anw', anw);
     };
 
     handleChangeTab = (event, tabValue) => {
@@ -111,11 +115,12 @@ class Game extends Component {
     };
 
     forceUpdateFromServer = () => {
-        // TODO debug needed
-        console.log('-----this.state.isForceLoadFromServer', this.state.isForceLoadFromServer);
-        this.setState({
-            isForceLoadFromServer: true
-        });
+        const {loadGames} = this.props;
+        
+        if (window.confirm('Загрузить версию игры с сервера? (возможна потеря последних данных, введенных с Вашего устройства)')) {
+            loadGames();
+        }
+
     };
 
     handleChangeIndex = index => {
@@ -125,7 +130,7 @@ class Game extends Component {
     render() {
         const {classes, id, tournamentID, game, theme} = this.props;
         const {isTimerOn, tabValue, uploadingStatus} = this.state;
-        console.log('-----timePassed', game.timePassed);
+        // console.log('-----timePassed', game.timePassed);
         // debugger
 
         return (
@@ -138,7 +143,7 @@ class Game extends Component {
                     toggleTimer={this.toggleTimer}
                     handlerStop={this.handlerStop}
                     forceUpdateFromServer={this.forceUpdateFromServer}
-                    uploadingStatus={uploadingStatus}
+                    uploadingStatus={game.isUploading}
                 />
                 <main className={classes.content}>
                     <AppBar position="static" color="default" className={classes.tabs}>
@@ -206,6 +211,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         loadGames: () => dispatch(loadGames()),
+        updateGame: (game) => dispatch(updateGame(game)),
+        gameShouldUpload: (game) => dispatch(gameShouldUpload(game)),
     };
 };
 

@@ -4,9 +4,9 @@ import {
     LOAD_BEARER, LOAD_GAMES, LOAD_LOG, LOAD_LOG_LIST, LOAD_PLAYERS, LOAD_ROSTERS,
     LOAD_TEAMS, LOAD_TOURNAMENTS,
     LOAD_USERS, PUSH_NEW_TEAM,
-    PUSH_NEW_TOURNAMENT, SHOULD_RELOAD,
+    PUSH_NEW_TOURNAMENT, SHOULD_RELOAD, SHOULD_UPLOAD,
     START,
-    SUCCESS, UPDATE_TIMER_GAME, UPDATE_TOURNAMENT,
+    SUCCESS, UPDATE_TIMER_GAME, UPDATE_TOURNAMENT, UPLOAD_GAME,
     WRONG_USER
 } from "./constants";
 import {push, replace} from 'react-router-redux';
@@ -38,6 +38,62 @@ import uuidv4 from 'uuid/v4';
 //             });
 //     }
 // };
+
+export const updateGame = (game) => {
+    return (dispatch) => {
+        dispatch({
+            type: UPLOAD_GAME + START,
+            payload: {id: game.id},
+        });
+
+        // debugger
+        const params = {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(game)
+        };
+
+        const path = `${API.games}/${game.id}`;
+
+        fetch(path, params)
+            .then((resp) => {
+                if ((resp.status < 200) || (resp.status > 300)) {
+                    throw new Error("Response status: " + resp.status);
+                } else return resp;
+            })
+            .then((res) => {
+                dispatch({
+                    type: UPLOAD_GAME + SUCCESS,
+                    payload: {id: game.id},
+                });
+                dispatch({
+                    type: LOAD_GAMES + SHOULD_RELOAD,
+                });
+
+            })
+            .catch((err) => {
+                dispatch({
+                    type: UPLOAD_GAME + FAIL,
+                    payload: err,
+                });
+
+                // alert("Не получилось обновить таблицу турниров!");
+            })
+
+    }
+};
+
+export const gameShouldUpload = (game) => {
+    return (dispatch) => {
+        dispatch({
+            type: UPLOAD_GAME + SHOULD_UPLOAD,
+            payload: {game},
+        })
+    }
+};
+
 
 export const loadLog = (logID) => {
     return (dispatch) => {
@@ -212,6 +268,7 @@ export const pushNewTeam = (team) => {
 
 
 export const loadGames = () => {
+    // debugger
     return (dispatch) => {
         dispatch({
             type: LOAD_GAMES + START

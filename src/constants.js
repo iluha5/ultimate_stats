@@ -28,6 +28,7 @@ export const PUSH_NEW_TEAM = 'PUSH_NEW_TEAM';
 export const SHOULD_RELOAD = 'SHOULD_RELOAD';
 export const LOAD_ALL_TEAMS = 'LOAD_ALL_TEAMS';
 export const LOAD_GAMES = 'LOAD_GAMES';
+export const UPLOAD_GAME = 'UPLOAD_GAME';
 export const UPDATE_TOURNAMENT = 'UPDATE_TOURNAMENT';
 export const UPDATE_TIMER_GAME = 'UPDATE_TIMER_GAME';
 export const LOAD_LOG_LIST = 'LOAD_LOG_LIST';
