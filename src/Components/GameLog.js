@@ -157,7 +157,7 @@ class GameLog extends Component {
         selected: [],
         data: [],
         page: 0,
-        rowsPerPage: 10,
+        rowsPerPage: 25,
         // isOpenAddTeam: false,
     };
 

@@ -6,9 +6,10 @@ import PropTypes from 'prop-types';
 const styles = theme => ({
     but: {
         padding: 1,
-        minHeight: 20,
+        minHeight: 30,
         minWidth: 35,
         marginTop: 3,
+        marginLeft: 3,
     },
 
 });

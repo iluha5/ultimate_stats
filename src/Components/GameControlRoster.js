@@ -90,7 +90,7 @@ class EnhancedTableHead extends React.Component {
 
         return (
             <TableHead >
-                <TableRow style={{height: 25}}>
+                <TableRow style={{height: 25, backgroundColor: '#f4f3f0'}}>
                     {rows.map(row => {
                         return (
                             <TableCell
@@ -136,7 +136,7 @@ EnhancedTableHead.propTypes = {
 class GameControlRoster extends Component {
     state = {
         order: 'asc',
-        orderBy: 'players',
+        orderBy: 'num',
         selected: [],
         data: [],
 
