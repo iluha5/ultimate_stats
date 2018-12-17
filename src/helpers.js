@@ -2,7 +2,7 @@ import {OrderedMap, Map, Record} from 'immutable'
 import {
     GOAL,
     INJURY,
-    OTHER,
+    OTHER, PULL,
     SOTG, TEAM_ONE,
     THROW,
     TIME_PAUSE,
@@ -67,13 +67,19 @@ export function convertPlainObjectToState(state, DataRecord, defaultState, DataS
 export function getColorForLogLine(type) {
     switch (type) {
         case GOAL:
-            return {backgroundColor: '#ffbeb4'};
+            return {backgroundColor: '#caffd8'};
+        case TURNOVER:
+            return {backgroundColor: '#fff09b'};
+        case TIME_STOP:
+        case TIME_START:
+        case TIME_PAUSE:
+            return {backgroundColor: '#ffa7ac'};
         default:
             return null;
     }
 }
 
-export function getLogLineToRender(logLine, players, rosterTeamOne, rosterTeamTwo) {
+export function getLogLineToRender(logLine, players, rosterTeamOne, rosterTeamTwo, teamNames) {
     const time = logLine.time;
     let score = `${logLine.currScoreTeamOne} - ${logLine.currScoreTeamTwo}`;
     let details = `${logLine.type}`;
@@ -105,31 +111,34 @@ export function getLogLineToRender(logLine, players, rosterTeamOne, rosterTeamTw
             score = logLine.team === TEAM_ONE ? `${logLine.currScoreTeamOne}.- ${logLine.currScoreTeamTwo}` : `${logLine.currScoreTeamOne} -.${logLine.currScoreTeamTwo}`;
             break;
         case TURNOVER:
-            // details = '';
+            details = `Турновер. Атака: ${teamNames[logLine.team]}`;
             break;
         case THROW:
-            // details = '';
+            details = `Бросок: ${teamNames[logLine.team].substr(0,15)}.`;
             break;
         case TIMEOUT:
-            // details = '';
+            details = `Таймаут: ${teamNames[logLine.team].substr(0,15)}.`;
             break;
         case SOTG:
-            // details = '';
+            details = `Спирит. таймаут: ${teamNames[logLine.team].substr(0,15)}.`;
             break;
         case INJURY:
-            // details = '';
+            details = `Остановка по травме: ${teamNames[logLine.team].substr(0,15)}.`;
             break;
         case OTHER:
-            // details = '';
+            details = `Прочая остановка: ${teamNames[logLine.team].substr(0,15)}.`;
             break;
         case TIME_STOP:
-            // details = '';
+            details = `ИГРА ОКОНЧЕНА!`;
             break;
         case TIME_START:
-            // details = '';
+            details = `ВРЕМЯ ПОШЛО!`;
             break;
         case TIME_PAUSE:
-            // details = '';
+            details = `ВРЕМЯ ОСТАНОВЛЕНО!!`;
+            break;
+        case PULL:
+            details = `Пулл: ${teamNames[logLine.team].substr(0,15)}.`;
             break;
         default:
             details = 'Неизвестное действие';

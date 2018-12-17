@@ -13,18 +13,20 @@ import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Tooltip from '@material-ui/core/Tooltip';
 import {getColorForLogLine, getLogLineToRender} from "../helpers";
+import {TEAM_ONE, TEAM_TWO} from "../constants";
 
 let counter = 0;
 
-function createData(logLine, players, rosterTeamOne, rosterTeamTwo) {
+function createData(logLine, players, rosterTeamOne, rosterTeamTwo, teamNames) {
     counter += 1;
     // debugger
-    const data = getLogLineToRender(logLine, players, rosterTeamOne, rosterTeamTwo);
+    const data = getLogLineToRender(logLine, players, rosterTeamOne, rosterTeamTwo, teamNames);
 
     return {
         id: counter,
         type: logLine.type,
-        ...data};
+        ...data
+    };
 }
 
 function desc(a, b, orderBy) {
@@ -51,10 +53,10 @@ function getSorting(order, orderBy) {
     return order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy);
 }
 
-const rows = [
+const rows = (playingTeams) => [
     {id: 'time', numeric: true, disablePadding: false, label: 'Вр.'},
     {id: 'score', numeric: false, disablePadding: false, label: 'Сч.'},
-    {id: 'details', numeric: false, disablePadding: false, label: 'Описание'},
+    {id: 'details', numeric: false, disablePadding: false, label: `Описание (${playingTeams})`},
 ];
 
 
@@ -64,19 +66,23 @@ class EnhancedTableHead extends React.Component {
     };
 
     render() {
-        const {order, orderBy, numSelected, rowCount} = this.props;
+        const {order, orderBy, numSelected, rowCount, teamNames} = this.props;
+        const playingTeams = `${teamNames[TEAM_ONE].substr(0, 5)}. - ${teamNames[TEAM_TWO].substr(0, 5)}.`
 
         return (
             <TableHead>
                 <TableRow style={{height: 30, lineHeight: 1}}>
-                    {rows.map(row => {
+                    {rows(playingTeams).map(row => {
                         return (
                             <TableCell
                                 key={row.id}
                                 numeric={row.numeric}
                                 padding={row.disablePadding ? 'none' : 'default'}
                                 sortDirection={orderBy === row.id ? order : false}
-                                style={row.id === 'score' ? {padding: '0px 4px 0px 4px', textAlign: 'center'} : {padding: '0px 4px 0px 4px'}}
+                                style={row.id === 'score' ? {
+                                    padding: '0px 4px 0px 4px',
+                                    textAlign: 'center'
+                                } : {padding: '0px 4px 0px 4px'}}
 
                             >
                                 <Tooltip
@@ -108,6 +114,7 @@ EnhancedTableHead.propTypes = {
     order: PropTypes.string.isRequired,
     orderBy: PropTypes.string.isRequired,
     rowCount: PropTypes.number.isRequired,
+    teamNames: PropTypes.object.isRequired,
 };
 
 const styles = theme => ({
@@ -121,8 +128,9 @@ const styles = theme => ({
     tableWrapper: {
         overflowX: 'auto',
     },
-    hover:{
+    hover: {
         cursor: 'pointer',
+        height: 'auto'
     },
     fab: {
         position: 'fixed',
@@ -130,22 +138,22 @@ const styles = theme => ({
         right: theme.spacing.unit * 2,
     },
     time: {
-        width: '10%'
+        width: '12%'
     },
     score: {
-        width: '10%'
+        width: '14%'
     },
     details: {
-        width: '80%'
+        width: '74%',
+        lineHeight: 1,
     },
 });
 
 
-
 class GameLog extends Component {
     state = {
-        order: 'asc',
-        orderBy: 'players',
+        order: 'desc',
+        orderBy: 'time',
         selected: [],
         data: [],
         page: 0,
@@ -155,12 +163,19 @@ class GameLog extends Component {
 
 
     componentDidMount() {
-        const {loadLog, log, logID} = this.props;
+        const {loadLog, log, logID, preview} = this.props;
+        const {order} = this.state;
         // debugger
         if (!log || (log.shouldReload && !log.isLoading)) {
             // window.alert(game);
             loadLog(logID);
         }
+
+        // if (preview && order === 'asc'){
+        //     this.setState({
+        //         order: 'desc'
+        //     });
+        // }
     }
 
     componentDidUpdate() {
@@ -197,29 +212,32 @@ class GameLog extends Component {
 
 
     render() {
-        const {log, classes, players, rosterTeamOne, rosterTeamTwo} = this.props;
+        const {log, classes, players, rosterTeamOne, rosterTeamTwo, teamNames, preview} = this.props;
         const {order, orderBy, selected, rowsPerPage, page} = this.state;
 
-        if (!log || log.isLoading || log.shouldReload) return <Loader />;
+        if (!log || log.isLoading || log.shouldReload) return <Loader/>;
         // console.log('-----log', log);
 
-        const data = log.logList.map(line => createData(line, players, rosterTeamOne, rosterTeamTwo));
+        const data = log.logList.map(line => createData(line, players, rosterTeamOne, rosterTeamTwo, teamNames));
         // console.log('-----data', data);
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
         return (
-              <div>
+            <div>
                 <div className={classes.tableWrapper}>
                     <Table className={classes.table} aria-labelledby="tableTitle">
-                        <EnhancedTableHead
-                            numSelected={selected.length}
-                            order={order}
-                            orderBy={orderBy}
-                            onSelectAllClick={this.handleSelectAllClick}
-                            onRequestSort={this.handleRequestSort}
-                            rowCount={data.length}
-                        />
-                        <TableBody >
+                        {!preview && (
+                            <EnhancedTableHead
+                                numSelected={selected.length}
+                                order={order}
+                                orderBy={orderBy}
+                                onSelectAllClick={this.handleSelectAllClick}
+                                onRequestSort={this.handleRequestSort}
+                                rowCount={data.length}
+                                teamNames={teamNames}
+                            />)
+                        }
+                        <TableBody>
                             {stableSort(data, getSorting(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map(n => {
@@ -237,11 +255,16 @@ class GameLog extends Component {
                                             className={classes.hover}
                                             style={getColorForLogLine(n.type)}
                                         >
-                                            <TableCell numeric component="th" scope="row" padding="default" className={classes.time} style={{padding: '0px 4px 0px 0px'}}>
+                                            <TableCell numeric component="th" scope="row" padding="default"
+                                                       className={classes.time} style={{padding: '0px 4px 0px 0px'}}>
                                                 {`${Math.floor(n.time / 60)}:${n.time % 60}`}
                                             </TableCell>
-                                            <TableCell className={classes.score} style={{padding: '0px 4px 0px 6px', textAlign: 'center'}}>{n.score}</TableCell>
-                                            <TableCell className={classes.details} style={{padding: '0px 4px 0px 0px'}}>{n.details}</TableCell>
+                                            <TableCell className={classes.score} style={{
+                                                padding: '0px 4px 0px 6px',
+                                                textAlign: 'center'
+                                            }}>{n.score}</TableCell>
+                                            <TableCell className={classes.details}
+                                                       style={{padding: '0px 4px 0px 0px'}}>{n.details}</TableCell>
                                         </TableRow>
                                     );
                                 })}
@@ -279,6 +302,7 @@ class GameLog extends Component {
 GameLog.propTypes = {
     gameID: PropTypes.string.isRequired,
     logID: PropTypes.string.isRequired,
+    preview: PropTypes.bool,
     //from store
     // game: PropTypes.object.isRequired,
     log: PropTypes.object,
@@ -292,11 +316,14 @@ GameLog.propTypes = {
 const mapStateToProps = (state, ownProps) => {
     const {gameID} = ownProps;
     const game = state.games.list.get(gameID);
+    const teamNames = {
+        [TEAM_ONE]: state.teams.list.get(game.teamOneID).name,
+        [TEAM_TWO]: state.teams.list.get(game.teamTwoID).name,
+    };
     const logID = state.games.list.get(gameID).logID;
-    const log = !state.logs.list.isEmpty() ?  state.logs.list.get(logID) : null;
+    const log = !state.logs.list.isEmpty() ? state.logs.list.get(logID) : null;
     const rosterTeamOne = state.rosters.list.get(state.teams.list.get(game.teamOneID).rosterID);
     const rosterTeamTwo = state.rosters.list.get(state.teams.list.get(game.teamTwoID).rosterID);
-// debugger
 
     return {
         // game: game, //state.games.list.get(gameID),
@@ -306,6 +333,7 @@ const mapStateToProps = (state, ownProps) => {
         rosters: state.rosters.list,
         rosterTeamOne: rosterTeamOne,
         rosterTeamTwo: rosterTeamTwo,
+        teamNames: teamNames,
     };
 };
 

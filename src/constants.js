@@ -1,9 +1,9 @@
 // for API
-export const START = 'START';
-export const SUCCESS = 'SUCCESS';
-export const FAIL = 'FAIL';
-export const LOADING = 'LOADING';
-export const LOADED = 'LOADED';
+export const START = '_START';
+export const SUCCESS = '_SUCCESS';
+export const FAIL = '_FAIL';
+export const LOADING = '_LOADING';
+export const LOADED = '_LOADED';
 
 export const API = {
     bearer: '/bearer',
@@ -51,6 +51,7 @@ export const TEAM_TWO = 'TEAM_TWO';
 //Log
 export const GOAL = 'GOAL';
 export const TURNOVER = 'TURNOVER';
+export const PULL = 'PULL';
 export const THROW = 'THROW';
 export const TIMEOUT = 'TIMEOUT';
 export const SOTG = 'SOTG';

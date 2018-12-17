@@ -119,6 +119,51 @@
           "playerAssist": "",
           "currScoreTeamOne": 1,
           "currScoreTeamTwo": 1
+        },
+        {
+          "type": "TURNOVER",
+          "team": "TEAM_TWO",
+          "time": 471,
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": 1,
+          "currScoreTeamTwo": 1
+        },
+        {
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": 482,
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": 1,
+          "currScoreTeamTwo": 1
+        },
+        {
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": 490,
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": 1,
+          "currScoreTeamTwo": 1
+        },
+        {
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": 493,
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": 1,
+          "currScoreTeamTwo": 1
+        },
+        {
+          "type": "GOAL",
+          "team": "TEAM_TWO",
+          "time": 498,
+          "playerGoal": "r0002",
+          "playerAssist": "r0003",
+          "currScoreTeamOne": 1,
+          "currScoreTeamTwo": 2
         }
       ]
     }

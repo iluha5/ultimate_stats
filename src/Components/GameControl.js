@@ -7,6 +7,7 @@ import {DRAWER_WIDTH} from "../constants";
 import GameControlRoster from "./GameControlRoster";
 import Button from '@material-ui/core/Button';
 import GameControlOtherButs from "./GameControlOtherButs";
+import GameLog from "./GameLog";
 
 
 const styles = theme => ({
@@ -85,13 +86,9 @@ const styles = theme => ({
     },
     rosterWrapper: {
         width: '50%',
-        // backgroundColor: '#fdd3d5',
         '&:nth-child(2)': {
             borderLeft: '1px solid #000'
         }
-        // overflowY: 'scroll',
-        // paddingRight: 17,
-        // boxSizing: 'content-box'
     },
     roster: {
         width: '100%',
@@ -136,6 +133,23 @@ const styles = theme => ({
         padding: '0px 3px',
         width: '100%',
     },
+    gameLogPrev: {
+        height: 60,
+        width: '100%',
+        // overflowY: 'hidden',
+        border: '1px solid #3A6DFD',
+        marginTop: 4,
+        overflowY: 'scroll',
+        paddingRight: 17,
+        boxSizing: 'content-box',
+
+    },
+    gameLogPrevWrapper: {
+        // // [theme.breakpoints.down('sm')]: {
+        // overflowY: 'scroll',
+        // paddingRight: 17,
+        // boxSizing: 'content-box',
+    },
 });
 
 
@@ -179,13 +193,13 @@ class GameControl extends Component {
         })
     };
 
-    handleOtherBut = id => e =>{
+    handleOtherBut = id => e => {
         console.log(e.target.innerHTML);
         console.log(id);
     };
 
     render() {
-        const {game, teamsNames, classes} = this.props;
+        const {game, teamsNames, classes, gameID} = this.props;
         const {viewPortH, isTeamOneOffence} = this.state;
 
         return (
@@ -233,6 +247,11 @@ class GameControl extends Component {
                 <div className={classes.othersButs}>
                     <GameControlOtherButs handleOtherBut={this.handleOtherBut} teamID={game.teamOneID}/>
                     <GameControlOtherButs handleOtherBut={this.handleOtherBut} teamID={game.teamTwoID}/>
+                </div>
+
+                <div className={classes.gameLogPrev}>
+                    {/*<GameControlLogPrev />*/}
+                    <GameLog gameID={gameID} logID={game.logID} preview/>
                 </div>
 
 
