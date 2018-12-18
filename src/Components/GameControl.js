@@ -264,7 +264,13 @@ class GameControl extends Component {
                     isTeamOneOffence: !isTeamOneOffence,
                     isPull: false,
                 });
-            break;
+                break;
+            case TURNOVER:
+                this.setState({
+                    isTeamOneOffence: !isTeamOneOffence,
+                    isPull: false,
+                });
+                break;
         }
     };
 

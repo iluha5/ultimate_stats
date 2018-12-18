@@ -44,12 +44,11 @@ import {Record} from "immutable";
 export const gameControl = (type, game, data) => {
     return (dispatch) => {
         const {assist, goal, isTeamOneOffence} = data;
+        const offenceTeam = isTeamOneOffence ? TEAM_ONE : TEAM_TWO;
         let logLine;
 
         switch (type) {
             case PULL:
-                const offenceTeam = isTeamOneOffence ? TEAM_ONE : TEAM_TWO;
-
                 logLine = LogLineData({
                     id: uuidv4(),
                     type: type,
@@ -61,9 +60,48 @@ export const gameControl = (type, game, data) => {
                     currScoreTeamTwo: game.teamTwoScore,
 
                 });
+
+                dispatch({
+                    type: LOG_ACTION + PULL,
+                    payload: {game, logLine}
+                });
                 break;
             case THROW:
+                logLine = LogLineData({
+                    id: uuidv4(),
+                    type: type,
+                    team: offenceTeam,
+                    time: `${Math.ceil(game.timePassed / 1000)}`,
+                    playerGoal: '',
+                    playerAssist: '',
+                    currScoreTeamOne: game.teamOneScore,
+                    currScoreTeamTwo: game.teamTwoScore,
+
+                });
+
+                dispatch({
+                    type: LOG_ACTION + THROW,
+                    payload: {game, logLine}
+                });
+
+                break;
             case TURNOVER:
+                logLine = LogLineData({
+                    id: uuidv4(),
+                    type: type,
+                    team: offenceTeam,
+                    time: `${Math.ceil(game.timePassed / 1000)}`,
+                    playerGoal: '',
+                    playerAssist: '',
+                    currScoreTeamOne: game.teamOneScore,
+                    currScoreTeamTwo: game.teamTwoScore,
+
+                });
+
+                dispatch({
+                    type: LOG_ACTION + TURNOVER,
+                    payload: {game, logLine}
+                });
         }
 // debugger
         dispatch({
