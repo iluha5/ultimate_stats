@@ -64,6 +64,7 @@ export function convertPlainObjectToState(state, DataRecord, defaultState, DataS
 
     return defaultState;
 }
+
 export function getColorForLogLine(type) {
     switch (type) {
         case GOAL:
@@ -114,19 +115,19 @@ export function getLogLineToRender(logLine, players, rosterTeamOne, rosterTeamTw
             details = `Турновер. Атака: ${teamNames[logLine.team]}`;
             break;
         case THROW:
-            details = `Бросок: ${teamNames[logLine.team].substr(0,15)}.`;
+            details = `Бросок: ${teamNames[logLine.team].substr(0, 15)}.`;
             break;
         case TIMEOUT:
-            details = `Таймаут: ${teamNames[logLine.team].substr(0,15)}.`;
+            details = `Таймаут: ${teamNames[logLine.team].substr(0, 15)}.`;
             break;
         case SOTG:
-            details = `Спирит. таймаут: ${teamNames[logLine.team].substr(0,15)}.`;
+            details = `Спирит. таймаут: ${teamNames[logLine.team].substr(0, 15)}.`;
             break;
         case INJURY:
-            details = `Остановка по травме: ${teamNames[logLine.team].substr(0,15)}.`;
+            details = `Остановка по травме: ${teamNames[logLine.team].substr(0, 15)}.`;
             break;
         case OTHER:
-            details = `Прочая остановка: ${teamNames[logLine.team].substr(0,15)}.`;
+            details = `Прочая остановка: ${teamNames[logLine.team].substr(0, 15)}.`;
             break;
         case TIME_STOP:
             details = `ИГРА ОКОНЧЕНА!`;
@@ -138,7 +139,7 @@ export function getLogLineToRender(logLine, players, rosterTeamOne, rosterTeamTw
             details = `ВРЕМЯ ОСТАНОВЛЕНО!!`;
             break;
         case PULL:
-            details = `Пулл: ${teamNames[logLine.team].substr(0,15)}.`;
+            details = `Пулл: ${teamNames[logLine.team].substr(0, 15)}.`;
             break;
         default:
             details = 'Неизвестное действие';
@@ -146,3 +147,23 @@ export function getLogLineToRender(logLine, players, rosterTeamOne, rosterTeamTw
 
     return {time, score, details};
 }
+
+// export function getActionByType(type) {
+//
+//     switch (type) {
+//         case GOAL:
+//         case TURNOVER:
+//         case THROW:
+//         case TIMEOUT:
+//         case SOTG:
+//         case INJURY:
+//         case OTHER:
+//         case TIME_STOP:
+//         case TIME_START:
+//         case TIME_PAUSE:
+//         case PULL:
+//             return gameControl(type);
+//         default:
+//     }
+//
+// }

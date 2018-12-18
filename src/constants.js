@@ -49,6 +49,7 @@ export const TEAM_ONE = 'TEAM_ONE';
 export const TEAM_TWO = 'TEAM_TWO';
 
 //Log
+export const LOG_ACTION = 'LOG_ACTION';
 export const GOAL = 'GOAL';
 export const TURNOVER = 'TURNOVER';
 export const PULL = 'PULL';

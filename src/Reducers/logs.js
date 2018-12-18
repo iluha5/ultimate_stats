@@ -1,4 +1,4 @@
-import {LOAD_LOG, SHOULD_RELOAD, START, SUCCESS} from "../constants";
+import {LOAD_LOG, LOG_ACTION, PULL, SHOULD_RELOAD, START, SUCCESS, THROW, TURNOVER} from "../constants";
 import {arrToDataArr, arrToMap, convertLogObjToRecord} from "../helpers";
 import {LogData, LogLineData, LogsState} from "../model";
 
@@ -43,6 +43,21 @@ export default (logsState = defaultLogsState, action) => {
         case LOAD_LOG + SHOULD_RELOAD:
             return logsState.list
                 .set([payload.id, 'shouldReload'], true);
+
+        case LOG_ACTION:
+            // debugger
+            newState = logsState
+                .set('list', logsState.list
+                    .set(
+                        payload.game.logID,  logsState.list.get(payload.game.logID)
+                            .set('logList', [
+                                ...logsState.list.get(payload.game.logID).logList, payload.logLine
+                            ])
+                        )
+                );
+// debugger
+            return newState;
+
         default:
             return logsState;
 

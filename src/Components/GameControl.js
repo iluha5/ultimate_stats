@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from "@material-ui/core/styles/index";
-import {DRAWER_WIDTH} from "../constants";
+import {DRAWER_WIDTH, PULL, THROW, TURNOVER} from "../constants";
 import GameControlRoster from "./GameControlRoster";
 import Button from '@material-ui/core/Button';
 import GameControlOtherButs from "./GameControlOtherButs";
 import GameLog from "./GameLog";
 import Undo from '@material-ui/icons/Undo';
 import Redo from '@material-ui/icons/Redo';
+import {gameControl} from "../AC";
 // import Fab from '@material-ui/core/Fab';
 
 
@@ -200,7 +201,8 @@ class GameControl extends Component {
         viewPortH: 0,
         isTeamOneOffence: true,
         isPull: true,
-        inputLogLine: '',
+        assist: {id: '', name: ''},
+        goal: {id: '', name: ''},
     };
 
     componentDidMount() {
@@ -242,9 +244,33 @@ class GameControl extends Component {
         console.log(id);
     };
 
+    handleClick = (type) => e => {
+        const {game, gameControl} = this.props;
+        const {isTeamOneOffence, assist, goal} = this.state;
+
+        const data = {
+            isTeamOneOffence,
+            assist,
+            goal,
+        };
+
+        // debugger
+        e.preventDefault();
+        gameControl(type, game, data);
+
+        switch (type) {
+            case PULL:
+                this.setState({
+                    isTeamOneOffence: !isTeamOneOffence,
+                    isPull: false,
+                });
+            break;
+        }
+    };
+
     render() {
         const {game, teamsNames, classes, gameID} = this.props;
-        const {viewPortH, isTeamOneOffence, isPull, inputLogLine} = this.state;
+        const {viewPortH, isTeamOneOffence, isPull, assist, goal} = this.state;
 
         return (
             <div className={classes.root}>
@@ -282,18 +308,19 @@ class GameControl extends Component {
                     className={[classes.throwAndTurnLine, !isTeamOneOffence && classes.throwAndTurnLineReverse].join(' ')}>
                     {!isPull && (
                         <Button variant="outlined" color="secondary" className={classes.throw}
-                                onClick={this.handleThrow}>
+                                onClick={this.handleClick(THROW)}>
                             Пас!
                         </Button>
                     )}
                     {isPull && (
                         <Button variant="outlined" color="secondary" className={classes.throw}
-                                onClick={this.handleThrow}>
+                                onClick={this.handleClick(PULL)}>
                             Пулл!
                         </Button>
                     )}
 
-                    <Button variant="outlined" color="primary" className={classes.turnOver} onClick={this.handleTurn}>
+                    <Button variant="outlined" color="primary" className={classes.turnOver}
+                            onClick={this.handleClick(TURNOVER)}>
                         Турновер!
                     </Button>
                 </div>
@@ -304,7 +331,7 @@ class GameControl extends Component {
                 </div>
 
                 <div className={classes.inputLogLine}>
-                    {inputLogLine}
+                    {`${assist.name} ${goal.name}`}
                 </div>
 
                 <div className={classes.logWrapper}>
@@ -334,6 +361,7 @@ GameControl.propTypes = {
     //from store
     game: PropTypes.object.isRequired,
     teamsNames: PropTypes.array.isRequired,
+    gameControl: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -349,7 +377,9 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {};
+    return {
+        gameControl: (type, game, data) => dispatch(gameControl(type, game, data))
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(GameControl));

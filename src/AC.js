@@ -3,14 +3,16 @@ import {
     FAIL, LOAD_ALL_TEAMS,
     LOAD_BEARER, LOAD_GAMES, LOAD_LOG, LOAD_LOG_LIST, LOAD_PLAYERS, LOAD_ROSTERS,
     LOAD_TEAMS, LOAD_TOURNAMENTS,
-    LOAD_USERS, PUSH_NEW_TEAM,
+    LOAD_USERS, LOG_ACTION, PULL, PUSH_NEW_TEAM,
     PUSH_NEW_TOURNAMENT, SHOULD_RELOAD, SHOULD_UPLOAD,
     START,
-    SUCCESS, UPDATE_TIMER_GAME, UPDATE_TOURNAMENT, UPLOAD_GAME,
+    SUCCESS, TEAM_ONE, TEAM_TWO, THROW, TURNOVER, UPDATE_TIMER_GAME, UPDATE_TOURNAMENT, UPLOAD_GAME,
     WRONG_USER
 } from "./constants";
 import {push, replace} from 'react-router-redux';
 import uuidv4 from 'uuid/v4';
+import {LogLineData} from "./model";
+import {Record} from "immutable";
 
 // export const loadAllLogs = () => {
 //     return (dispatch) => {
@@ -38,6 +40,38 @@ import uuidv4 from 'uuid/v4';
 //             });
 //     }
 // };
+
+export const gameControl = (type, game, data) => {
+    return (dispatch) => {
+        const {assist, goal, isTeamOneOffence} = data;
+        let logLine;
+
+        switch (type) {
+            case PULL:
+                const offenceTeam = isTeamOneOffence ? TEAM_ONE : TEAM_TWO;
+
+                logLine = LogLineData({
+                    id: uuidv4(),
+                    type: type,
+                    team: offenceTeam,
+                    time: `${Math.ceil(game.timePassed / 1000)}`,
+                    playerGoal: '',
+                    playerAssist: '',
+                    currScoreTeamOne: game.teamOneScore,
+                    currScoreTeamTwo: game.teamTwoScore,
+
+                });
+                break;
+            case THROW:
+            case TURNOVER:
+        }
+// debugger
+        dispatch({
+            type: LOG_ACTION,
+            payload: {game, logLine}
+        })
+    }
+};
 
 export const updateGame = (game) => {
     return (dispatch) => {
@@ -102,7 +136,7 @@ export const loadLog = (logID) => {
             payload: {id: logID}
         });
 
-        fetch (API.logs + '/' + logID)
+        fetch(API.logs + '/' + logID)
             .then(res => {
                 if (res.status >= 400) {
                     throw new Error(res.statusText)
@@ -130,7 +164,7 @@ export const loadRosters = () => {
             type: LOAD_ROSTERS + START
         });
 
-        fetch (API.rosters)
+        fetch(API.rosters)
             .then(res => {
                 if (res.status >= 400) {
                     throw new Error(res.statusText)
@@ -157,7 +191,7 @@ export const loadPlayers = () => {
             type: LOAD_PLAYERS + START
         });
 
-        fetch (API.players)
+        fetch(API.players)
             .then(res => {
                 if (res.status >= 400) {
                     throw new Error(res.statusText)
@@ -274,7 +308,7 @@ export const loadGames = () => {
             type: LOAD_GAMES + START
         });
 
-        fetch (API.games)
+        fetch(API.games)
             .then(res => {
                 if (res.status >= 400) {
                     throw new Error(res.statusText)
@@ -297,36 +331,36 @@ export const loadGames = () => {
 
 
 export const loadAllTeams = () => {
-  return (dispatch) => {
-      dispatch({
-          type: LOAD_ALL_TEAMS + START
-      });
+    return (dispatch) => {
+        dispatch({
+            type: LOAD_ALL_TEAMS + START
+        });
 
-      fetch (API.all_teams)
-          .then(res => {
-              if (res.status >= 400) {
-                  throw new Error(res.statusText)
-              }
-              return res.json()
-          })
-          .then(response => dispatch({
-                  type: LOAD_ALL_TEAMS + SUCCESS,
-                  payload: response
-              })
-          )
-          .catch(error => {
-              dispatch({
-                  type: LOAD_ALL_TEAMS + FAIL,
-                  payload: {error}
-              });
-          });
-  }
+        fetch(API.all_teams)
+            .then(res => {
+                if (res.status >= 400) {
+                    throw new Error(res.statusText)
+                }
+                return res.json()
+            })
+            .then(response => dispatch({
+                    type: LOAD_ALL_TEAMS + SUCCESS,
+                    payload: response
+                })
+            )
+            .catch(error => {
+                dispatch({
+                    type: LOAD_ALL_TEAMS + FAIL,
+                    payload: {error}
+                });
+            });
+    }
 };
 
 export const pushNewTournament = (tournament) => {
     return (dispatch) => {
         dispatch({
-           type: PUSH_NEW_TOURNAMENT + START,
+            type: PUSH_NEW_TOURNAMENT + START,
         });
 
         // debugger
@@ -361,33 +395,33 @@ export const pushNewTournament = (tournament) => {
 };
 
 export const loadTournamentsList = () => {
-  return (dispatch) => {
-      dispatch({
-          type: LOAD_TOURNAMENTS + START,
-      });
+    return (dispatch) => {
+        dispatch({
+            type: LOAD_TOURNAMENTS + START,
+        });
 
-      fetch(API.tournaments)
-          .then(res => {
-              if (res.status >= 400) {
-                  throw new Error(res.statusText)
-              }
-              return res.json()
-          })
-          .then(response => dispatch({
-                  type: LOAD_TOURNAMENTS + SUCCESS,
-                  payload: response
-              })
-          )
-          .catch(error => {
-              dispatch({
-                  type: LOAD_TOURNAMENTS + FAIL,
-                  payload: {error}
-              });
-              // dispatch(replace('/error'))
-          });
+        fetch(API.tournaments)
+            .then(res => {
+                if (res.status >= 400) {
+                    throw new Error(res.statusText)
+                }
+                return res.json()
+            })
+            .then(response => dispatch({
+                    type: LOAD_TOURNAMENTS + SUCCESS,
+                    payload: response
+                })
+            )
+            .catch(error => {
+                dispatch({
+                    type: LOAD_TOURNAMENTS + FAIL,
+                    payload: {error}
+                });
+                // dispatch(replace('/error'))
+            });
 
 
-  }
+    }
 };
 
 export const loadBearer = () => {
