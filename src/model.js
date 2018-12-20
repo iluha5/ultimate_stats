@@ -93,7 +93,8 @@ export const GameData = Record({
     timeStart: '',
     timePassed: 0,
     statisticID: '',
-    rosterID: ''
+    rosterID: '',
+    isPull: false,
 });
 
 export const GamesState = Record({

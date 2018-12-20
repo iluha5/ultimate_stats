@@ -24,11 +24,16 @@ export default (gamesState = defaultGamesState, action) => {
                 .set('isLoading', true);
 
         case LOAD_GAMES + SUCCESS:
-            // debugger
-            return gamesState
+            debugger
+
+            let st = gamesState
                 .set('isLoading', false)
                 .set('shouldReload', false)
                 .set('list', arrToMap(payload, GameData));
+
+            debugger
+
+            return st;
 
         case LOAD_GAMES + SHOULD_RELOAD:
             return gamesState

@@ -1,5 +1,5 @@
 import {OrderedMap, Record} from 'immutable';
-import {convertPlainObjectToState} from "./helpers";
+import {convertLogToRecord, convertPlainObjectToState} from "./helpers";
 import {
     GameData,
     GamesState,
@@ -12,7 +12,7 @@ import {
     RosterData,
     RostersState,
     PlayerData,
-    PlayersState, LogData, LogsState
+    PlayersState, LogData, LogsState, LogLineData
 } from "./model";
 
 export const loadState = (data) => {
@@ -64,11 +64,12 @@ export const loadState = (data) => {
           loadedState = {...loadedState, players};
       }
 
-      // if (logs && logs.list && !Record.isRecord(logs)) {
-          // logs = convertPlainObjectToState(players, LogData, defaultLogs, LogsState, Map);
-          logs = LogsState();
+      if (logs && logs.list && !Record.isRecord(logs)) {
+          logs = convertLogToRecord(logs, LogData, LogLineData, LogsState, defaultLogs, OrderedMap);
+          // logs = LogsState();
+          // debugger
           loadedState = {...loadedState, logs};
-      // }
+      }
 
       // console.log('-----localstorage, все ок', loadedState);
       // debugger

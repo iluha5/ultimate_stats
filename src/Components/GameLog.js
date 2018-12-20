@@ -164,7 +164,7 @@ class GameLog extends Component {
 
     componentDidMount() {
         const {loadLog, log, logID, preview} = this.props;
-        const {order} = this.state;
+        // const {order} = this.state;
         // debugger
         if (!log || (log.shouldReload && !log.isLoading)) {
             // window.alert(game);

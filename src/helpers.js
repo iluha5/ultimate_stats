@@ -28,6 +28,31 @@ export function mapToArr(obj) {
     return obj.valueSeq().toArray()
 }
 
+export function convertLogToRecord(logsState, LogData, LogLineData, LogsState, defaultLogState, OrderedMap) {
+    // debugger
+    if (logsState && logsState.list && Object.keys(logsState.list).length !== 0) {
+
+        const newMap = Object.keys(logsState.list).reduce((acc, key) => {
+            let logLines = [];
+
+            if (Array.isArray(logsState.list[key].logList)) {
+                logLines = logsState.list[key].logList.map(logLine => LogLineData(logLine));
+            } else {
+            console.log('-----logsState.list[key].logList не массив! Вот logsState.list[key]', logsState.list[key]);
+            }
+
+                acc[key] = LogData({...logsState.list[key], logList: logLines});
+                return acc;
+            }
+            , {}
+        );
+
+        return LogsState({list: OrderedMap(newMap)})
+    }
+
+    return defaultLogState;
+}
+
 export function convertLogObjToRecord(log, LogLineData = Map) {
     const newList = log.list.map(line => LogLineData(line));
     return {...log, list: newList};
@@ -167,3 +192,14 @@ export function getLogLineToRender(logLine, players, rosterTeamOne, rosterTeamTw
 //     }
 //
 // }
+
+export function getMyGamesInProgress(games, userID) {
+    let result = [];
+    games.forEach(game => {
+        if (game.ownerID === userID && game.inProgress){
+            result.push(game.id);
+        }
+    });
+
+    return result;
+}

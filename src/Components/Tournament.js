@@ -47,7 +47,7 @@ const styles = theme => ({
 
 class ScrollableTabsButtonForce extends React.Component {
     state = {
-        value: 0,
+        value: 1,
     };
 
     componentDidMount() {

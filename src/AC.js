@@ -1,12 +1,12 @@
 import {
     API,
-    FAIL, LOAD_ALL_TEAMS,
+    FAIL, GAME_START, LOAD_ALL_TEAMS,
     LOAD_BEARER, LOAD_GAMES, LOAD_LOG, LOAD_LOG_LIST, LOAD_PLAYERS, LOAD_ROSTERS,
     LOAD_TEAMS, LOAD_TOURNAMENTS,
     LOAD_USERS, LOG_ACTION, PULL, PUSH_NEW_TEAM,
     PUSH_NEW_TOURNAMENT, SHOULD_RELOAD, SHOULD_UPLOAD,
     START,
-    SUCCESS, TEAM_ONE, TEAM_TWO, THROW, TURNOVER, UPDATE_TIMER_GAME, UPDATE_TOURNAMENT, UPLOAD_GAME,
+    SUCCESS, TEAM_ONE, TEAM_TWO, THROW, TURNOVER, UPDATE_GAME, UPDATE_TIMER_GAME, UPDATE_TOURNAMENT, UPLOAD_GAME,
     WRONG_USER
 } from "./constants";
 import {push, replace} from 'react-router-redux';
@@ -187,6 +187,7 @@ export const loadLog = (logID) => {
                 })
             )
             .catch(error => {
+                window.alert(`Файл лога для данной игры не найден на сервере! ID лога: ${logID}`);
                 dispatch({
                     type: LOAD_LOG + FAIL,
                     payload: {error}
@@ -251,11 +252,32 @@ export const loadPlayers = () => {
 };
 
 
+
 export const updateGameTimer = (gameID, time) => {
     return (dispatch) => {
         dispatch({
             type: UPDATE_TIMER_GAME,
             payload: {gameID, time},
+        })
+    }
+};
+
+export const updateGameStart = (gameID, data) => {
+    const {isTimerOn, inProgress} = data;
+
+    return (dispatch) => {
+        let payloadData = {};
+
+        if (isTimerOn && !inProgress){
+            payloadData = {
+                inProgress: true,
+                isPull: true
+            }
+        }
+
+        dispatch({
+            type: UPDATE_GAME + GAME_START,
+            payload: {gameID, ...payloadData},
         })
     }
 };
@@ -339,7 +361,7 @@ export const pushNewTeam = (team) => {
 };
 
 
-export const loadGames = () => {
+export const loadGames = (noToLoadGamesList) => {
     // debugger
     return (dispatch) => {
         dispatch({
@@ -353,12 +375,21 @@ export const loadGames = () => {
                 }
                 return res.json()
             })
-            .then(response => dispatch({
-                    type: LOAD_GAMES + SUCCESS,
-                    payload: response
-                })
+            .then(response => {
+                // debugger
+
+                let gamesToUpdate = response.filter(game => {
+                    return noToLoadGamesList.find(el => el === game.id) === undefined;
+                });
+// debugger
+                    dispatch({
+                        type: LOAD_GAMES + SUCCESS,
+                        payload: gamesToUpdate
+                    })
+                }
             )
             .catch(error => {
+                console.log('-----error', error);
                 dispatch({
                     type: LOAD_GAMES + FAIL,
                     payload: {error}

@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import SwipeableViews from 'react-swipeable-views';
 import GameControl from "./GameControl";
 import GameLog from "./GameLog";
-import {gameShouldUpload, loadGames, loadLog, loadPlayers, loadRosters, updateGame} from "../AC";
+import {gameShouldUpload, loadGames, loadLog, loadPlayers, loadRosters, updateGame, updateGameStart} from "../AC";
 import store from "../store";
 import throttle from "lodash/throttle";
 
@@ -64,6 +64,8 @@ class Game extends Component {
 
 
     componentDidMount() {
+        const {id} = this.props;
+        console.log('-----id game', id);
         // const {id, game, uploadGame} = this.props;
         // const {uploadingStatus} = this.state;
 
@@ -100,8 +102,15 @@ class Game extends Component {
     };
 
     toggleTimer = () => {
+        const {game, updateGameStart, id} = this.props;
+
         this.setState({
             isTimerOn: !this.state.isTimerOn
+        }, () => {
+                updateGameStart(id, {
+                    isTimerOn: this.state.isTimerOn,
+                    inProgress: game.inProgress,
+                })
         })
     };
 
@@ -222,6 +231,7 @@ const mapDispatchToProps = (dispatch) => {
         loadRosters: () => dispatch(loadRosters()),
         loadPlayers: () => dispatch(loadPlayers()),
         updateGame: (game) => dispatch(updateGame(game)),
+        updateGameStart: (gameID, data) => dispatch(updateGameStart(gameID, data)),
         gameShouldUpload: (game) => dispatch(gameShouldUpload(game)),
     };
 };

@@ -21,7 +21,7 @@ import {lighten} from '@material-ui/core/styles/colorManipulator';
 import {connect} from "react-redux";
 import {goTo, loadAllTeams, loadGames, loadTournamentsList} from "../AC";
 import Loader from "./Loader";
-import {mapToArr} from "../helpers";
+import {getMyGamesInProgress, mapToArr} from "../helpers";
 import dateFormat from 'dateformat';
 import {withRouter} from 'react-router-dom';
 
@@ -161,16 +161,17 @@ class GamesList extends React.Component {
     };
 
     componentDidMount() {
-        const {tournamentsList, teamsState, loadTournamentsList, loadAllTeams, gamesState, loadGames} = this.props;
+        const {tournamentsList, teamsState, loadTournamentsList, loadAllTeams, gamesState, loadGames, user} = this.props;
+        // loadGames(getMyGamesInProgress(gamesState.list, user.id));
 
         if (tournamentsList.shouldReload && !tournamentsList.isLoading) loadTournamentsList();
         if (teamsState.shouldReload && !teamsState.isLoading) loadAllTeams();
 
-        if (gamesState.shouldReload && !gamesState.isLoading) loadGames();
+        if (gamesState.shouldReload && !gamesState.isLoading) loadGames(getMyGamesInProgress(gamesState.list, user.id));
     }
 
     componentDidUpdate(prevProps, prevState) {
-        const {tournamentsList, teamsState, loadTournamentsList, loadAllTeams, gamesState, loadGames} = this.props;
+        const {tournamentsList, teamsState, loadTournamentsList, loadAllTeams, gamesState, loadGames, user} = this.props;
 
         if (tournamentsList.shouldReload && !tournamentsList.isLoading) {
             loadTournamentsList();
@@ -180,7 +181,7 @@ class GamesList extends React.Component {
             loadAllTeams();
         }
 
-        if (gamesState.shouldReload && !gamesState.isLoading) loadGames();
+        if (gamesState.shouldReload && !gamesState.isLoading) loadGames(getMyGamesInProgress(gamesState.list, user.id));
     }
 
 
@@ -225,9 +226,15 @@ class GamesList extends React.Component {
         const {order, orderBy, selected, rowsPerPage, page} = this.state;
 
         if (tournamentsList.shouldReload || teamsState.shouldReload ||
-            tournamentsList.isLoading || teamsState.isLoading) return <Loader/>;
+            tournamentsList.isLoading || teamsState.isLoading){
+            debugger
+            return <Loader/>;
+        }
 
-        if (gamesState.shouldReload || gamesState.isLoading) return <Loader/>;
+        if (gamesState.shouldReload || gamesState.isLoading) {
+            debugger
+            return <Loader/>;
+        }
 
         const teams = tournamentsList.list.get(tournamentID).teamsList.map(id => {
             if (!teamsState.list.get(id)) return null;
@@ -329,6 +336,7 @@ GamesList.propTypes = {
     loadTournamentsList: PropTypes.func.isRequired,
     loadGames: PropTypes.func.isRequired,
     gamesState: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -336,6 +344,7 @@ const mapStateToProps = (state, ownProps) => {
 
     return {
         // teamsList: state.tournamentsList.list[id].teamsList,
+        user: state.user.userData,
         tournamentsList: state.tournamentsList,
         teamsState: state.teams,
         gamesState: state.games,
@@ -346,7 +355,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         loadAllTeams: () => dispatch(loadAllTeams()),
         loadTournamentsList: () => dispatch(loadTournamentsList()),
-        loadGames: () => dispatch(loadGames()),
+        loadGames: (noToLoadGamesList) => dispatch(loadGames(noToLoadGamesList)),
         goTo: (path) => dispatch(goTo(path)),
     };
 };

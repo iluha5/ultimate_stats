@@ -177,7 +177,7 @@ class TournamentsList extends React.Component {
                         <AddIcon/>
                     </Button>
                 }
-                <AddTournament isOpen={isOpenAddTournament} toggleClose={this.handleCloseAddTournament}/>
+                {/*<AddTournament isOpen={isOpenAddTournament} toggleClose={this.handleCloseAddTournament}/>*/}
 
                 {clickedID ? <TournamentDetails id={clickedID} resetClickedID={this.resetClickedID} /> : null }
             </div>
