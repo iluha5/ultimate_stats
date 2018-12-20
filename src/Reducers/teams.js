@@ -26,6 +26,7 @@ const defaultTeamsState = TeamsState();
 
 export default (teamsState = defaultTeamsState, action) => {
     const {type, payload} = action;
+    // debugger
 
     // if (!Record.isRecord(teamsState)) {
     //     teamsState = convertPlainObjectToTeamsState(teamsState);

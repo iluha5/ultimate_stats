@@ -163,7 +163,7 @@ class GamesList extends React.Component {
     componentDidMount() {
         const {tournamentsList, teamsState, loadTournamentsList, loadAllTeams, gamesState, loadGames, user} = this.props;
         // loadGames(getMyGamesInProgress(gamesState.list, user.id));
-
+        // loadAllTeams();
         if (tournamentsList.shouldReload && !tournamentsList.isLoading) loadTournamentsList();
         if (teamsState.shouldReload && !teamsState.isLoading) loadAllTeams();
 
@@ -227,12 +227,12 @@ class GamesList extends React.Component {
 
         if (tournamentsList.shouldReload || teamsState.shouldReload ||
             tournamentsList.isLoading || teamsState.isLoading){
-            debugger
+            // debugger
             return <Loader/>;
         }
 
         if (gamesState.shouldReload || gamesState.isLoading) {
-            debugger
+            // debugger
             return <Loader/>;
         }
 

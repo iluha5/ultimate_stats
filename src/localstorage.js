@@ -36,31 +36,48 @@ export const loadState = (data) => {
 // debugger
       if (tournamentsList && tournamentsList.list && !Record.isRecord(tournamentsList)) {
           tournamentsList = convertPlainObjectToState(tournamentsList, TournamentData, defaultTournamentList, TournamentsListState, OrderedMap);
+          tournamentsList.set('isLoading', false);
+
           loadedState = {...loadedState, tournamentsList};
       }
 // debugger
       if (user && user.userData && !Record.isRecord(user)) {
           user = convertPlainObjectToState(user, UserData, defaultUser, UserState, OrderedMap, 'userData');
+
+          user = user.set('isLoading', false);
+
           loadedState = {...loadedState, user};
       }
 // debugger
       if (games && games.list && !Record.isRecord(games)) {
           games = convertPlainObjectToState(games, GameData, defaultGame, GamesState, OrderedMap);
+
+          games = games.set('isLoading', false);
+
           loadedState = {...loadedState, games};
       }
 // debugger
       if (teams && teams.list && !Record.isRecord(teams)) {
           teams = convertPlainObjectToState(teams, TeamData, defaultTeams, TeamsState, OrderedMap);
+// debugger
+          teams = teams.set('isLoading', false);
+
           loadedState = {...loadedState, teams};
       }
 
       if (rosters && rosters.list && !Record.isRecord(rosters)) {
           rosters = convertPlainObjectToState(rosters, RosterData, defaultRosters, RostersState, OrderedMap);
+
+          rosters = rosters.set('isLoading', false);
+
           loadedState = {...loadedState, rosters};
       }
 
       if (players && players.list && !Record.isRecord(players)) {
           players = convertPlainObjectToState(players, PlayerData, defaultPlayers, PlayersState, OrderedMap);
+
+          players = players.set('isLoading', false);
+
           loadedState = {...loadedState, players};
       }
 

@@ -1,7 +1,7 @@
 import {OrderedMap, Record} from "immutable";
 import {
     FAIL,
-    LOAD_ALL_TEAMS,
+
     LOAD_GAMES,
     LOAD_TEAMS, LOG_ACTION, PULL,
     SHOULD_RELOAD, SHOULD_UPLOAD,
@@ -24,14 +24,14 @@ export default (gamesState = defaultGamesState, action) => {
                 .set('isLoading', true);
 
         case LOAD_GAMES + SUCCESS:
-            debugger
+            // debugger
 
             let st = gamesState
                 .set('isLoading', false)
                 .set('shouldReload', false)
                 .set('list', arrToMap(payload, GameData));
 
-            debugger
+            // debugger
 
             return st;
 
