@@ -152,8 +152,8 @@ const styles = theme => ({
 
 class GamesList extends React.Component {
     state = {
-        order: 'asc',
-        orderBy: 'players',
+        order: 'desc',
+        orderBy: 'date',
         selected: [],
         data: [],
         page: 0,

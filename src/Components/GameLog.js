@@ -14,6 +14,7 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Tooltip from '@material-ui/core/Tooltip';
 import {getColorForLogLine, getLogLineToRender} from "../helpers";
 import {TEAM_ONE, TEAM_TWO} from "../constants";
+import Error from "./Error";
 
 let counter = 0;
 
@@ -179,9 +180,10 @@ class GameLog extends Component {
     }
 
     componentDidUpdate() {
-        const {loadLog, log, game} = this.props;
+        const {loadLog, log, logID} = this.props;
+        // debugger
         if (!log || (log.shouldReload && !log.isLoading)) {
-            loadLog(game.logID);
+            loadLog(logID);
         }
     }
 
@@ -216,6 +218,8 @@ class GameLog extends Component {
         const {order, orderBy, selected, rowsPerPage, page} = this.state;
 
         if (!log || log.isLoading || log.shouldReload) return <Loader/>;
+
+        if (log && log.isError) return <Error />;
         // console.log('-----log', log);
 
         const data = log.logList.map(line => createData(line, players, rosterTeamOne, rosterTeamTwo, teamNames));

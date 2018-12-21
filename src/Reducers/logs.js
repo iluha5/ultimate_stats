@@ -1,4 +1,4 @@
-import {LOAD_LOG, LOG_ACTION, PULL, SHOULD_RELOAD, START, SUCCESS, THROW, TURNOVER} from "../constants";
+import {FAIL, LOAD_LOG, LOG_ACTION, PULL, SHOULD_RELOAD, START, SUCCESS, THROW, TURNOVER} from "../constants";
 import {arrToDataArr, arrToMap, convertLogObjToRecord} from "../helpers";
 import {LogData, LogLineData, LogsState} from "../model";
 
@@ -19,6 +19,7 @@ export default (logsState = defaultLogsState, action) => {
                             payload.id, LogData()
                                 .set('isLoading', true)
                                 .set('id', payload.id)
+                                .set('isError', false)
                         )
                 );
 
@@ -43,6 +44,21 @@ export default (logsState = defaultLogsState, action) => {
         case LOAD_LOG + SHOULD_RELOAD:
             return logsState.list
                 .set([payload.id, 'shouldReload'], true);
+
+        case LOAD_LOG + FAIL:
+            newState = logsState
+                .set(
+                    'list', logsState.list
+                        .set(
+                            payload.id, LogData()
+                                .set('isLoading', false)
+                                .set('shouldReload', false)
+                                .set('isError', true)
+                                .set('id', payload.id)
+                        )
+                );
+
+            return newState;
 
         case LOG_ACTION:
             // debugger

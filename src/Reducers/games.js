@@ -24,12 +24,16 @@ export default (gamesState = defaultGamesState, action) => {
                 .set('isLoading', true);
 
         case LOAD_GAMES + SUCCESS:
+            const newList = arrToMap(payload, GameData);
+
             // debugger
 
             let st = gamesState
                 .set('isLoading', false)
                 .set('shouldReload', false)
-                .set('list', arrToMap(payload, GameData));
+                .set('list', gamesState.list
+                    .merge(newList)
+                );
 
             // debugger
 
@@ -46,7 +50,7 @@ export default (gamesState = defaultGamesState, action) => {
             // .set(['list', gameID, 'timePassed'], time);
                 .set('list', gamesState.list
                     .set(gameID, gamesState.list.get(gameID)
-                        .set('timePassed', time)))
+                        .set('timePassed', time)));
 
         case UPLOAD_GAME + START:
             return gamesState

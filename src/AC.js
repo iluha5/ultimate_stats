@@ -190,7 +190,7 @@ export const loadLog = (logID) => {
                 window.alert(`Файл лога для данной игры не найден на сервере! ID лога: ${logID}`);
                 dispatch({
                     type: LOAD_LOG + FAIL,
-                    payload: {error}
+                    payload: {error, id: logID}
                 });
             });
     }
@@ -252,7 +252,6 @@ export const loadPlayers = () => {
 };
 
 
-
 export const updateGameTimer = (gameID, time) => {
     return (dispatch) => {
         dispatch({
@@ -268,7 +267,7 @@ export const updateGameStart = (gameID, data) => {
     return (dispatch) => {
         let payloadData = {};
 
-        if (isTimerOn && !inProgress){
+        if (isTimerOn && !inProgress) {
             payloadData = {
                 inProgress: true,
                 isPull: true
@@ -376,11 +375,15 @@ export const loadGames = (noToLoadGamesList) => {
                 return res.json()
             })
             .then(response => {
-                // debugger
+                    // debugger
 
-                let gamesToUpdate = response.filter(game => {
-                    return noToLoadGamesList.find(el => el === game.id) === undefined;
-                });
+                    let gamesToUpdate = response;
+
+                    if (noToLoadGamesList && noToLoadGamesList.length !== 0) {
+                        gamesToUpdate = response.filter(game => {
+                            return noToLoadGamesList.find(el => el === game.id) === undefined;
+                        });
+                    }
 // debugger
                     dispatch({
                         type: LOAD_GAMES + SUCCESS,
@@ -389,7 +392,7 @@ export const loadGames = (noToLoadGamesList) => {
                 }
             )
             .catch(error => {
-                console.log('-----error', error);
+                console.log('-----error LoadGames', error);
                 dispatch({
                     type: LOAD_GAMES + FAIL,
                     payload: {error}
