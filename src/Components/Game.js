@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import {withStyles} from "@material-ui/core/styles/index";
 import AppDrawer from "./AppDrawer";
-import {DRAWER_WIDTH, NOW_UPLOADING, SHOULD_UPLOAD, STANDBY} from "../constants";
+import {DRAWER_WIDTH, NOW_UPLOADING, SHOULD_UPLOAD, STANDBY, UPLOAD_INTERVAL} from "../constants";
 import GameTimer from "./GameTimer";
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -12,7 +12,16 @@ import Typography from '@material-ui/core/Typography';
 import SwipeableViews from 'react-swipeable-views';
 import GameControl from "./GameControl";
 import GameLog from "./GameLog";
-import {gameShouldUpload, loadGames, loadLog, loadPlayers, loadRosters, updateGame, updateGameStart} from "../AC";
+import {
+    gameShouldUpload,
+    loadGames,
+    loadLog,
+    loadPlayers,
+    loadRosters,
+    updateGame,
+    updateGameStart,
+    updateLog
+} from "../AC";
 import store from "../store";
 import throttle from "lodash/throttle";
 
@@ -64,8 +73,18 @@ class Game extends Component {
 
 
     componentDidMount() {
-        const {id} = this.props;
-        console.log('-----id game', id);
+        const {id, game, updateGame, updateLog, log} = this.props;
+
+        this.intervalID = setInterval(() => {
+            // debugger
+            if (this.shouldGameUpload){
+                updateGame(game);
+                updateLog(log);
+            }
+        }, UPLOAD_INTERVAL);
+
+
+        // console.log('-----id game', id);
         // const {id, game, uploadGame} = this.props;
         // const {uploadingStatus} = this.state;
 
@@ -82,8 +101,22 @@ class Game extends Component {
 
     };
 
+    componentWillUnmount() {
+        clearInterval(this.intervalID);
+    }
+
     componentDidUpdate(prevProps, prevState) {
         const {game, updateGame, loadGames} = this.props;
+
+        this.shouldGameUpload = game.shouldUpload;
+
+        // if (!this.intervalID) {
+        //     this.intervalID = setInterval(() => {
+        //         if (game.shouldUpload) {
+        //             updateGame(game);
+        //         }
+        //     }, UPLOAD_INTERVAL);
+        // }
 
         // console.log('-----this.state.isForceLoadFromServer (DidUpdate)', this.state.isForceLoadFromServer);
         // debugger
@@ -95,11 +128,12 @@ class Game extends Component {
         // }
 
         // debugger
-        if (game.shouldUpload) {
-            updateGame(game);
-        }
+        // if (game.shouldUpload) {
+        //     updateGame(game);
+        // }
 
-    };
+    }
+    ;
 
     toggleTimer = () => {
         const {game, updateGameStart, id} = this.props;
@@ -107,10 +141,10 @@ class Game extends Component {
         this.setState({
             isTimerOn: !this.state.isTimerOn
         }, () => {
-                updateGameStart(id, {
-                    isTimerOn: this.state.isTimerOn,
-                    inProgress: game.inProgress,
-                })
+            updateGameStart(id, {
+                isTimerOn: this.state.isTimerOn,
+                inProgress: game.inProgress,
+            })
         })
     };
 
@@ -125,7 +159,7 @@ class Game extends Component {
 
     forceUpdateFromServer = () => {
         const {loadGames, loadLog, loadPlayers, loadRosters, game} = this.props;
-        
+
         if (window.confirm('Загрузить версию игры с сервера? (возможна потеря последних данных, введенных с Вашего устройства)')) {
             loadGames();
             loadLog(game.logID);
@@ -208,6 +242,7 @@ Game.propTypes = {
     //from store
     user: PropTypes.object.isRequired,
     game: PropTypes.object.isRequired,
+    log: PropTypes.object.isRequired,
     // teams: PropTypes.object.isRequired,
     // rosters: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired,
@@ -218,6 +253,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         user: state.user.userData,
         game: state.games.list.get(id),
+        log: state.logs.list.get(state.games.list.get(id).logID)
         // teams: state.teams.list,
         // rosters: state.rosters,
         // timePassed: state.games.list.get(id).timePassed
@@ -231,6 +267,7 @@ const mapDispatchToProps = (dispatch) => {
         loadRosters: () => dispatch(loadRosters()),
         loadPlayers: () => dispatch(loadPlayers()),
         updateGame: (game) => dispatch(updateGame(game)),
+        updateLog: (log) => dispatch(updateLog(log)),
         updateGameStart: (gameID, data) => dispatch(updateGameStart(gameID, data)),
         gameShouldUpload: (game) => dispatch(gameShouldUpload(game)),
     };

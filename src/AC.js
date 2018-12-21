@@ -1,12 +1,35 @@
 import {
     API,
-    FAIL, GAME_START, LOAD_ALL_TEAMS,
-    LOAD_BEARER, LOAD_GAMES, LOAD_LOG, LOAD_LOG_LIST, LOAD_PLAYERS, LOAD_ROSTERS,
-    LOAD_TEAMS, LOAD_TOURNAMENTS,
-    LOAD_USERS, LOG_ACTION, PULL, PUSH_NEW_TEAM,
-    PUSH_NEW_TOURNAMENT, SHOULD_RELOAD, SHOULD_UPLOAD,
+    FAIL,
+    GAME,
+    GAME_START,
+    LOAD_ALL_TEAMS,
+    LOAD_BEARER,
+    LOAD_GAMES,
+    LOAD_LOG,
+    LOAD_LOG_LIST,
+    LOAD_PLAYERS,
+    LOAD_ROSTERS,
+    LOAD_TEAMS,
+    LOAD_TOURNAMENTS,
+    LOAD_USERS,
+    LOG_ACTION,
+    PULL,
+    PUSH_NEW_TEAM,
+    PUSH_NEW_TOURNAMENT,
+    SHOULD_RELOAD,
+    SHOULD_UPLOAD,
     START,
-    SUCCESS, TEAM_ONE, TEAM_TWO, THROW, TURNOVER, UPDATE_GAME, UPDATE_TIMER_GAME, UPDATE_TOURNAMENT, UPLOAD_GAME,
+    SUCCESS,
+    TEAM_ONE,
+    TEAM_TWO,
+    THROW,
+    TURNOVER,
+    UPDATE_GAME,
+    UPDATE_TIMER_GAME,
+    UPDATE_TOURNAMENT,
+    UPLOAD_GAME,
+    UPLOAD_LOG,
     WRONG_USER
 } from "./constants";
 import {push, replace} from 'react-router-redux';
@@ -107,11 +130,26 @@ export const gameControl = (type, game, data) => {
         dispatch({
             type: LOG_ACTION,
             payload: {game, logLine}
-        })
+        });
+
+        dispatch({
+            type: UPLOAD_GAME + SHOULD_UPLOAD,
+            payload: {id: game.id},
+        });
+
+        dispatch({
+            type: UPLOAD_LOG + SHOULD_UPLOAD,
+            payload: {id: game.logId},
+        });
+
+
     }
 };
 
 export const updateGame = (game) => {
+    console.log('-----update game');
+    // debugger
+
     return (dispatch) => {
         dispatch({
             type: UPLOAD_GAME + START,
@@ -140,9 +178,9 @@ export const updateGame = (game) => {
                     type: UPLOAD_GAME + SUCCESS,
                     payload: {id: game.id},
                 });
-                dispatch({
-                    type: LOAD_GAMES + SHOULD_RELOAD,
-                });
+                // dispatch({
+                //     type: LOAD_GAMES + SHOULD_RELOAD,
+                // });
 
             })
             .catch((err) => {
@@ -150,8 +188,7 @@ export const updateGame = (game) => {
                     type: UPLOAD_GAME + FAIL,
                     payload: err,
                 });
-
-                // alert("Не получилось обновить таблицу турниров!");
+                console.error(`Не получилось обновить таблицу игры! ID игры: ${game.id}`);
             })
 
     }
@@ -161,8 +198,58 @@ export const gameShouldUpload = (game) => {
     return (dispatch) => {
         dispatch({
             type: UPLOAD_GAME + SHOULD_UPLOAD,
-            payload: {game},
+            payload: {id: game.id},
         })
+    }
+};
+
+export const updateLog = (log) => {
+    console.log('-----update log');
+    // debugger
+
+    return (dispatch) => {
+        dispatch({
+            type: UPLOAD_LOG + START,
+            payload: {id: log.id},
+        });
+
+        // debugger
+        const uploadData = {
+            id: log.id,
+            list: log.logList
+        };
+        // debugger
+        const params = {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(uploadData)
+        };
+
+        const path = `${API.logs}/${log.id}`;
+
+        fetch(path, params)
+            .then((resp) => {
+                if ((resp.status < 200) || (resp.status > 300)) {
+                    throw new Error("Response status: " + resp.status);
+                } else return resp;
+            })
+            .then((res) => {
+                dispatch({
+                    type: UPLOAD_LOG + SUCCESS,
+                    payload: {id: log.id},
+                });
+
+            })
+            .catch((err) => {
+                dispatch({
+                    type: UPLOAD_LOG + FAIL,
+                    payload: err,
+                });
+                console.error(`Не получилось обновить таблицу лога! ID игры: ${log.id}`, err);
+            })
+
     }
 };
 
@@ -188,6 +275,7 @@ export const loadLog = (logID) => {
             )
             .catch(error => {
                 window.alert(`Файл лога для данной игры не найден на сервере! ID лога: ${logID}`);
+                console.error('-----Ошибка загрузки лога', error);
                 dispatch({
                     type: LOAD_LOG + FAIL,
                     payload: {error, id: logID}

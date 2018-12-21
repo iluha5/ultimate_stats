@@ -149,6 +149,7 @@ export const LogData = Record({
     isLoading: false,
     shouldUpload: false,
     shouldReload: true,
+    isUploading: false,
     isError: false,
     logList: new OrderedMap({}),
 });

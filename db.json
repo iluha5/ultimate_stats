@@ -369,35 +369,92 @@
     {
       "id": "ros01",
       "players": [
-        {"id": "r0001", "num": 4},
-        {"id": "r0002", "num": 5},
-        {"id": "r0003", "num": 23},
-        {"id": "r0004", "num": 16},
-        {"id": "r0005", "num": 3},
-        {"id": "r0006", "num": 1},
-        {"id": "r0007", "num": 89},
-        {"id": "r0009", "num": 89},
-        {"id": "r0008", "num": 99}
+        {
+          "id": "r0001",
+          "num": 4
+        },
+        {
+          "id": "r0002",
+          "num": 5
+        },
+        {
+          "id": "r0003",
+          "num": 23
+        },
+        {
+          "id": "r0004",
+          "num": 16
+        },
+        {
+          "id": "r0005",
+          "num": 3
+        },
+        {
+          "id": "r0006",
+          "num": 1
+        },
+        {
+          "id": "r0007",
+          "num": 89
+        },
+        {
+          "id": "r0009",
+          "num": 89
+        },
+        {
+          "id": "r0008",
+          "num": 99
+        }
       ]
     },
     {
       "id": "ros02",
       "players": [
-        {"id": "r0001", "num": 4},
-        {"id": "r0002", "num": 5},
-        {"id": "r0003", "num": 23},
-        {"id": "r0004", "num": 16},
-        {"id": "r0005", "num": 3},
-        {"id": "r0006", "num": 1},
-        {"id": "r0007", "num": 89},
-        {"id": "r0009", "num": 89},
-        {"id": "r0008", "num": 99}
+        {
+          "id": "r0001",
+          "num": 4
+        },
+        {
+          "id": "r0002",
+          "num": 5
+        },
+        {
+          "id": "r0003",
+          "num": 23
+        },
+        {
+          "id": "r0004",
+          "num": 16
+        },
+        {
+          "id": "r0005",
+          "num": 3
+        },
+        {
+          "id": "r0006",
+          "num": 1
+        },
+        {
+          "id": "r0007",
+          "num": 89
+        },
+        {
+          "id": "r0009",
+          "num": 89
+        },
+        {
+          "id": "r0008",
+          "num": 99
+        }
       ]
     },
     {
       "id": "ros03",
       "players": [
-        {"id": "r0003", "num": 23}
+        {
+          "id": "r0003",
+          "num": 23
+        }
       ]
     }
   ],
@@ -411,14 +468,14 @@
       "teamTwoID": "02",
       "inProgress": true,
       "isFinished": true,
-      "offense": "TEAM_ONE",
+      "offense": "TEAM_TWO",
       "win": "TEAM_TWO",
       "teamOneScore": "8",
       "teamTwoScore": "6",
       "codeOne": "C1",
       "codeTwo": "C3",
-      "teamOneTurnovers": 4,
-      "teamTwoTurnovers": 9,
+      "teamOneTurnovers": 5,
+      "teamTwoTurnovers": 10,
       "fullTimeDuration": 26.5,
       "teamOneOffenceDuration": 14,
       "teamTwoOffenceDuration": 12.5,
@@ -439,7 +496,7 @@
       "SotgCommentsTeamOne": "",
       "SotgCommentsTeamTwo": "",
       "passesTeamOne": 104,
-      "passesTeamTwo": 90,
+      "passesTeamTwo": 97,
       "takenTimeOutsTeamOne": [
         123,
         1400
@@ -459,9 +516,10 @@
       "isUploading": false,
       "date": "1553929932020",
       "timeStart": "9:00",
-      "timePassed": "678",
+      "timePassed": 165678,
       "statisticID": "gs0001",
-      "rosterID": "ros01"
+      "rosterID": "ros01",
+      "isPull": false
     },
     {
       "id": "234wefg",
@@ -472,14 +530,14 @@
       "teamTwoID": "04",
       "inProgress": false,
       "isFinished": false,
-      "offense": "TEAM_ONE",
+      "offense": "TEAM_TWO",
       "win": "",
       "teamOneScore": "0",
       "teamTwoScore": "0",
       "codeOne": "C2",
       "codeTwo": "C4",
-      "teamOneTurnovers": 0,
-      "teamTwoTurnovers": 0,
+      "teamOneTurnovers": 2,
+      "teamTwoTurnovers": 2,
       "fullTimeDuration": 0,
       "teamOneOffenceDuration": 0,
       "teamTwoOffenceDuration": 0,
@@ -500,7 +558,7 @@
       "SotgCommentsTeamOne": "",
       "SotgCommentsTeamTwo": "",
       "passesTeamOne": 0,
-      "passesTeamTwo": 0,
+      "passesTeamTwo": 3,
       "takenTimeOutsTeamOne": [],
       "takenTimeOutsTeamTwo": [],
       "takenSotgTimeOutsTeamOne": [],
@@ -515,9 +573,10 @@
       "isUploading": false,
       "date": "1543999362020",
       "timeStart": "11:00",
-      "timePassed": "0",
+      "timePassed": 0,
       "statisticID": "gs0002",
-      "rosterID": "ros02"
+      "rosterID": "ros02",
+      "isPull": false
     },
     {
       "id": "234wefwed3g",

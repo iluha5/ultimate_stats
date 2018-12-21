@@ -29,9 +29,11 @@ export const SHOULD_RELOAD = 'SHOULD_RELOAD';
 export const LOAD_ALL_TEAMS = 'LOAD_ALL_TEAMS';
 export const LOAD_GAMES = 'LOAD_GAMES';
 export const UPLOAD_GAME = 'UPLOAD_GAME';
+export const GAME = 'GAME';
 export const UPDATE_TOURNAMENT = 'UPDATE_TOURNAMENT';
 export const LOAD_LOG_LIST = 'LOAD_LOG_LIST';
 export const LOAD_LOG = 'LOAD_LOG';
+export const UPLOAD_LOG = 'UPLOAD_LOG';
 
 export const UPDATE_TIMER_GAME = 'UPDATE_TIMER_GAME';
 export const UPDATE_GAME = 'UPDATE_GAME';
@@ -71,3 +73,6 @@ export const UNDEFINED_PLAYER = 'UNDEFINED_PLAYER';
 export const STANDBY = 'STANDBY';
 export const SHOULD_UPLOAD = 'SHOULD_UPLOAD';
 export const NOW_UPLOADING = 'NOW_UPLOADING';
+export const UPLOAD_INTERVAL = 2000;
+
+

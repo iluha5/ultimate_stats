@@ -53,6 +53,7 @@ export default (gamesState = defaultGamesState, action) => {
                         .set('timePassed', time)));
 
         case UPLOAD_GAME + START:
+            // debugger
             return gamesState
                 .set('list', gamesState.list
                     .set(payload.id, gamesState.list.get(payload.id)
@@ -78,6 +79,7 @@ export default (gamesState = defaultGamesState, action) => {
                 );
 
         case UPLOAD_GAME + SHOULD_UPLOAD:
+            // debugger
             return gamesState
                 .set('list', gamesState.list
                     .set(payload.id, gamesState.list.get(payload.id)

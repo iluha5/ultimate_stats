@@ -1,4 +1,15 @@
-import {FAIL, LOAD_LOG, LOG_ACTION, PULL, SHOULD_RELOAD, START, SUCCESS, THROW, TURNOVER} from "../constants";
+import {
+    FAIL,
+    LOAD_LOG,
+    LOG_ACTION,
+    PULL,
+    SHOULD_RELOAD,
+    SHOULD_UPLOAD,
+    START,
+    SUCCESS,
+    THROW,
+    TURNOVER, UPLOAD_GAME, UPLOAD_LOG
+} from "../constants";
 import {arrToDataArr, arrToMap, convertLogObjToRecord} from "../helpers";
 import {LogData, LogLineData, LogsState} from "../model";
 
@@ -27,7 +38,7 @@ export default (logsState = defaultLogsState, action) => {
 
         case LOAD_LOG + SUCCESS:
             // const recordedLogs = payload.map(log => convertLogObjToRecord(log, LogLineData));
-
+// debugger
             newState = logsState
                 .set(
                     'list', logsState.list
@@ -72,6 +83,53 @@ export default (logsState = defaultLogsState, action) => {
                         )
                 );
 // debugger
+            return newState;
+
+        case UPLOAD_LOG + START:
+            newState = logsState
+                .set(
+                    'list', logsState.list
+                        .set(
+                            payload.id, LogData()
+                                .set('shouldUpload', false)
+                                .set('isUploading', true)
+                        )
+                );
+            return newState;
+
+
+        case UPLOAD_LOG + SUCCESS:
+            newState = logsState
+                .set(
+                    'list', logsState.list
+                        .set(
+                            payload.id, LogData()
+                                .set('isUploading', false)
+                        )
+                );
+            return newState;
+
+
+        case UPLOAD_LOG + FAIL:
+            newState = logsState
+                .set(
+                    'list', logsState.list
+                        .set(
+                            payload.id, LogData()
+                                .set('shouldUpload', true)
+                        )
+                );
+            return newState;
+
+        case UPLOAD_LOG + SHOULD_UPLOAD:
+            newState = logsState
+                .set(
+                    'list', logsState.list
+                        .set(
+                            payload.id, LogData()
+                                .set('shouldUpload', true)
+                        )
+                );
             return newState;
 
         default:
