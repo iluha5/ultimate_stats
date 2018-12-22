@@ -64,7 +64,7 @@ import {Record} from "immutable";
 //     }
 // };
 
-export const gameControl = (type, game, data) => {
+export const gameControl = (type, game, data, log) => {
     return (dispatch) => {
         const {assist, goal, isTeamOneOffence} = data;
         const offenceTeam = isTeamOneOffence ? TEAM_ONE : TEAM_TWO;
@@ -76,7 +76,7 @@ export const gameControl = (type, game, data) => {
                     id: uuidv4(),
                     type: type,
                     team: offenceTeam,
-                    time: `${Math.ceil(game.timePassed / 1000)}`,
+                    time: `${game.timePassed}`,
                     playerGoal: '',
                     playerAssist: '',
                     currScoreTeamOne: game.teamOneScore,
@@ -94,7 +94,7 @@ export const gameControl = (type, game, data) => {
                     id: uuidv4(),
                     type: type,
                     team: offenceTeam,
-                    time: `${Math.ceil(game.timePassed / 1000)}`,
+                    time: `${game.timePassed}`,
                     playerGoal: '',
                     playerAssist: '',
                     currScoreTeamOne: game.teamOneScore,
@@ -113,7 +113,7 @@ export const gameControl = (type, game, data) => {
                     id: uuidv4(),
                     type: type,
                     team: offenceTeam,
-                    time: `${Math.ceil(game.timePassed / 1000)}`,
+                    time: `${game.timePassed}`,
                     playerGoal: '',
                     playerAssist: '',
                     currScoreTeamOne: game.teamOneScore,
@@ -132,22 +132,26 @@ export const gameControl = (type, game, data) => {
             payload: {game, logLine}
         });
 
-        dispatch({
-            type: UPLOAD_GAME + SHOULD_UPLOAD,
-            payload: {id: game.id},
-        });
+        dispatch(updateGame(game));
+        dispatch(updateLog(log));
 
-        dispatch({
-            type: UPLOAD_LOG + SHOULD_UPLOAD,
-            payload: {id: game.logID},
-        });
+
+        // dispatch({
+        //     type: UPLOAD_GAME + SHOULD_UPLOAD,
+        //     payload: {id: game.id},
+        // });
+        //
+        // dispatch({
+        //     type: UPLOAD_LOG + SHOULD_UPLOAD,
+        //     payload: {id: game.logID},
+        // });
 
 
     }
 };
 
 export const updateGame = (game) => {
-    console.log('-----update game');
+    console.log('-----update game', game);
     // debugger
 
     return (dispatch) => {
@@ -164,7 +168,7 @@ export const updateGame = (game) => {
             },
             body: JSON.stringify(game)
         };
-
+// debugger
         const path = `${API.games}/${game.id}`;
 
         fetch(path, params)
@@ -216,9 +220,9 @@ export const updateLog = (log) => {
         // debugger
         const uploadData = {
             id: log.id,
-            list: log.logList
+            list: [...log.logList]
         };
-        // debugger
+
         const params = {
             method: 'PUT',
             headers: {
@@ -341,6 +345,7 @@ export const loadPlayers = () => {
 
 
 export const updateGameTimer = (gameID, time) => {
+    // debugger
     return (dispatch) => {
         dispatch({
             type: UPDATE_TIMER_GAME,
@@ -472,6 +477,8 @@ export const loadGames = (noToLoadGamesList) => {
                             return noToLoadGamesList.find(el => el === game.id) === undefined;
                         });
                     }
+
+                    gamesToUpdate.length !== 0 && gamesToUpdate.forEach(game => game.shouldSetTimer = true);
 // debugger
                     dispatch({
                         type: LOAD_GAMES + SUCCESS,

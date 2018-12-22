@@ -2,21 +2,34 @@
   "logs": [
     {
       "id": "log002",
-      "list": []
+      "list": [
+        {
+          "id": "63e8428b-d7c4-4794-afbb-15aa896b71a0",
+          "type": "TURNOVER",
+          "team": "TEAM_ONE",
+          "time": "553",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "0",
+          "currScoreTeamTwo": "0"
+        }
+      ]
     },
     {
       "id": "log001",
       "list": [
         {
+          "id": "",
           "type": "TIME_START",
           "team": "",
           "time": 0,
-          "playerGoalID": "",
-          "playerAssistID": "",
+          "playerGoal": "",
+          "playerAssist": "",
           "currScoreTeamOne": 0,
           "currScoreTeamTwo": 0
         },
         {
+          "id": "",
           "type": "THROW",
           "team": "TEAM_ONE",
           "time": 30,
@@ -26,6 +39,7 @@
           "currScoreTeamTwo": 0
         },
         {
+          "id": "",
           "type": "THROW",
           "team": "TEAM_ONE",
           "time": 69,
@@ -35,6 +49,7 @@
           "currScoreTeamTwo": 0
         },
         {
+          "id": "",
           "type": "GOAL",
           "team": "TEAM_ONE",
           "time": 123,
@@ -44,6 +59,7 @@
           "currScoreTeamTwo": 0
         },
         {
+          "id": "",
           "type": "THROW",
           "team": "TEAM_TWO",
           "time": 160,
@@ -53,6 +69,7 @@
           "currScoreTeamTwo": 1
         },
         {
+          "id": "",
           "type": "THROW",
           "team": "TEAM_TWO",
           "time": 190,
@@ -62,6 +79,7 @@
           "currScoreTeamTwo": 1
         },
         {
+          "id": "",
           "type": "THROW",
           "team": "TEAM_TWO",
           "time": 203,
@@ -71,6 +89,7 @@
           "currScoreTeamTwo": 1
         },
         {
+          "id": "",
           "type": "THROW",
           "team": "TEAM_TWO",
           "time": 209,
@@ -80,6 +99,7 @@
           "currScoreTeamTwo": 1
         },
         {
+          "id": "",
           "type": "THROW",
           "team": "TEAM_TWO",
           "time": 223,
@@ -89,6 +109,7 @@
           "currScoreTeamTwo": 1
         },
         {
+          "id": "",
           "type": "GOAL",
           "team": "TEAM_TWO",
           "time": 345,
@@ -98,6 +119,7 @@
           "currScoreTeamTwo": 1
         },
         {
+          "id": "",
           "type": "THROW",
           "team": "TEAM_ONE",
           "time": 380,
@@ -107,6 +129,7 @@
           "currScoreTeamTwo": 1
         },
         {
+          "id": "",
           "type": "THROW",
           "team": "TEAM_ONE",
           "time": 410,
@@ -116,6 +139,7 @@
           "currScoreTeamTwo": 1
         },
         {
+          "id": "",
           "type": "TIMEOUT",
           "team": "TEAM_ONE",
           "time": 450,
@@ -125,6 +149,7 @@
           "currScoreTeamTwo": 1
         },
         {
+          "id": "",
           "type": "TURNOVER",
           "team": "TEAM_TWO",
           "time": 471,
@@ -134,6 +159,7 @@
           "currScoreTeamTwo": 1
         },
         {
+          "id": "",
           "type": "THROW",
           "team": "TEAM_TWO",
           "time": 482,
@@ -143,6 +169,7 @@
           "currScoreTeamTwo": 1
         },
         {
+          "id": "",
           "type": "THROW",
           "team": "TEAM_TWO",
           "time": 490,
@@ -152,6 +179,7 @@
           "currScoreTeamTwo": 1
         },
         {
+          "id": "",
           "type": "THROW",
           "team": "TEAM_TWO",
           "time": 493,
@@ -161,6 +189,7 @@
           "currScoreTeamTwo": 1
         },
         {
+          "id": "",
           "type": "GOAL",
           "team": "TEAM_TWO",
           "time": 498,
@@ -168,6 +197,386 @@
           "playerAssist": "r0003",
           "currScoreTeamOne": 1,
           "currScoreTeamTwo": 2
+        },
+        {
+          "id": "32e6e1c4-b5de-4a58-8c7e-67bb4b400e74",
+          "type": "TURNOVER",
+          "team": "TEAM_ONE",
+          "time": "1",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "016130b2-a5b3-421e-b052-7a5c39d900e6",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "1",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "8f2de6b6-d2d3-48d1-813b-5fb2d69ab1a5",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "1",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "d9fe90c5-5aba-4106-ada7-597c815c4e29",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "2",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "30218003-0bde-45c2-8d61-6993d3b36b60",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "3",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "50b68016-91fa-45c0-b76f-2d56022ddd64",
+          "type": "PULL",
+          "team": "TEAM_ONE",
+          "time": "166",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "0380bcb7-687d-405f-a686-5c2ed66272e0",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "166",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "d6af4f5a-80bb-4b72-a849-9d962ae6c42c",
+          "type": "TURNOVER",
+          "team": "TEAM_TWO",
+          "time": "166",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "4facda1c-541a-47f2-8200-3704a277d356",
+          "type": "PULL",
+          "team": "TEAM_ONE",
+          "time": "166",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "a8bdb01d-b540-48e9-949b-2fbfb7046830",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "166",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "2fb6407a-efe5-4a92-8eeb-58103949eb72",
+          "type": "PULL",
+          "team": "TEAM_ONE",
+          "time": "166",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "fafcbaf0-66bf-4623-8425-b2edad3f074a",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "166",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "29db8ad2-35f4-471d-90c7-fd15157c7b75",
+          "type": "PULL",
+          "team": "TEAM_ONE",
+          "time": "166",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "0cf39791-60a5-40f3-9605-4e3e39081328",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "166",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "ee4c8697-f502-4e58-999a-fed79f7401de",
+          "type": "TURNOVER",
+          "team": "TEAM_TWO",
+          "time": "166",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "7f91f361-0127-4c65-9f3b-474e2eac5b7f",
+          "type": "THROW",
+          "team": "TEAM_ONE",
+          "time": "166",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "ab67fe92-5a63-44f2-8d89-75b80d938bdb",
+          "type": "TURNOVER",
+          "team": "TEAM_ONE",
+          "time": "166",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "1f0f895b-1da0-4e49-85a7-f30423f21249",
+          "type": "TURNOVER",
+          "team": "TEAM_TWO",
+          "time": "166",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "9eefcc5b-ce50-4027-a51f-f2e315e7b2c1",
+          "type": "PULL",
+          "team": "TEAM_ONE",
+          "time": "176",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "d1315db9-b84e-44d6-9034-b1e58e2b7d11",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "178",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "e91d301a-eea2-4444-9df0-b1d7c8992ff1",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "179",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "0bf1d873-0215-493f-92e7-8f0d3179dc8d",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "180",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "4d1288c8-80dd-4516-a878-262cab3488f9",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "181",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "469846a3-6db1-41df-8251-d4ef1e4c95d4",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "182",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "b72156df-e7d3-45ff-8770-2261b63aa90b",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "183",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "c985ebb4-0953-428f-a4dd-af6eea69c8e4",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "184",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "0be091a5-139a-4d91-8573-e9547f44592f",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "184",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "0ae9ffe5-cab4-43fb-b302-119ce5a006f4",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "187",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "0a1e523e-8544-455f-849b-7c9cd4e61a0c",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "187",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "91f62f59-2e2f-4eb5-8297-a762a00724c7",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "188",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "320e08f9-adb6-4464-b797-bad3d33de23f",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "191",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "011441d4-daff-4b03-9dab-2ba0cd6bcb10",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "191",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "04e7dac7-f783-4642-9d18-ab7978d2b6a0",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "192",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "88166110-6adc-4e0e-ab40-d1539fe5b231",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "192",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "0889b39d-ab52-42b2-80ea-2268b9747dde",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "193",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "250c406a-a2c6-4b57-a940-681a6b7c60e0",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "193",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "a279826a-677d-4914-bda3-09c737b0498e",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "193",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
+        },
+        {
+          "id": "d585fc72-bb37-428d-8a1e-882b2e78a432",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "193",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "8",
+          "currScoreTeamTwo": "6"
         }
       ]
     }
@@ -516,7 +925,7 @@
       "isUploading": false,
       "date": "1553929932020",
       "timeStart": "9:00",
-      "timePassed": 165678,
+      "timePassed": 0,
       "statisticID": "gs0001",
       "rosterID": "ros01",
       "isPull": false
@@ -536,8 +945,8 @@
       "teamTwoScore": "0",
       "codeOne": "C2",
       "codeTwo": "C4",
-      "teamOneTurnovers": 2,
-      "teamTwoTurnovers": 2,
+      "teamOneTurnovers": 19,
+      "teamTwoTurnovers": 22,
       "fullTimeDuration": 0,
       "teamOneOffenceDuration": 0,
       "teamTwoOffenceDuration": 0,
@@ -557,8 +966,8 @@
       ],
       "SotgCommentsTeamOne": "",
       "SotgCommentsTeamTwo": "",
-      "passesTeamOne": 0,
-      "passesTeamTwo": 15,
+      "passesTeamOne": 10,
+      "passesTeamTwo": 46,
       "takenTimeOutsTeamOne": [],
       "takenTimeOutsTeamTwo": [],
       "takenSotgTimeOutsTeamOne": [],
@@ -573,7 +982,7 @@
       "isUploading": false,
       "date": "1543999362020",
       "timeStart": "11:00",
-      "timePassed": 130000,
+      "timePassed": 550,
       "statisticID": "gs0002",
       "rosterID": "ros02",
       "isPull": false

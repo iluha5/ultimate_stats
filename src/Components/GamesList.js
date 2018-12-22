@@ -249,7 +249,7 @@ class GamesList extends React.Component {
             const teamTwo = `[${game.codeTwo}] ${teamsState.list.get(game.teamTwoID).name}`;
             const score = `${game.teamOneScore} : ${game.teamTwoScore}`;
             const date = game.date;//`${game.date} ${game.timeStart}`;
-            const time = `${Math.ceil(+game.timePassed / 60)}:${+game.timePassed % 60}`;
+            const time = `${Math.floor(+game.timePassed / 60)}:${Math.floor(+game.timePassed % 60)}`;
             const gameID = game.id;
 
             return createGameData(teamOne, teamTwo, score, date, time, gameID);

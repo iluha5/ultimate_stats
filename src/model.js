@@ -88,6 +88,7 @@ export const GameData = Record({
     others: [],
     shouldUpload: false,
     shouldReload: false,
+    shouldSetTimer: false,
     isUploading: false,
     date: '',
     timeStart: '',

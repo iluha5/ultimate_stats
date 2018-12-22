@@ -19,7 +19,7 @@ import {
     loadPlayers,
     loadRosters,
     updateGame,
-    updateGameStart,
+    updateGameStart, updateGameTimer,
     updateLog
 } from "../AC";
 import store from "../store";
@@ -75,17 +75,17 @@ class Game extends Component {
     componentDidMount() {
         const {id, game, updateGame, updateLog, log} = this.props;
 
-        this.intervalID = setInterval(() => {
-            // debugger
-            if (this.shouldGameUpload){
-                updateGame(game);
-            }
-
-            if (this.shouldLogUpload) {
-                updateLog(log);
-            }
-
-        }, UPLOAD_INTERVAL);
+        // this.intervalID = setInterval(() => {
+        //     // debugger
+        //     if (this.shouldGameUpload){
+        //         updateGame(game);
+        //     }
+        //
+        //     if (this.shouldLogUpload) {
+        //         updateLog(log);
+        //     }
+        //
+        // }, UPLOAD_INTERVAL);
 
 
         // console.log('-----id game', id);
@@ -163,13 +163,14 @@ class Game extends Component {
     };
 
     forceUpdateFromServer = () => {
-        const {loadGames, loadLog, loadPlayers, loadRosters, game} = this.props;
+        const {loadGames, loadLog, loadPlayers, loadRosters, game, updateGameTimer} = this.props;
 
         if (window.confirm('Загрузить версию игры с сервера? (возможна потеря последних данных, введенных с Вашего устройства)')) {
             loadGames();
             loadLog(game.logID);
             loadPlayers();
             loadRosters();
+            // updateGameTimer(game.id, game.timePassed)
         }
 
     };
@@ -182,6 +183,7 @@ class Game extends Component {
         const {classes, id, tournamentID, game, theme} = this.props;
         const {isTimerOn, tabValue, uploadingStatus} = this.state;
         // console.log('-----timePassed', game.timePassed);
+        // console.log('-----game.timePassed', game.timePassed);
         // debugger
 
         return (
@@ -274,6 +276,7 @@ const mapDispatchToProps = (dispatch) => {
         updateGame: (game) => dispatch(updateGame(game)),
         updateLog: (log) => dispatch(updateLog(log)),
         updateGameStart: (gameID, data) => dispatch(updateGameStart(gameID, data)),
+        updateGameTimer: (gameID, time) => dispatch(updateGameTimer(gameID, time)),
         gameShouldUpload: (game) => dispatch(gameShouldUpload(game)),
     };
 };

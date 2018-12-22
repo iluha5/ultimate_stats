@@ -245,7 +245,7 @@ class GameControl extends Component {
     };
 
     handleClick = (type) => e => {
-        const {game, gameControl} = this.props;
+        const {game, gameControl, log} = this.props;
         const {isTeamOneOffence, assist, goal} = this.state;
 
         const data = {
@@ -256,7 +256,7 @@ class GameControl extends Component {
 
         // debugger
         e.preventDefault();
-        gameControl(type, game, data);
+        gameControl(type, game, data, log);
 
         switch (type) {
             case PULL:
@@ -376,7 +376,10 @@ const mapStateToProps = (state, ownProps) => {
     const teamOneName = state.teams.list.get(gameData.teamOneID).name;
     const teamTwoName = state.teams.list.get(gameData.teamTwoID).name;
 
+    const log = !state.logs.list.isEmpty() ? state.logs.list.get(gameData.logID) : null;
+
     return {
+        log: log,
         game: gameData,
         teamsNames: [teamOneName, teamTwoName],
     };
@@ -384,7 +387,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        gameControl: (type, game, data) => dispatch(gameControl(type, game, data))
+        gameControl: (type, game, data, log) => dispatch(gameControl(type, game, data, log))
     };
 };
 

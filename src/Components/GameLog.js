@@ -261,7 +261,7 @@ class GameLog extends Component {
                                         >
                                             <TableCell numeric component="th" scope="row" padding="default"
                                                        className={classes.time} style={{padding: '0px 4px 0px 0px'}}>
-                                                {`${Math.floor(n.time / 60)}:${n.time % 60}`}
+                                                {`${Math.floor(n.time / 60)}:${n.time % 60} - ${n.time}`}
                                             </TableCell>
                                             <TableCell className={classes.score} style={{
                                                 padding: '0px 4px 0px 6px',

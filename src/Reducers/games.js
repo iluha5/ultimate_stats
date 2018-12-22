@@ -35,7 +35,7 @@ export default (gamesState = defaultGamesState, action) => {
                     .merge(newList)
                 );
 
-            // debugger
+            debugger
 
             return st;
 
