@@ -139,7 +139,7 @@ export const gameControl = (type, game, data) => {
 
         dispatch({
             type: UPLOAD_LOG + SHOULD_UPLOAD,
-            payload: {id: game.logId},
+            payload: {id: game.logID},
         });
 
 

@@ -558,7 +558,7 @@
       "SotgCommentsTeamOne": "",
       "SotgCommentsTeamTwo": "",
       "passesTeamOne": 0,
-      "passesTeamTwo": 3,
+      "passesTeamTwo": 15,
       "takenTimeOutsTeamOne": [],
       "takenTimeOutsTeamTwo": [],
       "takenSotgTimeOutsTeamOne": [],
@@ -573,7 +573,7 @@
       "isUploading": false,
       "date": "1543999362020",
       "timeStart": "11:00",
-      "timePassed": 0,
+      "timePassed": 130000,
       "statisticID": "gs0002",
       "rosterID": "ros02",
       "isPull": false

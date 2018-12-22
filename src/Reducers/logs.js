@@ -90,7 +90,7 @@ export default (logsState = defaultLogsState, action) => {
                 .set(
                     'list', logsState.list
                         .set(
-                            payload.id, LogData()
+                            payload.id, logsState.list.get(payload.id) //LogData()
                                 .set('shouldUpload', false)
                                 .set('isUploading', true)
                         )
@@ -103,7 +103,7 @@ export default (logsState = defaultLogsState, action) => {
                 .set(
                     'list', logsState.list
                         .set(
-                            payload.id, LogData()
+                            payload.id, logsState.list.get(payload.id) // LogData()
                                 .set('isUploading', false)
                         )
                 );
@@ -115,7 +115,7 @@ export default (logsState = defaultLogsState, action) => {
                 .set(
                     'list', logsState.list
                         .set(
-                            payload.id, LogData()
+                            payload.id, logsState.list.get(payload.id) //LogData()
                                 .set('shouldUpload', true)
                         )
                 );
@@ -126,7 +126,7 @@ export default (logsState = defaultLogsState, action) => {
                 .set(
                     'list', logsState.list
                         .set(
-                            payload.id, LogData()
+                            payload.id, logsState.list.get(payload.id) //LogData()
                                 .set('shouldUpload', true)
                         )
                 );

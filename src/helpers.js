@@ -21,6 +21,7 @@ export function arrToMap(arr, DataRecord = Map) {
 }
 
 export function arrToDataArr(arr, DataRecord = Map) {
+    // debugger
     return arr.map(item => DataRecord(item))
 }
 

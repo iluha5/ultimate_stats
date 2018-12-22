@@ -79,8 +79,12 @@ class Game extends Component {
             // debugger
             if (this.shouldGameUpload){
                 updateGame(game);
+            }
+
+            if (this.shouldLogUpload) {
                 updateLog(log);
             }
+
         }, UPLOAD_INTERVAL);
 
 
@@ -106,9 +110,10 @@ class Game extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        const {game, updateGame, loadGames} = this.props;
+        const {game, log} = this.props;
 
         this.shouldGameUpload = game.shouldUpload;
+        this.shouldLogUpload = log.shouldUpload;
 
         // if (!this.intervalID) {
         //     this.intervalID = setInterval(() => {
