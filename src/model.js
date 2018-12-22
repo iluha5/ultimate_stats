@@ -96,6 +96,7 @@ export const GameData = Record({
     statisticID: '',
     rosterID: '',
     isPull: false,
+    isTimeOn: false,
 });
 
 export const GamesState = Record({

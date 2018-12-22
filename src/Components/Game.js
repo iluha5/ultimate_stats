@@ -3,7 +3,15 @@ import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import {withStyles} from "@material-ui/core/styles/index";
 import AppDrawer from "./AppDrawer";
-import {DRAWER_WIDTH, NOW_UPLOADING, SHOULD_UPLOAD, STANDBY, UPLOAD_INTERVAL} from "../constants";
+import {
+    DRAWER_WIDTH,
+    GAME_START,
+    NOW_UPLOADING,
+    SHOULD_UPLOAD,
+    STANDBY, TIME_PAUSE,
+    TIME_START,
+    UPLOAD_INTERVAL
+} from "../constants";
 import GameTimer from "./GameTimer";
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -13,6 +21,7 @@ import SwipeableViews from 'react-swipeable-views';
 import GameControl from "./GameControl";
 import GameLog from "./GameLog";
 import {
+    gameControl,
     gameShouldUpload,
     loadGames,
     loadLog,
@@ -141,16 +150,19 @@ class Game extends Component {
     ;
 
     toggleTimer = () => {
-        const {game, updateGameStart, id} = this.props;
+        const {game, updateGameStart, id, gameControl} = this.props;
 
-        this.setState({
-            isTimerOn: !this.state.isTimerOn
-        }, () => {
-            updateGameStart(id, {
-                isTimerOn: this.state.isTimerOn,
-                inProgress: game.inProgress,
-            })
-        })
+
+        !game.isTimeOn && gameControl(TIME_START, game);
+        game.isTimeOn && gameControl(TIME_PAUSE, game);
+        // this.setState({
+        //     isTimerOn: !this.state.isTimerOn
+        // }, () => {
+        //     updateGameStart(id, {
+        //         isTimerOn: this.state.isTimerOn,
+        //         inProgress: game.inProgress,
+        //     })
+        // })
     };
 
     handlerStop = () => {
@@ -190,9 +202,9 @@ class Game extends Component {
             <div>
                 <AppDrawer
                     title={<GameTimer gameID={id} initialTime={game.timePassed ? game.timePassed : 0}
-                                      isTimerOn={isTimerOn}/>}
+                                      isTimerOn={game.isTimeOn}/>}
                     isGame
-                    isTimerOn={isTimerOn}
+                    isTimerOn={game.isTimeOn}
                     toggleTimer={this.toggleTimer}
                     handlerStop={this.handlerStop}
                     forceUpdateFromServer={this.forceUpdateFromServer}
@@ -275,8 +287,10 @@ const mapDispatchToProps = (dispatch) => {
         loadPlayers: () => dispatch(loadPlayers()),
         updateGame: (game) => dispatch(updateGame(game)),
         updateLog: (log) => dispatch(updateLog(log)),
-        updateGameStart: (gameID, data) => dispatch(updateGameStart(gameID, data)),
+        // updateGameStart: (gameID, data) => dispatch(updateGameStart(gameID, data)),
         updateGameTimer: (gameID, time) => dispatch(updateGameTimer(gameID, time)),
+        gameControl: (type, game, log) => dispatch(gameControl(type, game, log)),
+
         gameShouldUpload: (game) => dispatch(gameShouldUpload(game)),
     };
 };

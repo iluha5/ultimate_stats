@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from "@material-ui/core/styles/index";
-import {DRAWER_WIDTH, PULL, THROW, TURNOVER} from "../constants";
+import {DRAWER_WIDTH, PULL, TEAM_ONE, TEAM_TWO, THROW, TURNOVER} from "../constants";
 import GameControlRoster from "./GameControlRoster";
 import Button from '@material-ui/core/Button';
 import GameControlOtherButs from "./GameControlOtherButs";
@@ -223,21 +223,21 @@ class GameControl extends Component {
         }
     }
 
-    handleThrow = (e) => {
-        e.preventDefault();
-        const {isTeamOneOffence} = this.state;
-
-        console.log('----- throw team one?', isTeamOneOffence);
-    };
-
-    handleTurn = (e) => {
-        e.preventDefault();
-        const {isTeamOneOffence} = this.state;
-
-        this.setState({
-            isTeamOneOffence: !isTeamOneOffence
-        })
-    };
+    // handleThrow = (e) => {
+    //     e.preventDefault();
+    //     const {isTeamOneOffence} = this.state;
+    //
+    //     console.log('----- throw team one?', isTeamOneOffence);
+    // };
+    //
+    // handleTurn = (e) => {
+    //     e.preventDefault();
+    //     const {isTeamOneOffence} = this.state;
+    //
+    //     this.setState({
+    //         isTeamOneOffence: !isTeamOneOffence
+    //     })
+    // };
 
     handleOtherBut = id => e => {
         console.log(e.target.innerHTML);
@@ -246,37 +246,37 @@ class GameControl extends Component {
 
     handleClick = (type) => e => {
         const {game, gameControl, log} = this.props;
-        const {isTeamOneOffence, assist, goal} = this.state;
+        // const {isTeamOneOffence, assist, goal} = this.state;
 
-        const data = {
-            isTeamOneOffence,
-            assist,
-            goal,
-        };
+        // const data = {
+        //     isTeamOneOffence,
+        //     assist,
+        //     goal,
+        // };
 
         // debugger
         e.preventDefault();
-        gameControl(type, game, data, log);
+        gameControl(type, game, log);
 
-        switch (type) {
-            case PULL:
-                this.setState({
-                    isTeamOneOffence: !isTeamOneOffence,
-                    isPull: false,
-                });
-                break;
-            case TURNOVER:
-                this.setState({
-                    isTeamOneOffence: !isTeamOneOffence,
-                    isPull: false,
-                });
-                break;
-        }
+        // switch (type) {
+        //     case PULL:
+        //         this.setState({
+        //             isTeamOneOffence: !isTeamOneOffence,
+        //             isPull: false,
+        //         });
+        //         break;
+        //     case TURNOVER:
+        //         this.setState({
+        //             isTeamOneOffence: !isTeamOneOffence,
+        //             isPull: false,
+        //         });
+        //         break;
+        // }
     };
 
     render() {
         const {game, teamsNames, classes, gameID} = this.props;
-        const {viewPortH, isTeamOneOffence, isPull, assist, goal} = this.state;
+        const {viewPortH, assist, goal} = this.state;
 
         return (
             <div className={classes.root}>
@@ -297,13 +297,13 @@ class GameControl extends Component {
                 </div>
 
                 <div className={classes.rosterRoot} style={{height: viewPortH - 300}}>
-                    <div className={[classes.rosterWrapper, isTeamOneOffence && classes.rosterRootIsOffence].join(' ')}>
+                    <div className={[classes.rosterWrapper, (game.offense === TEAM_ONE) && classes.rosterRootIsOffence].join(' ')}>
                         <div className={classes.roster}>
                             <GameControlRoster rosterID={game.rosterID}/>
                         </div>
                     </div>
                     <div
-                        className={[classes.rosterWrapper, !isTeamOneOffence && classes.rosterRootIsOffence].join(' ')}>
+                        className={[classes.rosterWrapper, (game.offense === TEAM_TWO) && classes.rosterRootIsOffence].join(' ')}>
                         <div className={classes.roster}>
                             <GameControlRoster rosterID={game.rosterID}/>
                         </div>
@@ -311,24 +311,26 @@ class GameControl extends Component {
                 </div>
 
                 <div
-                    className={[classes.throwAndTurnLine, !isTeamOneOffence && classes.throwAndTurnLineReverse].join(' ')}>
-                    {!isPull && (
+                    className={[classes.throwAndTurnLine, (game.offense === TEAM_TWO) && classes.throwAndTurnLineReverse].join(' ')}>
+                    {!game.isPull && (
                         <Button variant="outlined" color="secondary" className={classes.throw}
                                 onClick={this.handleClick(THROW)}>
                             Пас!
                         </Button>
                     )}
-                    {isPull && (
+                    {game.isPull && (
                         <Button variant="outlined" color="secondary" className={classes.throw}
                                 onClick={this.handleClick(PULL)}>
                             Пулл!
                         </Button>
                     )}
 
-                    <Button variant="outlined" color="primary" className={classes.turnOver}
+                    {!game.isPull && (
+                        <Button variant="outlined" color="primary" className={classes.turnOver}
                             onClick={this.handleClick(TURNOVER)}>
                         Турновер!
                     </Button>
+                    )}
                 </div>
 
                 <div className={classes.othersButs}>
@@ -387,7 +389,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        gameControl: (type, game, data, log) => dispatch(gameControl(type, game, data, log))
+        gameControl: (type, game, log) => dispatch(gameControl(type, game, log))
     };
 };
 

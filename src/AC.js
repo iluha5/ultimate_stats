@@ -23,7 +23,7 @@ import {
     SUCCESS,
     TEAM_ONE,
     TEAM_TWO,
-    THROW,
+    THROW, TIME_PAUSE, TIME_START,
     TURNOVER,
     UPDATE_GAME,
     UPDATE_TIMER_GAME,
@@ -64,76 +64,67 @@ import {Record} from "immutable";
 //     }
 // };
 
-export const gameControl = (type, game, data, log) => {
+export const gameControl = (type, game, log) => {
     return (dispatch) => {
-        const {assist, goal, isTeamOneOffence} = data;
-        const offenceTeam = isTeamOneOffence ? TEAM_ONE : TEAM_TWO;
-        let logLine;
+        let logLine = {
+            id: uuidv4(),
+            type: type,
+            team: game.offense,
+            time: `${game.timePassed}`,
+            playerGoal: '',
+            playerAssist: '',
+            currScoreTeamOne: game.teamOneScore,
+            currScoreTeamTwo: game.teamTwoScore,
+
+        };
 
         switch (type) {
-            case PULL:
-                logLine = LogLineData({
-                    id: uuidv4(),
-                    type: type,
-                    team: offenceTeam,
-                    time: `${game.timePassed}`,
-                    playerGoal: '',
-                    playerAssist: '',
-                    currScoreTeamOne: game.teamOneScore,
-                    currScoreTeamTwo: game.teamTwoScore,
-
+            case TIME_START:
+                dispatch({
+                    type: LOG_ACTION + TIME_START,
+                    payload: {game, logLine: LogLineData(logLine)}
                 });
+                break;
+
+            case TIME_PAUSE:
+                dispatch({
+                    type: LOG_ACTION + TIME_PAUSE,
+                    payload: {game, logLine: LogLineData(logLine)}
+                });
+                break;
+
+            case PULL:
+                logLine.team = game.offense === TEAM_ONE ? TEAM_TWO : TEAM_ONE;
 
                 dispatch({
                     type: LOG_ACTION + PULL,
-                    payload: {game, logLine}
+                    payload: {game, logLine: LogLineData(logLine)}
                 });
                 break;
+
             case THROW:
-                logLine = LogLineData({
-                    id: uuidv4(),
-                    type: type,
-                    team: offenceTeam,
-                    time: `${game.timePassed}`,
-                    playerGoal: '',
-                    playerAssist: '',
-                    currScoreTeamOne: game.teamOneScore,
-                    currScoreTeamTwo: game.teamTwoScore,
-
-                });
-
                 dispatch({
                     type: LOG_ACTION + THROW,
-                    payload: {game, logLine}
+                    payload: {game, logLine: LogLineData(logLine)}
                 });
-
                 break;
-            case TURNOVER:
-                logLine = LogLineData({
-                    id: uuidv4(),
-                    type: type,
-                    team: offenceTeam,
-                    time: `${game.timePassed}`,
-                    playerGoal: '',
-                    playerAssist: '',
-                    currScoreTeamOne: game.teamOneScore,
-                    currScoreTeamTwo: game.teamTwoScore,
 
-                });
+            case TURNOVER:
+                logLine.team = game.offense === TEAM_ONE ? TEAM_TWO : TEAM_ONE;
 
                 dispatch({
                     type: LOG_ACTION + TURNOVER,
-                    payload: {game, logLine}
+                    payload: {game, logLine: LogLineData(logLine)}
                 });
         }
 // debugger
         dispatch({
             type: LOG_ACTION,
-            payload: {game, logLine}
+            payload: {game, logLine: LogLineData(logLine)}
         });
 
-        dispatch(updateGame(game));
-        dispatch(updateLog(log));
+        game && dispatch(updateGame(game));
+        log && dispatch(updateLog(log));
 
 
         // dispatch({

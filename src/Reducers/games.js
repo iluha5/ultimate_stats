@@ -7,7 +7,7 @@ import {
     SHOULD_RELOAD, SHOULD_UPLOAD,
     START,
     SUCCESS,
-    TEAM_ONE, TEAM_TWO, THROW, TURNOVER,
+    TEAM_ONE, TEAM_TWO, THROW, TIME_PAUSE, TIME_START, TURNOVER,
     UPDATE_TIMER_GAME, UPLOAD_GAME
 } from "../constants";
 import {arrToMap} from "../helpers";
@@ -35,7 +35,7 @@ export default (gamesState = defaultGamesState, action) => {
                     .merge(newList)
                 );
 
-            debugger
+            // debugger
 
             return st;
 
@@ -86,6 +86,24 @@ export default (gamesState = defaultGamesState, action) => {
                         .set('shouldUpload', true)
                     )
                 );
+        case LOG_ACTION + TIME_START:
+            return gamesState
+                .set('list', gamesState.list
+                    .set(payload.game.id, gamesState.list.get(payload.game.id)
+                        .set('inProgress', true)
+                        .set('isTimeOn', true)
+                        .set('isFinished', false)
+                    )
+                );
+
+        case LOG_ACTION + TIME_PAUSE:
+            return gamesState
+                .set('list', gamesState.list
+                    .set(payload.game.id, gamesState.list.get(payload.game.id)
+                        .set('isTimeOn', false)
+                        .set('isFinished', false)
+                    )
+                );
 
         case LOG_ACTION + THROW:
             const teamPassesKey = payload.logLine.team === TEAM_ONE ? 'passesTeamOne' : 'passesTeamTwo';
@@ -100,25 +118,27 @@ export default (gamesState = defaultGamesState, action) => {
                 );
 
         case LOG_ACTION + PULL:
-            const teamOffence = payload.logLine.team === TEAM_ONE ? TEAM_TWO : TEAM_ONE;
+            // const teamOffence = payload.logLine.team === TEAM_ONE ? TEAM_TWO : TEAM_ONE;
 
             // console.log('-----gamesState.list.get(payload.game.id)[teamPassesKey]++', gamesState.list.get(payload.game.id)[teamPassesKey] + 1);
+            debugger
             return gamesState
                 .set('list', gamesState.list
                     .set(payload.game.id, gamesState.list.get(payload.game.id)
-                        .set('offense', teamOffence)
+                        // .set('offense', teamOffence)
+                            .set('isPull', false)
                     )
                 );
 
         case LOG_ACTION + TURNOVER:
-            const teamTurnoverKey = payload.logLine.team === TEAM_ONE ? 'teamTwoTurnovers' : 'teamOneTurnovers';
+            const teamTurnoverKey = payload.logLine.team === TEAM_ONE ? 'teamOneTurnovers' : 'teamTwoTurnovers';
 
-console.log('-----gamesState.list.get(payload.game.id)', gamesState.list.get(payload.game.id));
+            console.log('-----gamesState.list.get(payload.game.id)', gamesState.list.get(payload.game.id));
             return gamesState
                 .set('list', gamesState.list
                     .set(payload.game.id, gamesState.list.get(payload.game.id)
                         .set(teamTurnoverKey, gamesState.list.get(payload.game.id)[teamTurnoverKey] + 1)
-                        .set('offense', payload.logLine.team === TEAM_ONE ? TEAM_TWO : TEAM_ONE)
+                        .set('offense', payload.logLine.team)
                     )
                 );
 
