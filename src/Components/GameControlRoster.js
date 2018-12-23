@@ -12,6 +12,7 @@ import {connect} from "react-redux";
 import {withStyles} from "@material-ui/core/styles/index";
 import {loadGames, loadPlayers, loadRosters} from "../AC";
 import Loader from "./Loader";
+import {PLAYER_CLICK} from "../constants";
 
 const styles = theme => ({
     root: {
@@ -69,9 +70,9 @@ function desc(a, b, orderBy) {
 
 let counter = 0;
 
-function createData(name, num) {
-    counter += 1;
-    return {id: counter, name, num};
+function createData(name, num, id) {
+    // counter += 1;
+    return {id, name, num};
 }
 
 
@@ -195,7 +196,7 @@ class GameControlRoster extends Component {
 
     render() {
         const {order, orderBy} = this.state;
-        const {classes, rosters, players, rosterID} = this.props;
+        const {classes, rosters, players, rosterID, handlePlayerClick} = this.props;
 
         if (rosters.isLoading || rosters.shouldReload ||
             players.isLoading || players.shouldReload) return <Loader/>;
@@ -203,7 +204,8 @@ class GameControlRoster extends Component {
         const data = rosters.list.get(rosterID).players
             .map(player => createData(
                 `${players.list.get(player.id).secondName} ${players.list.get(player.id).firstName[0]}.`,
-                player.num
+                player.num,
+                player.id
             ));
 
         // debugger
@@ -227,7 +229,7 @@ class GameControlRoster extends Component {
                                 return (
                                     <TableRow
                                         hover
-                                        onClick={event => this.handleClick(event, n.id)}
+                                        onClick={handlePlayerClick(n.id, `#${n.num} ${n.name}`)}
                                         role="checkbox"
                                         aria-checked={isSelected}
                                         tabIndex={-1}

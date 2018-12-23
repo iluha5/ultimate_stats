@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from "@material-ui/core/styles/index";
-import {DRAWER_WIDTH, PULL, TEAM_ONE, TEAM_TWO, THROW, TURNOVER} from "../constants";
+import {DRAWER_WIDTH, GOAL, PLAYER_CLICK, PULL, TEAM_ONE, TEAM_TWO, THROW, TURNOVER} from "../constants";
 import GameControlRoster from "./GameControlRoster";
 import Button from '@material-ui/core/Button';
 import GameControlOtherButs from "./GameControlOtherButs";
@@ -201,8 +201,7 @@ class GameControl extends Component {
         viewPortH: 0,
         isTeamOneOffence: true,
         isPull: true,
-        assist: {id: '', name: ''},
-        goal: {id: '', name: ''},
+        assist: null,
     };
 
     componentDidMount() {
@@ -244,8 +243,34 @@ class GameControl extends Component {
         console.log(id);
     };
 
-    handleClick = (type) => e => {
+    handlePlayerClick = (id, name) => e => {
+        e.preventDefault();
+
         const {game, gameControl, log} = this.props;
+
+        if (this.state.assist === null) {
+            this.setState({
+                assist: {id, name}
+            });
+            return 0;
+        }
+
+        const data = {
+            assist: this.state.assist,
+            goal: {id, name}
+        };
+
+        gameControl(GOAL, game, log, data);
+        this.setState({
+            assist: null
+        });
+
+    };
+
+    handleClick = (type) => e => {
+        e.preventDefault();
+        const {game, gameControl, log} = this.props;
+
         // const {isTeamOneOffence, assist, goal} = this.state;
 
         // const data = {
@@ -255,7 +280,6 @@ class GameControl extends Component {
         // };
 
         // debugger
-        e.preventDefault();
         gameControl(type, game, log);
 
         // switch (type) {
@@ -275,7 +299,7 @@ class GameControl extends Component {
     };
 
     render() {
-        const {game, teamsNames, classes, gameID} = this.props;
+        const {game, teamsNames, classes, gameID, rosters} = this.props;
         const {viewPortH, assist, goal} = this.state;
 
         return (
@@ -297,15 +321,16 @@ class GameControl extends Component {
                 </div>
 
                 <div className={classes.rosterRoot} style={{height: viewPortH - 300}}>
-                    <div className={[classes.rosterWrapper, (game.offense === TEAM_ONE) && classes.rosterRootIsOffence].join(' ')}>
+                    <div
+                        className={[classes.rosterWrapper, (game.offense === TEAM_ONE) && classes.rosterRootIsOffence].join(' ')}>
                         <div className={classes.roster}>
-                            <GameControlRoster rosterID={game.rosterID}/>
+                            <GameControlRoster rosterID={rosters.teamOne} handlePlayerClick={this.handlePlayerClick}/>
                         </div>
                     </div>
                     <div
                         className={[classes.rosterWrapper, (game.offense === TEAM_TWO) && classes.rosterRootIsOffence].join(' ')}>
                         <div className={classes.roster}>
-                            <GameControlRoster rosterID={game.rosterID}/>
+                            <GameControlRoster rosterID={rosters.teamTwo} handlePlayerClick={this.handlePlayerClick}/>
                         </div>
                     </div>
                 </div>
@@ -327,9 +352,9 @@ class GameControl extends Component {
 
                     {!game.isPull && (
                         <Button variant="outlined" color="primary" className={classes.turnOver}
-                            onClick={this.handleClick(TURNOVER)}>
-                        Турновер!
-                    </Button>
+                                onClick={this.handleClick(TURNOVER)}>
+                            Турновер!
+                        </Button>
                     )}
                 </div>
 
@@ -339,7 +364,7 @@ class GameControl extends Component {
                 </div>
 
                 <div className={classes.inputLogLine}>
-                    {`${assist.name} ${goal.name}`}
+                    {`${assist !== null ? assist.name + ' -->' : ''}`}
                 </div>
 
                 <div className={classes.logWrapper}>
@@ -368,6 +393,7 @@ GameControl.propTypes = {
     gameID: PropTypes.string.isRequired,
     //from store
     game: PropTypes.object.isRequired,
+    rosters: PropTypes.object.isRequired,
     teamsNames: PropTypes.array.isRequired,
     gameControl: PropTypes.func.isRequired,
 };
@@ -377,19 +403,22 @@ const mapStateToProps = (state, ownProps) => {
     const gameData = state.games.list.get(gameID);
     const teamOneName = state.teams.list.get(gameData.teamOneID).name;
     const teamTwoName = state.teams.list.get(gameData.teamTwoID).name;
-
+    const rosterTeamOne = state.teams.list.get(gameData.teamOneID).rosterID;
+    const rosterTeamTwo = state.teams.list.get(gameData.teamTwoID).rosterID;
+// debugger
     const log = !state.logs.list.isEmpty() ? state.logs.list.get(gameData.logID) : null;
 
     return {
         log: log,
         game: gameData,
         teamsNames: [teamOneName, teamTwoName],
+        rosters: {teamOne: rosterTeamOne, teamTwo: rosterTeamTwo}
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        gameControl: (type, game, log) => dispatch(gameControl(type, game, log))
+        gameControl: (type, game, log, data) => dispatch(gameControl(type, game, log, data))
     };
 };
 

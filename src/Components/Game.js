@@ -9,7 +9,7 @@ import {
     NOW_UPLOADING,
     SHOULD_UPLOAD,
     STANDBY, TIME_PAUSE,
-    TIME_START,
+    TIME_START, TIME_STOP,
     UPLOAD_INTERVAL
 } from "../constants";
 import GameTimer from "./GameTimer";
@@ -150,24 +150,17 @@ class Game extends Component {
     ;
 
     toggleTimer = () => {
-        const {game, updateGameStart, id, gameControl} = this.props;
-
+        const {game, gameControl} = this.props;
 
         !game.isTimeOn && gameControl(TIME_START, game);
         game.isTimeOn && gameControl(TIME_PAUSE, game);
-        // this.setState({
-        //     isTimerOn: !this.state.isTimerOn
-        // }, () => {
-        //     updateGameStart(id, {
-        //         isTimerOn: this.state.isTimerOn,
-        //         inProgress: game.inProgress,
-        //     })
-        // })
     };
 
     handlerStop = () => {
-        let anw = window.confirm('Вы хотите завершить игру?');
-        anw && this.toggleTimer();
+        const {game, gameControl} = this.props;
+
+        window.confirm('Вы хотите завершить игру?') && !game.isFinished && gameControl(TIME_STOP, game);
+
     };
 
     handleChangeTab = (event, tabValue) => {

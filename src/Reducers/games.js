@@ -1,13 +1,13 @@
 import {OrderedMap, Record} from "immutable";
 import {
-    FAIL,
+    FAIL, GOAL,
 
     LOAD_GAMES,
     LOAD_TEAMS, LOG_ACTION, PULL,
     SHOULD_RELOAD, SHOULD_UPLOAD,
     START,
     SUCCESS,
-    TEAM_ONE, TEAM_TWO, THROW, TIME_PAUSE, TIME_START, TURNOVER,
+    TEAM_ONE, TEAM_TWO, THROW, TIME_PAUSE, TIME_START, TIME_STOP, TURNOVER,
     UPDATE_TIMER_GAME, UPLOAD_GAME
 } from "../constants";
 import {arrToMap} from "../helpers";
@@ -105,6 +105,16 @@ export default (gamesState = defaultGamesState, action) => {
                     )
                 );
 
+        case LOG_ACTION + TIME_STOP:
+            return gamesState
+                .set('list', gamesState.list
+                    .set(payload.game.id, gamesState.list.get(payload.game.id)
+                        .set('isTimeOn', false)
+                        .set('inProgress', false)
+                        .set('isFinished', true)
+                    )
+                );
+
         case LOG_ACTION + THROW:
             const teamPassesKey = payload.logLine.team === TEAM_ONE ? 'passesTeamOne' : 'passesTeamTwo';
 
@@ -117,11 +127,24 @@ export default (gamesState = defaultGamesState, action) => {
                     )
                 );
 
+        case LOG_ACTION + GOAL:
+            const teamScoreKey = payload.logLine.team === TEAM_ONE ? 'teamOneScore' : 'teamTwoScore';
+            const inOffense = payload.game.offense === TEAM_ONE ? TEAM_TWO : TEAM_ONE;
+
+            return gamesState
+                .set('list', gamesState.list
+                    .set(payload.game.id, gamesState.list.get(payload.game.id)
+                        .set('isPull', true)
+                        .set(teamScoreKey, +gamesState.list.get(payload.game.id)[teamScoreKey] + 1)
+                        .set('offense', inOffense)
+                    )
+                );
+
         case LOG_ACTION + PULL:
             // const teamOffence = payload.logLine.team === TEAM_ONE ? TEAM_TWO : TEAM_ONE;
 
             // console.log('-----gamesState.list.get(payload.game.id)[teamPassesKey]++', gamesState.list.get(payload.game.id)[teamPassesKey] + 1);
-            debugger
+            // debugger
             return gamesState
                 .set('list', gamesState.list
                     .set(payload.game.id, gamesState.list.get(payload.game.id)

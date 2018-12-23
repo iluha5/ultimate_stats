@@ -66,6 +66,7 @@ export const OTHER = 'OTHER';
 export const TIME_STOP = 'TIME_STOP';
 export const TIME_START = 'TIME_START';
 export const TIME_PAUSE = 'TIME_PAUSE';
+export const PLAYER_CLICK = 'PLAYER_CLICK';
 
 export const UNDEFINED_PLAYER = 'UNDEFINED_PLAYER';
 

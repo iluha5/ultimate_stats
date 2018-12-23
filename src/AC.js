@@ -2,7 +2,7 @@ import {
     API,
     FAIL,
     GAME,
-    GAME_START,
+    GAME_START, GOAL,
     LOAD_ALL_TEAMS,
     LOAD_BEARER,
     LOAD_GAMES,
@@ -23,7 +23,7 @@ import {
     SUCCESS,
     TEAM_ONE,
     TEAM_TWO,
-    THROW, TIME_PAUSE, TIME_START,
+    THROW, TIME_PAUSE, TIME_START, TIME_STOP,
     TURNOVER,
     UPDATE_GAME,
     UPDATE_TIMER_GAME,
@@ -64,13 +64,13 @@ import {Record} from "immutable";
 //     }
 // };
 
-export const gameControl = (type, game, log) => {
+export const gameControl = (type, game, log, data) => {
     return (dispatch, getState) => {
         let logLine = {
             id: uuidv4(),
             type: type,
             team: game.offense,
-            time: `${game.timePassed}`,
+            time: `${type === TIME_START || type === TIME_STOP ? game.timePassed + 1 : game.timePassed}`, // для правильной сортировки логов
             playerGoal: '',
             playerAssist: '',
             currScoreTeamOne: game.teamOneScore,
@@ -87,9 +87,29 @@ export const gameControl = (type, game, log) => {
                 break;
 
             case TIME_PAUSE:
-                // debugger
                 dispatch({
                     type: LOG_ACTION + TIME_PAUSE,
+                    payload: {game, logLine: LogLineData(logLine)}
+                });
+                break;
+
+            case TIME_STOP:
+                dispatch({
+                    type: LOG_ACTION + TIME_STOP,
+                    payload: {game, logLine: LogLineData(logLine)}
+                });
+                break;
+
+            case GOAL:
+                logLine.team = game.offense; // === TEAM_ONE ? TEAM_TWO : TEAM_ONE;
+                logLine.playerGoal = data.goal.id;
+                logLine.playerAssist = data.assist.id;
+
+                logLine.currScoreTeamOne = +game.teamOneScore + (game.offense === TEAM_ONE ? 1 : 0);
+                logLine.currScoreTeamTwo = +game.teamTwoScore + (game.offense === TEAM_TWO ? 1 : 0);
+// debugger
+                dispatch({
+                    type: LOG_ACTION + GOAL,
                     payload: {game, logLine: LogLineData(logLine)}
                 });
                 break;
@@ -126,7 +146,8 @@ export const gameControl = (type, game, log) => {
 // console.log('-----getState()', getState());
 //         debugger
         game && dispatch(updateGame(getState().games.list.get(game.id)));
-        log && dispatch(updateLog(getState().logs.list.get(log.id)));
+        (log || type === TIME_START || type === TIME_STOP || type === TIME_PAUSE)
+            && dispatch(updateLog(getState().logs.list.get(game.logID)));
 
 
         // dispatch({
