@@ -167,8 +167,6 @@ class AppDrawer extends React.Component {
 
         const drawer = (
             <div>
-                {/*<div className={classes.toolbar}/>*/}
-                {/*<Divider/>*/}
                 <List>
                     {['Главная'].map((text, index) => (
                         <ListItem button key={text} onClick={() => goTo('/')}>
@@ -179,20 +177,14 @@ class AppDrawer extends React.Component {
                 </List>
                 <Divider/>
                 <List>
-                    {/*{['All mail', 'Trash', 'Spam'].map((text, index) => (*/}
-                    {/*<ListItem button key={text}>*/}
-                    {/*<ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>*/}
-                    {/*<ListItemText primary={text}/>*/}
-                    {/*</ListItem>*/}
-                    {/*))}*/}
                 </List>
             </div>
         );
-
+//         console.log('-----title', title);
+// debugger
         return (
             <div className={classes.root}>
                 <CssBaseline/>
-                {/*<div className={classes.appBarWrapper}>*/}
                 <AppBar position="fixed" className={classes.appBar}>
                     <Toolbar className={classes.toolBar} style={isGame ? {minHeight: 32} : null}>
                         <IconButton
@@ -233,11 +225,6 @@ class AppDrawer extends React.Component {
                         </Typography>
                         {(
                             <div className={classes.rightMenuWrapper}>
-                                {/*<Typography variant="body2" gutterBottom color="inherit"*/}
-                                {/*className={classes.userName}>*/}
-                                {/*{user.name}*/}
-                                {/*</Typography>*/}
-
                                 {!uploadingStatus && (
                                     <IconButton
                                         onClick={forceUpdateFromServer}
@@ -246,15 +233,6 @@ class AppDrawer extends React.Component {
                                         <FiberManualRecord/>
                                     </IconButton>
                                 )}
-
-                                {/*{uploadingStatus === SHOULD_UPLOAD && (*/}
-                                    {/*<IconButton*/}
-                                        {/*onClick={forceUpdateFromServer}*/}
-                                        {/*className={classes.uploadNeeded}*/}
-                                    {/*>*/}
-                                        {/*<FiberManualRecord/>*/}
-                                    {/*</IconButton>*/}
-                                {/*)}*/}
 
                                 {uploadingStatus && (
                                     <IconButton

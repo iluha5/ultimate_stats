@@ -65,7 +65,7 @@ import {Record} from "immutable";
 // };
 
 export const gameControl = (type, game, log) => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
         let logLine = {
             id: uuidv4(),
             type: type,
@@ -87,6 +87,7 @@ export const gameControl = (type, game, log) => {
                 break;
 
             case TIME_PAUSE:
+                // debugger
                 dispatch({
                     type: LOG_ACTION + TIME_PAUSE,
                     payload: {game, logLine: LogLineData(logLine)}
@@ -122,9 +123,10 @@ export const gameControl = (type, game, log) => {
             type: LOG_ACTION,
             payload: {game, logLine: LogLineData(logLine)}
         });
-
-        game && dispatch(updateGame(game));
-        log && dispatch(updateLog(log));
+// console.log('-----getState()', getState());
+//         debugger
+        game && dispatch(updateGame(getState().games.list.get(game.id)));
+        log && dispatch(updateLog(getState().logs.list.get(log.id)));
 
 
         // dispatch({

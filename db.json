@@ -252,6 +252,26 @@
           "playerAssist": "",
           "currScoreTeamOne": "0",
           "currScoreTeamTwo": "0"
+        },
+        {
+          "id": "2ef0076f-3ca0-4bc6-aa34-801f72809ad1",
+          "type": "TIME_START",
+          "team": "TEAM_TWO",
+          "time": "0",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "0",
+          "currScoreTeamTwo": "0"
+        },
+        {
+          "id": "e9ef3866-5a3d-4c90-a049-77e2964bd3f7",
+          "type": "THROW",
+          "team": "TEAM_TWO",
+          "time": "8",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": "0",
+          "currScoreTeamTwo": "0"
         }
       ]
     },
@@ -1179,13 +1199,13 @@
       "teamTwoID": "04",
       "inProgress": true,
       "isFinished": false,
-      "offense": "TEAM_TWO",
+      "offense": "TEAM_ONE",
       "win": "",
       "teamOneScore": "0",
       "teamTwoScore": "0",
       "codeOne": "C2",
       "codeTwo": "C4",
-      "teamOneTurnovers": 2,
+      "teamOneTurnovers": 3,
       "teamTwoTurnovers": 2,
       "fullTimeDuration": 0,
       "teamOneOffenceDuration": 0,
@@ -1207,7 +1227,7 @@
       "SotgCommentsTeamOne": "",
       "SotgCommentsTeamTwo": "",
       "passesTeamOne": 12,
-      "passesTeamTwo": 6,
+      "passesTeamTwo": 7,
       "takenTimeOutsTeamOne": [],
       "takenTimeOutsTeamTwo": [],
       "takenSotgTimeOutsTeamOne": [],
@@ -1223,11 +1243,11 @@
       "isUploading": false,
       "date": "1543999362020",
       "timeStart": "11:00",
-      "timePassed": 64,
+      "timePassed": 67,
       "statisticID": "gs0002",
       "rosterID": "ros02",
       "isPull": false,
-      "isTimeOn": true
+      "isTimeOn": false
     },
     {
       "id": "234wefwed3g",

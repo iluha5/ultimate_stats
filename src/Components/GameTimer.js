@@ -16,7 +16,7 @@ class GameTimer extends Component {
         // console.log('-----initialTime', initialTime);
         // console.log('-----time', time);
         // debugger
-            updateGameTimer(gameID, Math.floor(time / 1000));
+        updateGameTimer(gameID, Math.floor(time / 1000));
         // }
     };
 
@@ -30,13 +30,17 @@ class GameTimer extends Component {
             >
                 {(timer) => {
                     console.log('-----initialTime - inside', initialTime);
+                    console.log('-----timer.getTime()', timer.getTime());
                     // debugger;
                     return (
                         <span>
-                            <Timer.Minutes/>
-                            :
-                            <Timer.Seconds/>
-                            {Math.abs(initialTime - Math.floor(timer.getTime() / 1000)) > 1 ?  timer.setTime(initialTime * 1000) : null}
+                            {/* костыль из-за бага в Timer! Выводим initialTime вместо timer только сразу после загрузки данных с сервера */}
+                            {Math.abs(initialTime - Math.floor(timer.getTime() / 1000)) > 1 ?
+                                !timer.setTime(initialTime * 1000) &&
+                                `${Math.floor(initialTime / 60)} : ${initialTime % 60}`
+                                :
+                                (<span><Timer.Minutes/> : <Timer.Seconds/></span>)
+                            }
                             {this.saveTimerToStore(timer.getTime())}
                             {isTimerOn ? timer.start() : timer.stop()}
                         </span>

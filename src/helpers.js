@@ -107,7 +107,7 @@ export function getColorForLogLine(type) {
 }
 
 export function getLogLineToRender(logLine, players, rosterTeamOne, rosterTeamTwo, teamNames) {
-    const time = logLine.time;
+    const time = +logLine.time;
     let score = `${logLine.currScoreTeamOne} - ${logLine.currScoreTeamTwo}`;
     let details = `${logLine.type}`;
     // const rosterTeamOne = rosters.get(teams.get(game.teamOneID).rosterID);
