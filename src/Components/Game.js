@@ -33,6 +33,7 @@ import {
 } from "../AC";
 import store from "../store";
 import throttle from "lodash/throttle";
+import Overlay from "./Overlay";
 
 
 const styles = theme => ({
@@ -75,44 +76,6 @@ class Game extends Component {
         isForceLoadFromServer: false,
     };
 
-    // saveTimerToStore = (currTime) => {
-    //     console.log('-----currTime', currTime);
-    //
-    // };
-
-
-    componentDidMount() {
-        const {id, game, updateGame, updateLog, log} = this.props;
-
-        // this.intervalID = setInterval(() => {
-        //     // debugger
-        //     if (this.shouldGameUpload){
-        //         updateGame(game);
-        //     }
-        //
-        //     if (this.shouldLogUpload) {
-        //         updateLog(log);
-        //     }
-        //
-        // }, UPLOAD_INTERVAL);
-
-
-        // console.log('-----id game', id);
-        // const {id, game, uploadGame} = this.props;
-        // const {uploadingStatus} = this.state;
-
-        // uploadIntervalID = setInterval(
-        //     throttle(() => {
-        //         if (uploadingStatus === SHOULD_UPLOAD || game.shouldUpload) {
-        //             updateGame(game);
-        //             this.setState({
-        //                 uploadingStatus: NOW_UPLOADING
-        //             })
-        //         }
-        //     }, 2000)
-        // )
-
-    };
 
     componentWillUnmount() {
         clearInterval(this.intervalID);
@@ -123,28 +86,6 @@ class Game extends Component {
 
         this.shouldGameUpload = game.shouldUpload;
         this.shouldLogUpload = log.shouldUpload;
-
-        // if (!this.intervalID) {
-        //     this.intervalID = setInterval(() => {
-        //         if (game.shouldUpload) {
-        //             updateGame(game);
-        //         }
-        //     }, UPLOAD_INTERVAL);
-        // }
-
-        // console.log('-----this.state.isForceLoadFromServer (DidUpdate)', this.state.isForceLoadFromServer);
-        // debugger
-
-        // if (this.state.isForceLoadFromServer) {
-        //     this.setState({
-        //         isForceLoadFromServer: false
-        //     }, loadGames())
-        // }
-
-        // debugger
-        // if (game.shouldUpload) {
-        //     updateGame(game);
-        // }
 
     }
     ;
@@ -158,6 +99,11 @@ class Game extends Component {
 
     handlerStop = () => {
         const {game, gameControl} = this.props;
+
+        if (!game.inProgress) {
+            window.alert('Не могу завершить игру! Игра не запущена.');
+            return 0;
+        }
 
         window.confirm('Вы хотите завершить игру?') && !game.isFinished && gameControl(TIME_STOP, game);
 
@@ -185,8 +131,8 @@ class Game extends Component {
     };
 
     render() {
-        const {classes, id, tournamentID, game, theme} = this.props;
-        const {isTimerOn, tabValue, uploadingStatus} = this.state;
+        const {classes, id, game} = this.props;
+        const {tabValue} = this.state;
         // console.log('-----timePassed', game.timePassed);
         // console.log('-----game.timePassed', game.timePassed);
         // debugger
@@ -195,7 +141,7 @@ class Game extends Component {
             <div>
                 <AppDrawer
                     title={<GameTimer gameID={id} initialTime={game.timePassed ? game.timePassed : 0}
-                                      isTimerOn={game.isTimeOn}/>}
+                                      isTimerOn={game.isTimeOn} isGameInProgress={game.inProgress}/>}
                     isGame
                     isTimerOn={game.isTimeOn}
                     toggleTimer={this.toggleTimer}
@@ -220,13 +166,9 @@ class Game extends Component {
                         </Tabs>
                     </AppBar>
 
-                    {/*<SwipeableViews*/}
-                    {/*axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}*/}
-                    {/*index={this.state.tabValue}*/}
-                    {/*onChangeIndex={this.handleChangeIndex}*/}
-                    {/*>*/}
                     {tabValue === 0 &&
                     <TabContainer>
+                        {/*{!game.inProgress && <Overlay message='Игра не запущена' />}*/}
                         <GameControl gameID={id}/>
                     </TabContainer>
                     }
@@ -240,7 +182,6 @@ class Game extends Component {
                         Статистика
                     </TabContainer>
                     }
-                    {/*</SwipeableViews>*/}
                 </main>
 
             </div>

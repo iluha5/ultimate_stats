@@ -229,7 +229,7 @@ class GameControlRoster extends Component {
                                 return (
                                     <TableRow
                                         hover
-                                        onClick={handlePlayerClick(n.id, `#${n.num} ${n.name}`)}
+                                        onClick={handlePlayerClick && handlePlayerClick(n.id, `#${n.num} ${n.name}`)}
                                         role="checkbox"
                                         aria-checked={isSelected}
                                         tabIndex={-1}

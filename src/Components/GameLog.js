@@ -142,10 +142,10 @@ const styles = theme => ({
         width: '12%'
     },
     score: {
-        width: '14%'
+        width: '16%'
     },
     details: {
-        width: '74%',
+        width: '72%',
         lineHeight: 1,
     },
 });

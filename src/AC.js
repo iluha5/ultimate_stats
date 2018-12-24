@@ -78,6 +78,8 @@ export const gameControl = (type, game, log, data) => {
 
         };
 
+        if (!game.inProgress && type !== TIME_START) return;
+
         switch (type) {
             case TIME_START:
                 dispatch({

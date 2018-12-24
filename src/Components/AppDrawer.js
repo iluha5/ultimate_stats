@@ -159,7 +159,7 @@ class AppDrawer extends React.Component {
     render() {
         const {
             classes, theme, goTo, user, title, isGame, toggleTimer, handlerStop, isTimerOn, forceUpdateFromServer,
-            uploadingStatus
+            uploadingStatus,
         } = this.props;
         const {anchorEl} = this.state;
         const open = Boolean(anchorEl);
@@ -211,14 +211,14 @@ class AppDrawer extends React.Component {
                                     >
                                         {isTimerOn ? <PauseCircleOutline/> : <PlayCircleOutline/>}
                                     </IconButton>
-                                    < IconButton
-                                        aria-haspopup="false"
-                                        color="inherit"
-                                        className={classes.controls}
-                                        onClick={handlerStop}
-                                    >
-                                        <StopOutlined/>
-                                    </IconButton>
+                                        < IconButton
+                                            aria-haspopup="false"
+                                            color="inherit"
+                                            className={classes.controls}
+                                            onClick={handlerStop}
+                                        >
+                                            <StopOutlined/>
+                                        </IconButton>
                                 </span>
                             )
                             }

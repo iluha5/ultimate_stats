@@ -100,6 +100,7 @@ const styles = theme => ({
         }
     },
     roster: {
+        position: 'relative',
         width: '100%',
         height: '100%',
         // paddingRight: 0,
@@ -271,31 +272,7 @@ class GameControl extends Component {
         e.preventDefault();
         const {game, gameControl, log} = this.props;
 
-        // const {isTeamOneOffence, assist, goal} = this.state;
-
-        // const data = {
-        //     isTeamOneOffence,
-        //     assist,
-        //     goal,
-        // };
-
-        // debugger
         gameControl(type, game, log);
-
-        // switch (type) {
-        //     case PULL:
-        //         this.setState({
-        //             isTeamOneOffence: !isTeamOneOffence,
-        //             isPull: false,
-        //         });
-        //         break;
-        //     case TURNOVER:
-        //         this.setState({
-        //             isTeamOneOffence: !isTeamOneOffence,
-        //             isPull: false,
-        //         });
-        //         break;
-        // }
     };
 
     render() {
@@ -324,13 +301,15 @@ class GameControl extends Component {
                     <div
                         className={[classes.rosterWrapper, (game.offense === TEAM_ONE) && classes.rosterRootIsOffence].join(' ')}>
                         <div className={classes.roster}>
-                            <GameControlRoster rosterID={rosters.teamOne} handlePlayerClick={this.handlePlayerClick}/>
+                            {/*{game.offense === TEAM_TWO && <Overlay alfa='0' index='10'/>}*/}
+                            <GameControlRoster rosterID={rosters.teamOne} handlePlayerClick={game.offense === TEAM_ONE && !game.isPull ? this.handlePlayerClick : null}/>
                         </div>
                     </div>
                     <div
                         className={[classes.rosterWrapper, (game.offense === TEAM_TWO) && classes.rosterRootIsOffence].join(' ')}>
                         <div className={classes.roster}>
-                            <GameControlRoster rosterID={rosters.teamTwo} handlePlayerClick={this.handlePlayerClick}/>
+                            {/*{game.offense === TEAM_ONE && <Overlay alfa='0' index='10'/>}*/}
+                            <GameControlRoster rosterID={rosters.teamTwo} handlePlayerClick={game.offense === TEAM_TWO && !game.isPull ? this.handlePlayerClick : null}/>
                         </div>
                     </div>
                 </div>
