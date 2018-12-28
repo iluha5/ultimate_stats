@@ -338,8 +338,8 @@ class GameControl extends Component {
                 </div>
 
                 <div className={classes.othersButs}>
-                    <GameControlOtherButs handleOtherBut={this.handleOtherBut} teamID={game.teamOneID}/>
-                    <GameControlOtherButs handleOtherBut={this.handleOtherBut} teamID={game.teamTwoID}/>
+                    <GameControlOtherButs handleClick={this.handleClick} team={TEAM_ONE}/>
+                    <GameControlOtherButs handleClick={this.handleClick} team={TEAM_TWO}/>
                 </div>
 
                 <div className={classes.inputLogLine}>

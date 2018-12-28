@@ -69,6 +69,7 @@ export const TIME_PAUSE = 'TIME_PAUSE';
 export const PLAYER_CLICK = 'PLAYER_CLICK';
 
 export const UNDEFINED_PLAYER = 'UNDEFINED_PLAYER';
+export const UNDEFINED_EVENT = 'UNDEFINED_EVENT';
 
 // Uploading statuses
 export const STANDBY = 'STANDBY';

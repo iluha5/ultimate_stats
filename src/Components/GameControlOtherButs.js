@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Button from '@material-ui/core/Button';
 import {withStyles} from "@material-ui/core/styles/index";
 import PropTypes from 'prop-types';
+import {INJURY, OTHER, SOTG, TIMEOUT} from "../constants";
 
 const styles = theme => ({
     but: {
@@ -17,20 +18,20 @@ const styles = theme => ({
 class GameControlOtherButs extends Component {
 
     render() {
-        const {classes, handleOtherBut, teamID} = this.props;
+        const {classes, handleClick, team} = this.props;
 
         return (
             <div>
-                <Button variant="outlined" className={classes.but} onClick={handleOtherBut(teamID)}>
+                <Button variant="outlined" className={classes.but} onClick={handleClick(TIMEOUT + team)}>
                     TO
                 </Button>
-                <Button variant="outlined" className={classes.but} onClick={handleOtherBut(teamID)}>
+                <Button variant="outlined" className={classes.but} onClick={handleClick(SOTG + team)}>
                     SotG
                 </Button>
-                <Button variant="outlined" className={classes.but} onClick={handleOtherBut(teamID)}>
+                <Button variant="outlined" className={classes.but} onClick={handleClick(INJURY + team)}>
                     Inj
                 </Button>
-                <Button variant="outlined" className={classes.but} onClick={handleOtherBut(teamID)}>
+                <Button variant="outlined" className={classes.but} onClick={handleClick(OTHER + team)}>
                     Др.
                 </Button>
             </div>
@@ -40,8 +41,8 @@ class GameControlOtherButs extends Component {
 
 GameControlOtherButs.propTypes = {
     classes: PropTypes.object,
-    handleOtherBut: PropTypes.func.isRequired,
-    teamID: PropTypes.string.isRequired,
+    handleClick: PropTypes.func.isRequired,
+    team: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(GameControlOtherButs);

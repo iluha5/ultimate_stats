@@ -29,8 +29,8 @@ class GameTimer extends Component {
                 startImmediately={false}
             >
                 {(timer) => {
-                    console.log('-----initialTime - inside', initialTime);
-                    console.log('-----timer.getTime()', timer.getTime());
+                    // console.log('-----initialTime - inside', initialTime);
+                    // console.log('-----timer.getTime()', timer.getTime());
                     // debugger;
                     return (
                         <span>

@@ -110,12 +110,15 @@ export function getLogLineToRender(logLine, players, rosterTeamOne, rosterTeamTw
     const time = +logLine.time;
     let score = `${logLine.currScoreTeamOne} - ${logLine.currScoreTeamTwo}`;
     let details = `${logLine.type}`;
+    const teamName = teamNames[logLine.team] || '';
+
     // const rosterTeamOne = rosters.get(teams.get(game.teamOneID).rosterID);
     // const rosterTeamTwo = rosters.get(teams.get(game.teamTwoID).rosterID);
 
     switch (logLine.type) {
         case GOAL:
             // debugger
+            // console.log('-----logLine', logLine);
             let playerAssist = '';
             let playerGoal = '';
             const playerAssistNum = logLine.team === TEAM_ONE ?
@@ -138,22 +141,23 @@ export function getLogLineToRender(logLine, players, rosterTeamOne, rosterTeamTw
             score = logLine.team === TEAM_ONE ? `${logLine.currScoreTeamOne}.- ${logLine.currScoreTeamTwo}` : `${logLine.currScoreTeamOne} -.${logLine.currScoreTeamTwo}`;
             break;
         case TURNOVER:
-            details = `Турновер. Атака: ${teamNames[logLine.team]}`;
+            details = `Турновер. Атака: ${teamName}`;
             break;
         case THROW:
-            details = `Бросок: ${teamNames[logLine.team].substr(0, 15)}.`;
+            details = `Бросок: ${teamName.substr(0, 15)}.`;
             break;
         case TIMEOUT:
-            details = `Таймаут: ${teamNames[logLine.team].substr(0, 15)}.`;
+            // debugger
+            details = `Таймаут: ${teamName.substr(0, 15)}.`;
             break;
         case SOTG:
-            details = `Спирит. таймаут: ${teamNames[logLine.team].substr(0, 15)}.`;
+            details = `Спирит. таймаут: ${teamName.substr(0, 15)}.`;
             break;
         case INJURY:
-            details = `Остановка по травме: ${teamNames[logLine.team].substr(0, 15)}.`;
+            details = `Остановка по травме: ${teamName.substr(0, 15)}.`;
             break;
         case OTHER:
-            details = `Прочая остановка: ${teamNames[logLine.team].substr(0, 15)}.`;
+            details = `Прочая остановка: ${teamName.substr(0, 15)}.`;
             break;
         case TIME_STOP:
             details = `ИГРА ОКОНЧЕНА!`;
@@ -165,9 +169,12 @@ export function getLogLineToRender(logLine, players, rosterTeamOne, rosterTeamTw
             details = `ВРЕМЯ ОСТАНОВЛЕНО!!`;
             break;
         case PULL:
-            details = `Пулл: ${teamNames[logLine.team].substr(0, 15)}.`;
+            // debugger
+            details = `Пулл: ${teamName.substr(0, 15)}.`;
             break;
         default:
+            // debugger
+            // console.log('-----logLine.type', logLine.type);
             details = 'Неизвестное действие';
     }
 

@@ -2,7 +2,7 @@ import {
     API,
     FAIL,
     GAME,
-    GAME_START, GOAL,
+    GAME_START, GOAL, INJURY,
     LOAD_ALL_TEAMS,
     LOAD_BEARER,
     LOAD_GAMES,
@@ -13,18 +13,18 @@ import {
     LOAD_TEAMS,
     LOAD_TOURNAMENTS,
     LOAD_USERS,
-    LOG_ACTION,
+    LOG_ACTION, OTHER,
     PULL,
     PUSH_NEW_TEAM,
     PUSH_NEW_TOURNAMENT,
     SHOULD_RELOAD,
-    SHOULD_UPLOAD,
+    SHOULD_UPLOAD, SOTG,
     START,
     SUCCESS,
     TEAM_ONE,
     TEAM_TWO,
-    THROW, TIME_PAUSE, TIME_START, TIME_STOP,
-    TURNOVER,
+    THROW, TIME_PAUSE, TIME_START, TIME_STOP, TIMEOUT,
+    TURNOVER, UNDEFINED_EVENT,
     UPDATE_GAME,
     UPDATE_TIMER_GAME,
     UPDATE_TOURNAMENT,
@@ -79,7 +79,6 @@ export const gameControl = (type, game, log, data) => {
         };
 
         if (!game.inProgress && type !== TIME_START) return;
-
         switch (type) {
             case TIME_START:
                 dispatch({
@@ -137,6 +136,55 @@ export const gameControl = (type, game, log, data) => {
 
                 dispatch({
                     type: LOG_ACTION + TURNOVER,
+                    payload: {game, logLine: LogLineData(logLine)}
+                });
+                break;
+
+            case TIMEOUT + TEAM_ONE:
+            case TIMEOUT + TEAM_TWO:
+                logLine.type = TIMEOUT;
+                logLine.team = type.substr(TIMEOUT.length);
+
+                dispatch({
+                    type: LOG_ACTION + TIMEOUT,
+                    payload: {game, logLine: LogLineData(logLine)}
+                });
+                break;
+
+            case SOTG + TEAM_ONE:
+            case SOTG + TEAM_TWO:
+                logLine.team = type.substr(SOTG.length);
+                logLine.type = SOTG;
+
+                dispatch({
+                    type: LOG_ACTION + SOTG,
+                    payload: {game, logLine: LogLineData(logLine)}
+                });
+                break;
+
+            case INJURY + TEAM_ONE:
+            case INJURY + TEAM_TWO:
+                logLine.team = type.substr(INJURY.length);
+                logLine.type = INJURY;
+
+                dispatch({
+                    type: LOG_ACTION + INJURY,
+                    payload: {game, logLine: LogLineData(logLine)}
+                });
+                break;
+
+            case OTHER + TEAM_ONE:
+            case OTHER + TEAM_TWO:
+                logLine.team = type.substr(OTHER.length);
+                logLine.type = OTHER;
+                dispatch({
+                    type: LOG_ACTION + OTHER,
+                    payload: {game, logLine: LogLineData(logLine)}
+                });
+                break;
+            default:
+                dispatch({
+                    type: LOG_ACTION + UNDEFINED_EVENT,
                     payload: {game, logLine: LogLineData(logLine)}
                 });
         }
