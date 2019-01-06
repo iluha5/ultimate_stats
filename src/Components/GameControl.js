@@ -253,39 +253,41 @@ class GameControl extends Component {
     //     console.log(id);
     // };
 
-    handlePlayerClick = (id, name) => e => {
-        e.preventDefault();
-
-        const {game, gameControl, log} = this.props;
-
-        if (this.state.assist === null) {
-            this.setState({
-                assist: {id, name}
-            });
-            return 0;
-        }
-
-        const data = {
-            assist: this.state.assist,
-            goal: {id, name}
-        };
-
-        gameControl(GOAL, game, log, data);
-        this.setState({
-            assist: null
-        });
-
-    };
+    // handlePlayerClick = (id, name) => e => {
+    //     e.preventDefault();
+    //
+    //     const {game, gameControl, log} = this.props;
+    //
+    //     if (this.state.assist === null) {
+    //         this.setState({
+    //             assist: {id, name}
+    //         });
+    //         return 0;
+    //     }
+    //
+    //     const data = {
+    //         assist: this.state.assist,
+    //         goal: {id, name}
+    //     };
+    //
+    //     gameControl(GOAL, game, log, data);
+    //     this.setState({
+    //         assist: null
+    //     });
+    //
+    // };
 
     handleClick = (type) => e => {
         e.preventDefault();
         const {game, gameControl, log} = this.props;
-// debugger
+
         gameControl(type, game, log);
+
+        type === UNDO && console.log('-----undoList', window.store.getState().undoList);
     };
 
     render() {
-        const {game, teamsNames, classes, gameID, rosters} = this.props;
+        const {game, teamsNames, classes, gameID, rosters, isUndoListEmpty, log} = this.props;
         const {viewPortH, assist} = this.state;
 
         return (
@@ -311,14 +313,16 @@ class GameControl extends Component {
                         className={[classes.rosterWrapper, (game.offense === TEAM_ONE) && classes.rosterRootIsOffence].join(' ')}>
                         <div className={classes.roster}>
                             {/*{game.offense === TEAM_TWO && <Overlay alfa='0' index='10'/>}*/}
-                            <GameControlRoster rosterID={rosters.teamOne} handlePlayerClick={game.offense === TEAM_ONE && !game.isPull ? this.handlePlayerClick : null}/>
+                            <GameControlRoster rosterID={rosters.teamOne}
+                                               handlePlayerClick={game.offense === TEAM_ONE && !game.isPull ? this.handlePlayerClick : null}/>
                         </div>
                     </div>
                     <div
                         className={[classes.rosterWrapper, (game.offense === TEAM_TWO) && classes.rosterRootIsOffence].join(' ')}>
                         <div className={classes.roster}>
                             {/*{game.offense === TEAM_ONE && <Overlay alfa='0' index='10'/>}*/}
-                            <GameControlRoster rosterID={rosters.teamTwo} handlePlayerClick={game.offense === TEAM_TWO && !game.isPull ? this.handlePlayerClick : null}/>
+                            <GameControlRoster rosterID={rosters.teamTwo}
+                                               handlePlayerClick={game.offense === TEAM_TWO && !game.isPull ? this.handlePlayerClick : null}/>
                         </div>
                     </div>
                 </div>
@@ -360,14 +364,20 @@ class GameControl extends Component {
                         {/*<GameControlLogPrev />*/}
                         <GameLog gameID={gameID} logID={game.logID} preview/>
                     </div>
-                    <Button size='small' variant="fab" className={classes.undo}
-                            onClick={this.handleClick(UNDO)}>
-                        <Undo fontSize="small" color="action"/>
-                    </Button>
-                    <Button size='small' variant="fab" className={classes.redo}
-                            onClick={this.handleClick(REDO)}>
-                        <Redo fontSize="small" color="action"/>
-                    </Button>
+
+                    {log.logList.length > 0 &&
+                        <Button size='small' variant="fab" className={classes.undo}
+                                onClick={this.handleClick(UNDO)}>
+                            <Undo fontSize="small" color="action"/>
+                        </Button>
+                    }
+
+                    {!isUndoListEmpty &&
+                        <Button size='small' variant="fab" className={classes.redo}
+                                onClick={this.handleClick(REDO)}>
+                            <Redo fontSize="small" color="action"/>
+                        </Button>
+                    }
 
                 </div>
 
@@ -384,6 +394,7 @@ GameControl.propTypes = {
     rosters: PropTypes.object.isRequired,
     teamsNames: PropTypes.array.isRequired,
     gameControl: PropTypes.func.isRequired,
+    isUndoListEmpty: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -400,7 +411,8 @@ const mapStateToProps = (state, ownProps) => {
         log: log,
         game: gameData,
         teamsNames: [teamOneName, teamTwoName],
-        rosters: {teamOne: rosterTeamOne, teamTwo: rosterTeamTwo}
+        rosters: {teamOne: rosterTeamOne, teamTwo: rosterTeamTwo},
+        isUndoListEmpty: state.undoList.isEmpty
     };
 };
 

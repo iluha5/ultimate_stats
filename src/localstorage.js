@@ -25,7 +25,7 @@ export const loadState = () => {
       }
 
       let loadedState = JSON.parse(serializedState);
-      let { tournamentsList, user, games, teams, rosters, players, logs, undoList} = loadedState;
+      let { tournamentsList, user, games, teams, rosters, players, logs} = loadedState;
       const defaultTournamentList = TournamentsListState();
       const defaultUser = UserState();
       const defaultGame = GamesState();
@@ -83,25 +83,26 @@ export const loadState = () => {
       }
 
       if (logs && logs.list && !Record.isRecord(logs)) {
-
-          logs = convertLogToRecord(logs, LogData, LogLineData, LogsState, defaultLogs, OrderedMap);
+          logs = convertLogToRecord(logs, LogData, LogLineData, LogsState, defaultLogs, OrderedMap, GameData);
 
           loadedState = {...loadedState, logs};
       }
 
-      if (undoList && undoList.list && !Record.isRecord(undoList)) {
-          // debugger
+      loadedState = {...loadedState, undoList: defaultLogUndo};
 
-          undoList = convertPlainObjectToState(undoList, LogLineData, defaultLogUndo, LogUndoState, OrderedMap);
-
-          loadedState = {...loadedState, undoList};
-      }
+      // if (undoList && undoList.list && !Record.isRecord(undoList)) {
+      //     // debugger
+      //
+      //     undoList = convertPlainObjectToState(undoList, LogLineData, defaultLogUndo, LogUndoState, OrderedMap);
+      //
+      //     loadedState = {...loadedState, undoList};
+      // }
 
       // console.log('-----localstorage, все ок', loadedState);
       // debugger
       return loadedState;
   }  catch (err) {
-        console.error('----- localstorage', err);
+        console.error('Ошибка при загрузки из Localstorage!', err);
         return undefined;
   }
 };

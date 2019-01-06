@@ -67,11 +67,12 @@ export default (logsState = defaultLogsState, action) => {
             newState = logsState
                 .set('list', logsState.list
                     .set(
-                        payload.game.logID,  logsState.list.get(payload.game.logID)
+                        payload.game.logID, logsState.list.get(payload.game.logID)
                             .set('logList', [
-                                ...logsState.list.get(payload.game.logID).logList, payload.logLine
+                                ...logsState.list.get(payload.game.logID).logList, payload.logLine.set('gameSnapshot', payload.game)
                             ])
-                        )
+
+                    )
                 );
             return newState;
 
@@ -101,6 +102,7 @@ export default (logsState = defaultLogsState, action) => {
 
 
         case UPLOAD_LOG + FAIL:
+            // debugger
             newState = logsState
                 .set(
                     'list', logsState.list
@@ -126,7 +128,7 @@ export default (logsState = defaultLogsState, action) => {
             newState = logsState
                 .set('list', logsState.list
                     .set(
-                        payload.game.logID,  logsState.list.get(payload.game.logID)
+                        payload.game.logID, logsState.list.get(payload.game.logID)
                             .set('logList', [
                                 ...logsState.list.get(payload.game.logID).logList
                             ].slice(0, -1))

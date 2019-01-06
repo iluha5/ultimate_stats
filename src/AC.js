@@ -14,7 +14,7 @@ import {
     LOG_ACTION, OTHER,
     PULL,
     PUSH_NEW_TEAM,
-    PUSH_NEW_TOURNAMENT,
+    PUSH_NEW_TOURNAMENT, REDO,
     SHOULD_RELOAD,
     SOTG,
     START,
@@ -47,7 +47,7 @@ export const gameControl = (type, game, log, data) => {
 
         };
 
-        if (!game.inProgress && type !== TIME_START) return;
+        if (!game.inProgress && type !== TIME_START && type !== UNDO) return;
         switch (type) {
             case TIME_START:
                 dispatch({
@@ -161,7 +161,21 @@ export const gameControl = (type, game, log, data) => {
                 });
                 break;
 
+            case REDO:
+                const redoLogLine = getState().undoList.list.last();
+                const redoType = redoLogLine.type;
+                logLine = redoLogLine.toObject();
+// debugger
+                dispatch({
+                    type: LOG_ACTION + redoType,
+                    payload: {game, logLine: LogLineData(redoLogLine)}
+                });
 
+                dispatch({
+                    type: REDO,
+                    payload: {game}
+                });
+                break;
 
             default:
                 dispatch({
@@ -170,10 +184,17 @@ export const gameControl = (type, game, log, data) => {
                 });
         }
 
-        if (type !== UNDO) {
+        if (type !== UNDO && type !== REDO) {
             dispatch({
                 type: LOG_ACTION,
                 payload: {game, logLine: LogLineData(logLine)}
+            });
+        }
+
+        if (type === REDO) {
+            dispatch({
+                type: LOG_ACTION,
+                payload: {game, logLine: LogLineData(logLine), isRedo: true}
             });
         }
 

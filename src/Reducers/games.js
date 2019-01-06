@@ -6,7 +6,7 @@ import {
     TEAM_ONE, TEAM_TWO, THROW, TIME_PAUSE, TIME_START, TIME_STOP, TIMEOUT, TURNOVER, UNDO,
     UPDATE_TIMER_GAME, UPLOAD_GAME
 } from "../constants";
-import {arrToMap, getReducedGameByType} from "../helpers";
+import {arrToMap} from "../helpers";
 import {GameData, GamesState} from "../model";
 
 const defaultGamesState = GamesState();
@@ -93,12 +93,16 @@ export default (gamesState = defaultGamesState, action) => {
                 );
 
         case LOG_ACTION + TIME_STOP:
+            const teamOneScore = +gamesState.list.get(payload.game.id)['teamOneScore'];
+            const teamTwoScore = +gamesState.list.get(payload.game.id)['teamTwoScore'];
+
             return gamesState
                 .set('list', gamesState.list
                     .set(payload.game.id, gamesState.list.get(payload.game.id)
                         .set('isTimeOn', false)
                         .set('inProgress', false)
                         .set('isFinished', true)
+                        .set('win', teamOneScore > teamTwoScore ? TEAM_ONE : TEAM_TWO)
                     )
                 );
 
@@ -191,13 +195,11 @@ export default (gamesState = defaultGamesState, action) => {
                 );
 
         case UNDO + ADD:
-            // debugger
-            const actionType = payload.logLine.type;
-            const newGame = getReducedGameByType(actionType, payload.game, payload.logLine);
+            const prevGameState = payload.logLine.gameSnapshot.set('timePassed', payload.game.timePassed);
 
             return gamesState
                 .set('list', gamesState.list
-                    .set(payload.game.id, newGame)
+                    .set(payload.game.id, prevGameState)
                 );
 
         default:

@@ -1,9 +1,9 @@
 import {OrderedMap, Map} from 'immutable'
 import {
     GOAL,
-    INJURY,
+    INJURY, LOG_ACTION,
     OTHER, PULL,
-    SOTG, TEAM_ONE,
+    SOTG, TEAM_ONE, TEAM_TWO,
     THROW,
     TIME_PAUSE,
     TIME_START,
@@ -29,7 +29,7 @@ export function mapToArr(obj) {
     return obj.valueSeq().toArray()
 }
 
-export function convertLogToRecord(logsState, LogData, LogLineData, LogsState, defaultLogState, OrderedMap) {
+export function convertLogToRecord(logsState, LogData, LogLineData, LogsState, defaultLogState, OrderedMap, GameData) {
     // debugger
     if (logsState && logsState.list && Object.keys(logsState.list).length !== 0) {
 
@@ -37,7 +37,12 @@ export function convertLogToRecord(logsState, LogData, LogLineData, LogsState, d
                 let logLines = [];
 
                 if (Array.isArray(logsState.list[key].logList)) {
-                    logLines = logsState.list[key].logList.map(logLine => LogLineData(logLine));
+
+                    logLines = logsState.list[key].logList.map(
+                        logLine => {
+                            return LogLineData(Object.assign({}, logLine, {gameSnapshot: GameData(logLine.gameSnapshot)}))
+                        }
+                    );
                 } else {
                     // console.log('-----logsState.list[key].logList не массив! Вот logsState.list[key]', logsState.list[key]);
                 }
@@ -193,15 +198,45 @@ export function getMyGamesInProgress(games, userID) {
     return result;
 }
 
-export function getReducedGameByType(type, game, logLine) {
-
-    switch (type) {
-        case TIME_START:
-            return game
-                .set('inProgress', false)
-                .set('isTimeOn', false);
-
-        default:
-            return game;
-    }
-}
+// export function getReducedGameByType(type, game, logLine) {
+//
+//     switch (type) {
+//         case TIME_START:
+//             return game
+//                 .set('inProgress', false)
+//                 .set('isTimeOn', false);
+//
+//         case TIME_PAUSE:
+//             return game
+//                 .set('isTimeOn', true)
+//                 .set('isFinished', false);
+//
+//         case TIME_STOP:
+//             return game
+//                 .set('isTimeOn', false) // хак, чтобы не обрабатывать предыдущее (неизвестное) состояние игры
+//                 .set('inProgress', true)
+//                 .set('isFinished', false)
+//                 .set('win', "");
+//
+//         case THROW:
+//             const teamPassesKey = logLine.team === TEAM_ONE ? 'passesTeamOne' : 'passesTeamTwo';
+//
+//             return game
+//                 .set(teamPassesKey, +game[teamPassesKey] - 1 >= 0 ? +game[teamPassesKey] - 1 : 0);
+//
+//         case GOAL:
+//             const teamScoreKey = logLine.team === TEAM_ONE ? 'teamOneScore' : 'teamTwoScore';
+//             const inOffense = game.offense === TEAM_ONE ? TEAM_TWO : TEAM_ONE;
+//
+//             return game
+//                 .set(teamScoreKey, +game[teamScoreKey] - 1)
+//                 .set('offense', inOffense);
+//
+//         case PULL:
+//             return game
+//                 .set('isPull', true);
+//
+//         default:
+//             return game;
+//     }
+// }

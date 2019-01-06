@@ -153,7 +153,7 @@ export const LogData = Record({
     shouldReload: true,
     isUploading: false,
     isError: false,
-    logList: new OrderedMap({}),
+    logList: [],
 });
 export const LogLineData = Record({
     id: '',
@@ -164,7 +164,7 @@ export const LogLineData = Record({
     playerAssist: '',
     currScoreTeamOne: 0,
     currScoreTeamTwo: 0,
-
+    gameSnapshot: {}
 });
 
 export const LogUndoState = Record({

@@ -21,6 +21,7 @@ import {
     loadLog,
     loadRosters,
     updateGameTimer,
+    loadPlayers
 } from "../AC";
 
 
@@ -178,6 +179,7 @@ const mapDispatchToProps = (dispatch) => {
         loadGames: () => dispatch(loadGames()),
         loadLog: (logID) => dispatch(loadLog(logID)),
         loadRosters: () => dispatch(loadRosters()),
+        loadPlayers: () => dispatch(loadPlayers()),
         updateGameTimer: (gameID, time) => dispatch(updateGameTimer(gameID, time)),
         gameControl: (type, game, log) => dispatch(gameControl(type, game, log)),
     };
