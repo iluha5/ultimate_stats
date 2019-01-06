@@ -1,6 +1,6 @@
-import {LOAD_PLAYERS, LOAD_ROSTERS, SHOULD_RELOAD, START, SUCCESS} from "../constants";
+import {LOAD_PLAYERS, SHOULD_RELOAD, START, SUCCESS} from "../constants";
 import {arrToMap} from "../helpers";
-import {PlayerData, PlayersState, RosterData, RostersState} from "../model";
+import {PlayerData, PlayersState} from "../model";
 
 const defaultPlayersState = PlayersState();
 

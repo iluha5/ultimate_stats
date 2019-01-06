@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Login from "../Components/Login";
 import Scorekeeper from "../Components/Scorekeeper";
-import Mode from "../Components/Mode";
 import {Redirect, Route, Switch} from "react-router-dom";
 import {connect} from "react-redux";
 import {ADMIN, SCOREKEEPER} from "../constants";
@@ -14,7 +12,6 @@ class KeeperRoute extends Component {
     renderTournament = ({match}) => {
         const {tournamentID} = match.params;
         const {user} = this.props;
-// debugger
 
         return (user && (user.role === SCOREKEEPER || user.role === ADMIN )) ? (
             <Tournament id={tournamentID}/>
@@ -26,8 +23,7 @@ class KeeperRoute extends Component {
     renderGame = ({match}) => {
         const {id, tournamentID} = match.params;
         const {user} = this.props;
-        // console.dir(tournamentID);
-        // debugger
+
         return (user && (user.role === SCOREKEEPER || user.role === ADMIN )) ? (
             <Game id={id} tournamentID={tournamentID} />
         ) : (

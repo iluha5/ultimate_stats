@@ -4,6 +4,7 @@ export const SUCCESS = '_SUCCESS';
 export const FAIL = '_FAIL';
 export const LOADING = '_LOADING';
 export const LOADED = '_LOADED';
+export const ADD = '_ADD';
 
 export const API = {
     bearer: '/bearer',
@@ -70,6 +71,9 @@ export const PLAYER_CLICK = 'PLAYER_CLICK';
 
 export const UNDEFINED_PLAYER = 'UNDEFINED_PLAYER';
 export const UNDEFINED_EVENT = 'UNDEFINED_EVENT';
+
+export const UNDO = 'UNDO';
+export const REDO = 'REDO';
 
 // Uploading statuses
 export const STANDBY = 'STANDBY';

@@ -1,4 +1,4 @@
-import {OrderedMap, Map, Record} from 'immutable'
+import {OrderedMap, Map} from 'immutable'
 import {
     GOAL,
     INJURY,
@@ -34,13 +34,13 @@ export function convertLogToRecord(logsState, LogData, LogLineData, LogsState, d
     if (logsState && logsState.list && Object.keys(logsState.list).length !== 0) {
 
         const newMap = Object.keys(logsState.list).reduce((acc, key) => {
-            let logLines = [];
+                let logLines = [];
 
-            if (Array.isArray(logsState.list[key].logList)) {
-                logLines = logsState.list[key].logList.map(logLine => LogLineData(logLine));
-            } else {
-            console.log('-----logsState.list[key].logList не массив! Вот logsState.list[key]', logsState.list[key]);
-            }
+                if (Array.isArray(logsState.list[key].logList)) {
+                    logLines = logsState.list[key].logList.map(logLine => LogLineData(logLine));
+                } else {
+                    // console.log('-----logsState.list[key].logList не массив! Вот logsState.list[key]', logsState.list[key]);
+                }
 
                 acc[key] = LogData({...logsState.list[key], logList: logLines});
                 return acc;
@@ -80,6 +80,7 @@ export function convertPlainObjectToState(state, DataRecord, defaultState, DataS
             case 'userData':
                 data = DataRecord(state[listKey]);
                 break;
+            default:
         }
 
         return DataStateRecord({
@@ -181,33 +182,26 @@ export function getLogLineToRender(logLine, players, rosterTeamOne, rosterTeamTw
     return {time, score, details};
 }
 
-// export function getActionByType(type) {
-//
-//     switch (type) {
-//         case GOAL:
-//         case TURNOVER:
-//         case THROW:
-//         case TIMEOUT:
-//         case SOTG:
-//         case INJURY:
-//         case OTHER:
-//         case TIME_STOP:
-//         case TIME_START:
-//         case TIME_PAUSE:
-//         case PULL:
-//             return gameControl(type);
-//         default:
-//     }
-//
-// }
-
 export function getMyGamesInProgress(games, userID) {
     let result = [];
     games.forEach(game => {
-        if (game.ownerID === userID && game.inProgress){
+        if (game.ownerID === userID && game.inProgress) {
             result.push(game.id);
         }
     });
 
     return result;
+}
+
+export function getReducedGameByType(type, game, logLine) {
+
+    switch (type) {
+        case TIME_START:
+            return game
+                .set('inProgress', false)
+                .set('isTimeOn', false);
+
+        default:
+            return game;
+    }
 }

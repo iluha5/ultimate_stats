@@ -4,25 +4,25 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
+// import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
-import {MuiPickersUtilsProvider} from 'material-ui-pickers';
-import {DatePicker} from 'material-ui-pickers';
-import DateFnsUtils from '@date-io/date-fns';
-import ArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import ArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import ruLocale from 'date-fns/locale/ru';
-import FormControl from '@material-ui/core/FormControl';
+// import {MuiPickersUtilsProvider} from 'material-ui-pickers';
+// import {DatePicker} from 'material-ui-pickers';
+// import DateFnsUtils from '@date-io/date-fns';
+// import ArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+// import ArrowRight from '@material-ui/icons/KeyboardArrowRight';
+// import ruLocale from 'date-fns/locale/ru';
+// import FormControl from '@material-ui/core/FormControl';
 import {withStyles} from '@material-ui/core/styles';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Chip from '@material-ui/core/Chip';
-import Input from '@material-ui/core/Input';
+// import Select from '@material-ui/core/Select';
+// import InputLabel from '@material-ui/core/InputLabel';
+// import MenuItem from '@material-ui/core/MenuItem';
+// import Chip from '@material-ui/core/Chip';
+// import Input from '@material-ui/core/Input';
 import {connect} from "react-redux";
-import {pushNewTeam, pushNewTournament, updateTournament} from "../AC";
-import dateFormat from 'dateformat';
+import {pushNewTeam, updateTournament} from "../AC";
+// import dateFormat from 'dateformat';
 import uuidv4 from "uuid/v4";
 
 const defaultState = {
@@ -54,31 +54,31 @@ class AddTeam extends React.Component {
         return ' ';
     };
 
-    handleDateFromChange = (date) => {
-        this.setState({
-            selectedDateFrom: date,
-            dateToHelper: this.getDateHelper(date)
-        });
-    };
+    // handleDateFromChange = (date) => {
+    //     this.setState({
+    //         selectedDateFrom: date,
+    //         dateToHelper: this.getDateHelper(date)
+    //     });
+    // };
+    //
+    // handleDateToChange = (date) => {
+    //     this.setState({
+    //         selectedDateTo: date,
+    //         dateToHelper: this.getDateHelper(null,date)
+    //     });
+    // };
+    //
+    // handleCovering = event => {
+    //     this.setState({[event.target.name]: event.target.value});
+    // };
+    //
+    // handleChange = event => {
+    //     this.setState({divisions: event.target.value});
+    // };
 
-    handleDateToChange = (date) => {
-        this.setState({
-            selectedDateTo: date,
-            dateToHelper: this.getDateHelper(null,date)
-        });
-    };
-
-    handleCovering = event => {
-        this.setState({[event.target.name]: event.target.value});
-    };
-
-    handleChange = event => {
-        this.setState({divisions: event.target.value});
-    };
-
-    handleAddTeam = evt => {
+    handleAddTeam = () => {
         const {name} = this.state;
-        const {toggleClose, pushNewTeam, user, updateTournament, tournament} = this.props;
+        const {toggleClose, pushNewTeam, updateTournament, tournament} = this.props;
 
         let nameError = false;
         if (!name || name.length < 2) nameError = true;
@@ -105,14 +105,14 @@ class AddTeam extends React.Component {
         this.setState(defaultState);
     };
 
-    getStyles(name, that) {
-        return {
-            fontWeight:
-                that.state.divisions.indexOf(name) === -1
-                    ? that.props.theme.typography.fontWeightRegular
-                    : that.props.theme.typography.fontWeightMedium,
-        };
-    }
+    // getStyles(name, that) {
+    //     return {
+    //         fontWeight:
+    //             that.state.divisions.indexOf(name) === -1
+    //                 ? that.props.theme.typography.fontWeightRegular
+    //                 : that.props.theme.typography.fontWeightMedium,
+    //     };
+    // }
 
     handleFieldChange = event => {
         if (event.target.value.length < 2 && event.target.id === 'name') {
@@ -133,30 +133,30 @@ class AddTeam extends React.Component {
 
     render() {
         const {isOpen, toggleClose, classes} = this.props;
-        const {selectedDateFrom, selectedDateTo, country, place, covering, format, divisions, name, isNameError, isDateFromError, isDateToError, nameHelper, dateToHelper} = this.state;
+        const {name, isNameError, nameHelper} = this.state;
 
-        const names = [
-            'Открытый',
-            'Женский',
-            'Смешанный',
-            'Шляпа',
-            'Открытый Мастерс',
-            'Женский Мастерс',
-            'Открытый Юниоры',
-            'Женский Юниоры',
-            'Другое',
-        ];
+        // const names = [
+        //     'Открытый',
+        //     'Женский',
+        //     'Смешанный',
+        //     'Шляпа',
+        //     'Открытый Мастерс',
+        //     'Женский Мастерс',
+        //     'Открытый Юниоры',
+        //     'Женский Юниоры',
+        //     'Другое',
+        // ];
 
-        const ITEM_HEIGHT = 48;
-        const ITEM_PADDING_TOP = 8;
-        const MenuProps = {
-            PaperProps: {
-                style: {
-                    maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-                    width: 250,
-                },
-            },
-        };
+        // const ITEM_HEIGHT = 48;
+        // const ITEM_PADDING_TOP = 8;
+        // const MenuProps = {
+        //     PaperProps: {
+        //         style: {
+        //             maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        //             width: 250,
+        //         },
+        //     },
+        // };
 
         return (
             <div>

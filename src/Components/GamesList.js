@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -9,15 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import DeleteIcon from '@material-ui/icons/Delete';
-import FilterListIcon from '@material-ui/icons/FilterList';
-import {lighten} from '@material-ui/core/styles/colorManipulator';
 import {connect} from "react-redux";
 import {goTo, loadAllTeams, loadGames, loadTournamentsList} from "../AC";
 import Loader from "./Loader";
@@ -83,7 +74,7 @@ class EnhancedTableHead extends React.Component {
     };
 
     render() {
-        const {onSelectAllClick, order, orderBy, numSelected, rowCount} = this.props;
+        const {order, orderBy} = this.props;
 
         return (
             <TableHead>
@@ -133,13 +124,10 @@ EnhancedTableHead.propTypes = {
     rowCount: PropTypes.number.isRequired,
 };
 
-const styles = theme => ({
+const styles = () => ({
     root: {
         width: '100%',
         // marginTop: theme.spacing.unit * 3,
-    },
-    table: {
-        // minWidth: 400,
     },
     tableWrapper: {
         overflowX: 'auto',
@@ -162,15 +150,14 @@ class GamesList extends React.Component {
 
     componentDidMount() {
         const {tournamentsList, teamsState, loadTournamentsList, loadAllTeams, gamesState, loadGames, user} = this.props;
-        // loadGames(getMyGamesInProgress(gamesState.list, user.id));
-        // loadAllTeams();
+
         if (tournamentsList.shouldReload && !tournamentsList.isLoading) loadTournamentsList();
         if (teamsState.shouldReload && !teamsState.isLoading) loadAllTeams();
 
         if (gamesState.shouldReload && !gamesState.isLoading) loadGames(getMyGamesInProgress(gamesState.list, user.id));
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate() {
         const {tournamentsList, teamsState, loadTournamentsList, loadAllTeams, gamesState, loadGames, user} = this.props;
 
         if (tournamentsList.shouldReload && !tournamentsList.isLoading) {
@@ -206,7 +193,6 @@ class GamesList extends React.Component {
 
     handleClick = (event, id) => {
         const {goTo, location} = this.props;
-        // console.log('----- clicked ', location, `${location.pathname}/game/${id}`);
 
        goTo(`${location.pathname}/game/${id}`)
     };
@@ -222,17 +208,15 @@ class GamesList extends React.Component {
     isSelected = id => this.state.selected.indexOf(id) !== -1;
 
     render() {
-        const {classes, tournamentsList, teamsState, tournamentID, gamesState, loadGames} = this.props;
+        const {classes, tournamentsList, teamsState, tournamentID, gamesState} = this.props;
         const {order, orderBy, selected, rowsPerPage, page} = this.state;
 
         if (tournamentsList.shouldReload || teamsState.shouldReload ||
             tournamentsList.isLoading || teamsState.isLoading){
-            // debugger
             return <Loader/>;
         }
 
         if (gamesState.shouldReload || gamesState.isLoading) {
-            // debugger
             return <Loader/>;
         }
 
@@ -242,13 +226,12 @@ class GamesList extends React.Component {
         });
         const data = teams.filter(team => team).map(team => createData(team.name, team.players, team.games));
 
-        // debugger
         const games = mapToArr(gamesState.list).filter(game => game.tournamentID === tournamentID);
         const dataGames = games.map(game => {
             const teamOne = `${teamsState.list.get(game.teamOneID).name} [${game.codeOne}]`;
             const teamTwo = `[${game.codeTwo}] ${teamsState.list.get(game.teamTwoID).name}`;
             const score = `${game.teamOneScore} : ${game.teamTwoScore}`;
-            const date = game.date;//`${game.date} ${game.timeStart}`;
+            const date = game.date;
             const time = `${Math.floor(+game.timePassed / 60)}:${Math.floor(+game.timePassed % 60)}`;
             const gameID = game.id;
 
@@ -259,7 +242,6 @@ class GamesList extends React.Component {
 
         return (
             <div className={classes.root}>
-                {/*<EnhancedTableToolbar numSelected={selected.length}/>*/}
                 <div className={classes.tableWrapper}>
                     <Table className={classes.table} aria-labelledby="tableTitle">
                         <EnhancedTableHead
@@ -340,10 +322,7 @@ GamesList.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-    const {id} = ownProps;
-
     return {
-        // teamsList: state.tournamentsList.list[id].teamsList,
         user: state.user.userData,
         tournamentsList: state.tournamentsList,
         teamsState: state.teams,

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import AppDrawer from "./AppDrawer";
 import {withStyles} from "@material-ui/core/styles/index";
-import Typography from '@material-ui/core/Typography';
 import TournamentsList from "./TournamentsList";
 import {DRAWER_WIDTH} from "../constants";
 

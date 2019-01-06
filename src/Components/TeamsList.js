@@ -9,7 +9,6 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Tooltip from '@material-ui/core/Tooltip';
-import {lighten} from '@material-ui/core/styles/colorManipulator';
 import {connect} from "react-redux";
 import {loadAllTeams, loadTournamentsList} from "../AC";
 import Loader from "./Loader";
@@ -61,7 +60,7 @@ class EnhancedTableHead extends React.Component {
     };
 
     render() {
-        const {onSelectAllClick, order, orderBy, numSelected, rowCount} = this.props;
+        const {order, orderBy} = this.props;
 
         return (
             <TableHead>
@@ -106,31 +105,6 @@ EnhancedTableHead.propTypes = {
     rowCount: PropTypes.number.isRequired,
 };
 
-// const toolbarStyles = theme => ({
-//     root: {
-//         paddingRight: theme.spacing.unit,
-//     },
-//     highlight:
-//         theme.palette.type === 'light'
-//             ? {
-//                 color: theme.palette.secondary.main,
-//                 backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-//             }
-//             : {
-//                 color: theme.palette.text.primary,
-//                 backgroundColor: theme.palette.secondary.dark,
-//             },
-//     spacer: {
-//         flex: '1 1 100%',
-//     },
-//     actions: {
-//         color: theme.palette.text.secondary,
-//     },
-//     title: {
-//         flex: '0 0 auto',
-//     },
-// });
-
 const styles = theme => ({
     root: {
         width: '100%',
@@ -171,7 +145,7 @@ class TeamsList extends React.Component {
         if (teamsState.shouldReload && !teamsState.isLoading) loadAllTeams();
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate() {
         const {tournamentsList, teamsState, loadTournamentsList, loadAllTeams} = this.props;
 
         if (tournamentsList.shouldReload && !tournamentsList.isLoading) {
@@ -204,7 +178,7 @@ class TeamsList extends React.Component {
     };
 
     handleClick = (event, id) => {
-        console.log('----- clicked ', id);
+        // console.log('----- clicked ', id);
         // const { selected } = this.state;
         // const selectedIndex = selected.indexOf(id);
         // let newSelected = [];
@@ -252,7 +226,6 @@ class TeamsList extends React.Component {
         const {classes, tournamentsList, teamsState, tournamentID} = this.props;
         const {order, orderBy, selected, rowsPerPage, page, isOpenAddTeam} = this.state;
 
-        // debugger
         if (tournamentsList.shouldReload || teamsState.shouldReload ||
             tournamentsList.isLoading || teamsState.isLoading) return <Loader/>;
 
@@ -266,7 +239,6 @@ class TeamsList extends React.Component {
 
         return (
             <div className={classes.root}>
-                {/*<EnhancedTableToolbar numSelected={selected.length}/>*/}
                 <div className={classes.tableWrapper}>
                     <Table className={classes.table} aria-labelledby="tableTitle">
                         <EnhancedTableHead
@@ -348,11 +320,8 @@ TeamsList.propTypes = {
     loadTournamentsList: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state, ownProps) => {
-    const {id} = ownProps;
-
+const mapStateToProps = (state) => {
     return {
-        // teamsList: state.tournamentsList.list[id].teamsList,
         tournamentsList: state.tournamentsList,
         teamsState: state.teams,
     }

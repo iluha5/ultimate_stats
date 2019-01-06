@@ -4,15 +4,13 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from './MyTableCell';
 import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Tooltip from '@material-ui/core/Tooltip';
 import {connect} from "react-redux";
 import {withStyles} from "@material-ui/core/styles/index";
-import {loadGames, loadPlayers, loadRosters} from "../AC";
+import {loadPlayers, loadRosters} from "../AC";
 import Loader from "./Loader";
-import {PLAYER_CLICK} from "../constants";
 
 const styles = theme => ({
     root: {
@@ -68,7 +66,7 @@ function desc(a, b, orderBy) {
     return 0;
 }
 
-let counter = 0;
+// let counter = 0;
 
 function createData(name, num, id) {
     // counter += 1;
@@ -87,7 +85,7 @@ class EnhancedTableHead extends React.Component {
     };
 
     render() {
-        const {onSelectAllClick, order, orderBy, numSelected, rowCount} = this.props;
+        const {order, orderBy} = this.props;
 
         return (
             <TableHead >
@@ -150,8 +148,8 @@ class GameControlRoster extends Component {
 
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        const {rosters, players, loadRosters, loadPlayers, rosterID} = this.props;
+    componentDidUpdate() {
+        const {rosters, players, loadRosters, loadPlayers} = this.props;
 
         if (rosters.shouldReload) {
             loadRosters();
@@ -189,9 +187,9 @@ class GameControlRoster extends Component {
 
     isSelected = id => this.state.selected.indexOf(id) !== -1;
 
-    handleClick = (event, id) => {
-        console.log('----- clicked Player', id);
-    };
+    // handleClick = (event, id) => {
+    //     console.log('----- clicked Player', id);
+    // };
 
 
     render() {

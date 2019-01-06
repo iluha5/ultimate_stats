@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import Login from "../Components/Login";
 import Scorekeeper from "../Components/Scorekeeper";
-import Mode from "../Components/Mode";
 import {Redirect, Route, Switch} from "react-router-dom";
 import {connect} from "react-redux";
 import {ADMIN, SCOREKEEPER} from "../constants";
@@ -21,8 +19,6 @@ class NetworkRoute extends Component {
 
     redirectNetwork = () => <Redirect to='/network' />;
 
-    // renderLogin = () => <Redirect to='/network' />;
-
     render() {
         return (
             <div>
@@ -36,8 +32,6 @@ class NetworkRoute extends Component {
         );
     }
 }
-
-NetworkRoute.propTypes = {};
 
 const mapStateToProps = (state) => {
     return {

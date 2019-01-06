@@ -1,16 +1,12 @@
-import {OrderedMap, Record} from "immutable";
 import {
-    FAIL, GOAL,
-
-    LOAD_GAMES,
-    LOAD_TEAMS, LOG_ACTION, PULL,
-    SHOULD_RELOAD, SHOULD_UPLOAD,
-    START,
-    SUCCESS,
-    TEAM_ONE, TEAM_TWO, THROW, TIME_PAUSE, TIME_START, TIME_STOP, TURNOVER,
+    ADD, FAIL, GOAL, INJURY,
+    LOAD_GAMES, LOG_ACTION, OTHER, PULL,
+    SHOULD_RELOAD, SHOULD_UPLOAD, SOTG,
+    START, SUCCESS,
+    TEAM_ONE, TEAM_TWO, THROW, TIME_PAUSE, TIME_START, TIME_STOP, TIMEOUT, TURNOVER, UNDO,
     UPDATE_TIMER_GAME, UPLOAD_GAME
 } from "../constants";
-import {arrToMap} from "../helpers";
+import {arrToMap, getReducedGameByType} from "../helpers";
 import {GameData, GamesState} from "../model";
 
 const defaultGamesState = GamesState();
@@ -26,18 +22,12 @@ export default (gamesState = defaultGamesState, action) => {
         case LOAD_GAMES + SUCCESS:
             const newList = arrToMap(payload, GameData);
 
-            // debugger
-
-            let st = gamesState
+            return gamesState
                 .set('isLoading', false)
                 .set('shouldReload', false)
                 .set('list', gamesState.list
                     .merge(newList)
                 );
-
-            // debugger
-
-            return st;
 
         case LOAD_GAMES + SHOULD_RELOAD:
             return gamesState
@@ -45,15 +35,13 @@ export default (gamesState = defaultGamesState, action) => {
 
         case UPDATE_TIMER_GAME:
             const {gameID, time} = payload;
-// debugger
+
             return gamesState
-            // .set(['list', gameID, 'timePassed'], time);
                 .set('list', gamesState.list
                     .set(gameID, gamesState.list.get(gameID)
                         .set('timePassed', time)));
 
         case UPLOAD_GAME + START:
-            // debugger
             return gamesState
                 .set('list', gamesState.list
                     .set(payload.id, gamesState.list.get(payload.id)
@@ -79,7 +67,6 @@ export default (gamesState = defaultGamesState, action) => {
                 );
 
         case UPLOAD_GAME + SHOULD_UPLOAD:
-            // debugger
             return gamesState
                 .set('list', gamesState.list
                     .set(payload.id, gamesState.list.get(payload.id)
@@ -118,7 +105,6 @@ export default (gamesState = defaultGamesState, action) => {
         case LOG_ACTION + THROW:
             const teamPassesKey = payload.logLine.team === TEAM_ONE ? 'passesTeamOne' : 'passesTeamTwo';
 
-            // console.log('-----gamesState.list.get(payload.game.id)[teamPassesKey]++', gamesState.list.get(payload.game.id)[teamPassesKey] + 1);
             return gamesState
                 .set('list', gamesState.list
                     .set(payload.game.id, gamesState.list.get(payload.game.id)
@@ -141,10 +127,6 @@ export default (gamesState = defaultGamesState, action) => {
                 );
 
         case LOG_ACTION + PULL:
-            // const teamOffence = payload.logLine.team === TEAM_ONE ? TEAM_TWO : TEAM_ONE;
-
-            // console.log('-----gamesState.list.get(payload.game.id)[teamPassesKey]++', gamesState.list.get(payload.game.id)[teamPassesKey] + 1);
-            // debugger
             return gamesState
                 .set('list', gamesState.list
                     .set(payload.game.id, gamesState.list.get(payload.game.id)
@@ -156,13 +138,66 @@ export default (gamesState = defaultGamesState, action) => {
         case LOG_ACTION + TURNOVER:
             const teamTurnoverKey = payload.logLine.team === TEAM_ONE ? 'teamOneTurnovers' : 'teamTwoTurnovers';
 
-            console.log('-----gamesState.list.get(payload.game.id)', gamesState.list.get(payload.game.id));
             return gamesState
                 .set('list', gamesState.list
                     .set(payload.game.id, gamesState.list.get(payload.game.id)
                         .set(teamTurnoverKey, gamesState.list.get(payload.game.id)[teamTurnoverKey] + 1)
                         .set('offense', payload.logLine.team)
                     )
+                );
+
+        case LOG_ACTION + TIMEOUT:
+            const teamTimeoutKey = payload.logLine.team === TEAM_ONE ? 'takenTimeOutsTeamOne' : 'takenTimeOutsTeamTwo';
+            const timeOutsArr = gamesState.list.get(payload.game.id)[teamTimeoutKey].concat([payload.logLine.time]);
+
+            return gamesState
+                .set('list', gamesState.list
+                    .set(payload.game.id, gamesState.list.get(payload.game.id)
+                        .set(teamTimeoutKey, timeOutsArr)
+                    )
+                );
+
+        case LOG_ACTION + SOTG:
+            const teamSotgKey = payload.logLine.team === TEAM_ONE ? 'takenSotgTimeOutsTeamOne' : 'takenSotgTimeOutsTeamTwo';
+            const sotgArr = gamesState.list.get(payload.game.id)[teamSotgKey].concat([payload.logLine.time]);
+
+            return gamesState
+                .set('list', gamesState.list
+                    .set(payload.game.id, gamesState.list.get(payload.game.id)
+                        .set(teamSotgKey, sotgArr)
+                    )
+                );
+
+        case LOG_ACTION + INJURY:
+            const teamInjuryKey = payload.logLine.team === TEAM_ONE ? 'injuryStoppageTeamOne' : 'injuryStoppageTeamTwo';
+            const injuryAmount = gamesState.list.get(payload.game.id)[teamInjuryKey];
+
+            return gamesState
+                .set('list', gamesState.list
+                    .set(payload.game.id, gamesState.list.get(payload.game.id)
+                        .set(teamInjuryKey, +injuryAmount + 1)
+                    )
+                );
+
+        case LOG_ACTION + OTHER:
+            const teamOtherKey = payload.logLine.team === TEAM_ONE ? 'otherCallsTeamOne' : 'otherCallsTeamTwo';
+            const otherAmount = gamesState.list.get(payload.game.id)[teamOtherKey];
+
+            return gamesState
+                .set('list', gamesState.list
+                    .set(payload.game.id, gamesState.list.get(payload.game.id)
+                        .set(teamOtherKey, +otherAmount + 1)
+                    )
+                );
+
+        case UNDO + ADD:
+            // debugger
+            const actionType = payload.logLine.type;
+            const newGame = getReducedGameByType(actionType, payload.game, payload.logLine);
+
+            return gamesState
+                .set('list', gamesState.list
+                    .set(payload.game.id, newGame)
                 );
 
         default:

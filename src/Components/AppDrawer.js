@@ -24,10 +24,9 @@ import PauseCircleOutline from '@material-ui/icons/PauseCircleOutline';
 import StopOutlined from '@material-ui/icons/StopOutlined';
 import FiberManualRecord from '@material-ui/icons/FiberManualRecord';
 import FiberSmartRecord from '@material-ui/icons/FiberSmartRecord';
-import Stop from '@material-ui/icons/Stop';
 import {connect} from "react-redux";
 import {goTo} from "../AC";
-import {DRAWER_WIDTH, NOW_UPLOADING, SHOULD_UPLOAD, STANDBY} from "../constants";
+import {DRAWER_WIDTH} from "../constants";
 
 
 // const drawerWidth = 240;
@@ -180,8 +179,6 @@ class AppDrawer extends React.Component {
                 </List>
             </div>
         );
-//         console.log('-----title', title);
-// debugger
         return (
             <div className={classes.root}>
                 <CssBaseline/>

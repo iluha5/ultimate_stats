@@ -1,16 +1,14 @@
 import {
+    ADD,
     API,
     FAIL,
-    GAME,
-    GAME_START, GOAL, INJURY,
+    GOAL, INJURY,
     LOAD_ALL_TEAMS,
     LOAD_BEARER,
     LOAD_GAMES,
     LOAD_LOG,
-    LOAD_LOG_LIST,
     LOAD_PLAYERS,
     LOAD_ROSTERS,
-    LOAD_TEAMS,
     LOAD_TOURNAMENTS,
     LOAD_USERS,
     LOG_ACTION, OTHER,
@@ -18,51 +16,22 @@ import {
     PUSH_NEW_TEAM,
     PUSH_NEW_TOURNAMENT,
     SHOULD_RELOAD,
-    SHOULD_UPLOAD, SOTG,
+    SOTG,
     START,
     SUCCESS,
     TEAM_ONE,
     TEAM_TWO,
     THROW, TIME_PAUSE, TIME_START, TIME_STOP, TIMEOUT,
-    TURNOVER, UNDEFINED_EVENT,
-    UPDATE_GAME,
+    TURNOVER, UNDEFINED_EVENT, UNDO,
     UPDATE_TIMER_GAME,
     UPDATE_TOURNAMENT,
     UPLOAD_GAME,
     UPLOAD_LOG,
     WRONG_USER
 } from "./constants";
-import {push, replace} from 'react-router-redux';
+import {push} from 'react-router-redux';
 import uuidv4 from 'uuid/v4';
 import {LogLineData} from "./model";
-import {Record} from "immutable";
-
-// export const loadAllLogs = () => {
-//     return (dispatch) => {
-//         dispatch({
-//             type: LOAD_LOG_LIST + START
-//         });
-//
-//         fetch (API.logs)
-//             .then(res => {
-//                 if (res.status >= 400) {
-//                     throw new Error(res.statusText)
-//                 }
-//                 return res.json()
-//             })
-//             .then(response => dispatch({
-//                     type: LOAD_LOG_LIST + SUCCESS,
-//                     payload: response
-//                 })
-//             )
-//             .catch(error => {
-//                 dispatch({
-//                     type: LOAD_LOG_LIST + FAIL,
-//                     payload: {error}
-//                 });
-//             });
-//     }
-// };
 
 export const gameControl = (type, game, log, data) => {
     return (dispatch, getState) => {
@@ -70,7 +39,7 @@ export const gameControl = (type, game, log, data) => {
             id: uuidv4(),
             type: type,
             team: game.offense,
-            time: `${type === TIME_START || type === TIME_STOP ? game.timePassed + 1 : game.timePassed}`, // для правильной сортировки логов
+            time: `${type === TIME_START || type === TIME_STOP ? game.timePassed + 1 : game.timePassed}`, // хак для правильной сортировки логов
             playerGoal: '',
             playerAssist: '',
             currScoreTeamOne: game.teamOneScore,
@@ -102,13 +71,13 @@ export const gameControl = (type, game, log, data) => {
                 break;
 
             case GOAL:
-                logLine.team = game.offense; // === TEAM_ONE ? TEAM_TWO : TEAM_ONE;
+                logLine.team = game.offense;
                 logLine.playerGoal = data.goal.id;
                 logLine.playerAssist = data.assist.id;
 
                 logLine.currScoreTeamOne = +game.teamOneScore + (game.offense === TEAM_ONE ? 1 : 0);
                 logLine.currScoreTeamTwo = +game.teamTwoScore + (game.offense === TEAM_TWO ? 1 : 0);
-// debugger
+
                 dispatch({
                     type: LOG_ACTION + GOAL,
                     payload: {game, logLine: LogLineData(logLine)}
@@ -182,23 +151,35 @@ export const gameControl = (type, game, log, data) => {
                     payload: {game, logLine: LogLineData(logLine)}
                 });
                 break;
+
+            case UNDO:
+                const lastLogLine = getState().logs.list.get(game.logID).logList[getState().logs.list.get(game.logID).logList.length - 1];
+
+                dispatch({
+                    type: UNDO + ADD,
+                    payload: {game, logLine: lastLogLine}
+                });
+                break;
+
+
+
             default:
                 dispatch({
                     type: LOG_ACTION + UNDEFINED_EVENT,
                     payload: {game, logLine: LogLineData(logLine)}
                 });
         }
-// debugger
-        dispatch({
-            type: LOG_ACTION,
-            payload: {game, logLine: LogLineData(logLine)}
-        });
-// console.log('-----getState()', getState());
-//         debugger
+
+        if (type !== UNDO) {
+            dispatch({
+                type: LOG_ACTION,
+                payload: {game, logLine: LogLineData(logLine)}
+            });
+        }
+
         game && dispatch(updateGame(getState().games.list.get(game.id)));
         (log || type === TIME_START || type === TIME_STOP || type === TIME_PAUSE)
             && dispatch(updateLog(getState().logs.list.get(game.logID)));
-
 
         // dispatch({
         //     type: UPLOAD_GAME + SHOULD_UPLOAD,
@@ -209,22 +190,16 @@ export const gameControl = (type, game, log, data) => {
         //     type: UPLOAD_LOG + SHOULD_UPLOAD,
         //     payload: {id: game.logID},
         // });
-
-
     }
 };
 
 export const updateGame = (game) => {
-    console.log('-----update game', game);
-    // debugger
-
-    return (dispatch) => {
+   return (dispatch) => {
         dispatch({
             type: UPLOAD_GAME + START,
             payload: {id: game.id},
         });
 
-        // debugger
         const params = {
             method: 'PUT',
             headers: {
@@ -232,7 +207,7 @@ export const updateGame = (game) => {
             },
             body: JSON.stringify(game)
         };
-// debugger
+
         const path = `${API.games}/${game.id}`;
 
         fetch(path, params)
@@ -241,7 +216,7 @@ export const updateGame = (game) => {
                     throw new Error("Response status: " + resp.status);
                 } else return resp;
             })
-            .then((res) => {
+            .then(() => {
                 dispatch({
                     type: UPLOAD_GAME + SUCCESS,
                     payload: {id: game.id},
@@ -262,26 +237,22 @@ export const updateGame = (game) => {
     }
 };
 
-export const gameShouldUpload = (game) => {
-    return (dispatch) => {
-        dispatch({
-            type: UPLOAD_GAME + SHOULD_UPLOAD,
-            payload: {id: game.id},
-        })
-    }
-};
+// export const gameShouldUpload = (game) => {
+//     return (dispatch) => {
+//         dispatch({
+//             type: UPLOAD_GAME + SHOULD_UPLOAD,
+//             payload: {id: game.id},
+//         })
+//     }
+// };
 
 export const updateLog = (log) => {
-    console.log('-----update log');
-    // debugger
-
     return (dispatch) => {
         dispatch({
             type: UPLOAD_LOG + START,
             payload: {id: log.id},
         });
 
-        // debugger
         const uploadData = {
             id: log.id,
             list: [...log.logList]
@@ -303,7 +274,7 @@ export const updateLog = (log) => {
                     throw new Error("Response status: " + resp.status);
                 } else return resp;
             })
-            .then((res) => {
+            .then(() => {
                 dispatch({
                     type: UPLOAD_LOG + SUCCESS,
                     payload: {id: log.id},
@@ -320,7 +291,6 @@ export const updateLog = (log) => {
 
     }
 };
-
 
 export const loadLog = (logID) => {
     return (dispatch) => {
@@ -343,7 +313,7 @@ export const loadLog = (logID) => {
             )
             .catch(error => {
                 window.alert(`Файл лога для данной игры не найден на сервере! ID лога: ${logID}`);
-                console.error('-----Ошибка загрузки лога', error);
+                console.error('Ошибка загрузки лога', error);
                 dispatch({
                     type: LOAD_LOG + FAIL,
                     payload: {error, id: logID}
@@ -351,7 +321,6 @@ export const loadLog = (logID) => {
             });
     }
 };
-
 
 export const loadRosters = () => {
     return (dispatch) => {
@@ -371,11 +340,13 @@ export const loadRosters = () => {
                     payload: response
                 })
             )
-            .catch(error => {
+            .catch(err => {
                 dispatch({
                     type: LOAD_ROSTERS + FAIL,
-                    payload: {error}
+                    payload: {err}
                 });
+                console.error('Ошибка загрузки ростеров!', err);
+
             });
     }
 };
@@ -398,18 +369,19 @@ export const loadPlayers = () => {
                     payload: response
                 })
             )
-            .catch(error => {
+            .catch(err => {
                 dispatch({
                     type: LOAD_PLAYERS + FAIL,
-                    payload: {error}
+                    payload: {err}
                 });
+                console.error('Ошибка загрузки данных игроков', err);
+
             });
     }
 };
 
 
 export const updateGameTimer = (gameID, time) => {
-    // debugger
     return (dispatch) => {
         dispatch({
             type: UPDATE_TIMER_GAME,
@@ -418,25 +390,25 @@ export const updateGameTimer = (gameID, time) => {
     }
 };
 
-export const updateGameStart = (gameID, data) => {
-    const {isTimerOn, inProgress} = data;
-
-    return (dispatch) => {
-        let payloadData = {};
-
-        if (isTimerOn && !inProgress) {
-            payloadData = {
-                inProgress: true,
-                isPull: true
-            }
-        }
-
-        dispatch({
-            type: UPDATE_GAME + GAME_START,
-            payload: {gameID, ...payloadData},
-        })
-    }
-};
+// export const updateGameStart = (gameID, data) => {
+//     const {isTimerOn, inProgress} = data;
+//
+//     return (dispatch) => {
+//         let payloadData = {};
+//
+//         if (isTimerOn && !inProgress) {
+//             payloadData = {
+//                 inProgress: true,
+//                 isPull: true
+//             }
+//         }
+//
+//         dispatch({
+//             type: UPDATE_GAME + GAME_START,
+//             payload: {gameID, ...payloadData},
+//         })
+//     }
+// };
 
 export const updateTournament = (newTournamentData) => {
     return (dispatch) => {
@@ -444,7 +416,6 @@ export const updateTournament = (newTournamentData) => {
             type: UPDATE_TOURNAMENT + START,
         });
 
-        // debugger
         const params = {
             method: 'PUT',
             headers: {
@@ -461,7 +432,7 @@ export const updateTournament = (newTournamentData) => {
                     throw new Error("Response status: " + resp.status);
                 } else return resp;
             })
-            .then((res) => {
+            .then(() => {
                 dispatch({
                     type: UPDATE_TOURNAMENT + SUCCESS,
                 });
@@ -470,12 +441,11 @@ export const updateTournament = (newTournamentData) => {
                 });
 
             })
-            .catch((err) => {
+            .catch(() => {
                 alert("Не получилось обновить таблицу турниров!");
             })
 
     }
-
 };
 
 export const pushNewTeam = (team) => {
@@ -484,7 +454,6 @@ export const pushNewTeam = (team) => {
             type: PUSH_NEW_TEAM + START,
         });
 
-        // debugger
         const params = {
             method: 'POST',
             headers: {
@@ -499,8 +468,7 @@ export const pushNewTeam = (team) => {
                     throw new Error("Response status: " + resp.status);
                 } else return resp;
             })
-            .then((res) => {
-                console.log('-----res', res);
+            .then(() => {
                 dispatch({
                     type: PUSH_NEW_TEAM + SUCCESS,
                 });
@@ -511,14 +479,13 @@ export const pushNewTeam = (team) => {
             })
             .catch((err) => {
                 alert("Не получилось обновить таблицу команд!");
+                console.error('Не получилось обновить таблицу команд!', err);
             })
 
     }
 };
 
-
 export const loadGames = (noToLoadGamesList) => {
-    // debugger
     return (dispatch) => {
         dispatch({
             type: LOAD_GAMES + START
@@ -532,8 +499,6 @@ export const loadGames = (noToLoadGamesList) => {
                 return res.json()
             })
             .then(response => {
-                    // debugger
-
                     let gamesToUpdate = response;
 
                     if (noToLoadGamesList && noToLoadGamesList.length !== 0) {
@@ -543,23 +508,21 @@ export const loadGames = (noToLoadGamesList) => {
                     }
 
                     gamesToUpdate.length !== 0 && gamesToUpdate.forEach(game => game.shouldSetTimer = true);
-// debugger
                     dispatch({
                         type: LOAD_GAMES + SUCCESS,
                         payload: gamesToUpdate
                     })
                 }
             )
-            .catch(error => {
-                console.log('-----error LoadGames', error);
+            .catch(err => {
                 dispatch({
                     type: LOAD_GAMES + FAIL,
-                    payload: {error}
+                    payload: {err}
                 });
+                console.error('Ошибка загрузки игр', err);
             });
     }
 };
-
 
 export const loadAllTeams = () => {
     return (dispatch) => {
@@ -579,11 +542,13 @@ export const loadAllTeams = () => {
                     payload: response
                 })
             )
-            .catch(error => {
+            .catch(err => {
                 dispatch({
                     type: LOAD_ALL_TEAMS + FAIL,
-                    payload: {error}
+                    payload: {err}
                 });
+                console.error('Ошибка загрузки информации о командах!', err);
+
             });
     }
 };
@@ -594,7 +559,6 @@ export const pushNewTournament = (tournament) => {
             type: PUSH_NEW_TOURNAMENT + START,
         });
 
-        // debugger
         const params = {
             method: 'POST',
             headers: {
@@ -609,7 +573,7 @@ export const pushNewTournament = (tournament) => {
                     throw new Error("Response status: " + resp.status);
                 } else return resp;
             })
-            .then((res) => {
+            .then(() => {
                 dispatch({
                     type: PUSH_NEW_TOURNAMENT + SUCCESS,
                 });
@@ -620,6 +584,7 @@ export const pushNewTournament = (tournament) => {
             })
             .catch((err) => {
                 alert("Не получилось обновить таблицу турниров!");
+                console.log('Ошибка обновления табоицы турниров!', err);
             })
 
     }
@@ -643,12 +608,12 @@ export const loadTournamentsList = () => {
                     payload: response
                 })
             )
-            .catch(error => {
+            .catch(err => {
                 dispatch({
                     type: LOAD_TOURNAMENTS + FAIL,
-                    payload: {error}
+                    payload: {err}
                 });
-                // dispatch(replace('/error'))
+                console.error('Ошибка загрузки списка турниров', err);
             });
 
 
@@ -673,12 +638,12 @@ export const loadBearer = () => {
                     payload: response
                 })
             )
-            .catch(error => {
+            .catch(err => {
                 dispatch({
                     type: LOAD_BEARER + FAIL,
-                    payload: {error}
+                    payload: {err}
                 });
-                // dispatch(replace('/error'))
+                console.error('Ошибка загрузки барьера', err);
             });
     }
 };
@@ -688,7 +653,6 @@ export const loadUsersAndLogin = (user) => {
         dispatch({
             type: LOAD_USERS + START,
         });
-// debugger;
         fetch(API.users)
             .then(res => {
                 if (res.status >= 400) {
@@ -721,12 +685,12 @@ export const loadUsersAndLogin = (user) => {
                     }
                 }
             )
-            .catch(error => {
+            .catch(err => {
                 dispatch({
                     type: LOAD_USERS + FAIL,
-                    payload: {error}
+                    payload: {err}
                 });
-                // dispatch(replace('/error'))
+                console.error('Ошибка загрузки данных пользователя', err);
             });
 
     }

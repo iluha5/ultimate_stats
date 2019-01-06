@@ -15,6 +15,8 @@ export default (bearer = defaultBearer, action) => {
         case LOAD_BEARER + FAIL:
             console.log('----- Fail to load Bearer', payload);
             break;
+        default:
+            // console.log('-----', );
     }
     return bearer;
 }

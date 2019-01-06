@@ -8,11 +8,6 @@ import {withStyles} from "@material-ui/core/es/styles/index";
 import Typography from '@material-ui/core/Typography';
 import AlarmSnackBar from "./AlarmSnackBar";
 import {WRONG_USER} from "../constants";
-import Mode from "./Mode";
-import {Route, Switch} from "react-router-dom";
-import Scorekeeper from "./Scorekeeper";
-import {push, replace} from 'react-router-redux';
-
 
 class Login extends Component {
     state = {
@@ -22,42 +17,7 @@ class Login extends Component {
         isButtonClick: false
     };
 
-    handleChange = name => event => {
-        console.log('-----', name);
-        this.setState({
-            [name]: event.target.value,
-            isLoginFailedOpen: false,
-        });
-    };
-
-    handleButtonClick = event => {
-        console.log('----- click');
-        event.preventDefault();
-
-        const {loadUsersAndLogin, loadBearer} = this.props;
-        const {email, password} = this.state;
-        // debugger
-
-        if (email && password) {
-            // debugger;
-            loadBearer(); // just for immitation
-            loadUsersAndLogin({email, password});
-        }
-
-        const {user} = this.props;
-
-        this.setState({
-            isButtonClick: true
-        })
-
-    };
-
-    componentDidMount() {
-        // debugger
-    }
-
     static getDerivedStateFromProps(props, state) {
-        // debugger;
         const {userData, isLoading} = props.user;
         const {isButtonClick} = state;
 
@@ -71,6 +31,30 @@ class Login extends Component {
         return null;
 
     }
+
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+            isLoginFailedOpen: false,
+        });
+    };
+
+    handleButtonClick = event => {
+        event.preventDefault();
+
+        const {loadUsersAndLogin, loadBearer} = this.props;
+        const {email, password} = this.state;
+
+        if (email && password) {
+            loadBearer(); // just for immitation
+            loadUsersAndLogin({email, password});
+        }
+
+        this.setState({
+            isButtonClick: true
+        })
+
+    };
 
     render() {
         const {classes} = this.props;
@@ -115,7 +99,6 @@ class Login extends Component {
             </div>);
 
     }
-
 }
 
 Login.propTypes = {
@@ -142,7 +125,7 @@ const
     });
 
 const
-    mapStateToProps = (state, ownProps) => {
+    mapStateToProps = (state) => {
         return {
             bearer: state.bearer,
             user: state.user

@@ -35,7 +35,7 @@ class TournamentDetails extends React.Component {
     getListOfTournamentsFields(tournament) {
         if (!tournament) return;
 
-        console.log('-----', tournament);
+        // console.log('-----', tournament);
         let output = [];
         const value = this.getValue();
 

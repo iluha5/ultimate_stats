@@ -167,6 +167,12 @@ export const LogLineData = Record({
 
 });
 
+export const LogUndoState = Record({
+    gameID: '',
+    isEmpty: true,
+    list: OrderedMap({}),
+});
+
 export const PlayerScoreData = Record({
     id: '',
     playerID: '',

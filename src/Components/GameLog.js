@@ -67,7 +67,7 @@ class EnhancedTableHead extends React.Component {
     };
 
     render() {
-        const {order, orderBy, numSelected, rowCount, teamNames} = this.props;
+        const {order, orderBy, teamNames} = this.props;
         const playingTeams = `${teamNames[TEAM_ONE].substr(0, 5)}. - ${teamNames[TEAM_TWO].substr(0, 5)}.`
 
         return (
@@ -164,7 +164,7 @@ class GameLog extends Component {
 
 
     componentDidMount() {
-        const {loadLog, log, logID, preview} = this.props;
+        const {loadLog, log, logID} = this.props;
         // const {order} = this.state;
         // debugger
         if (!log || (log.shouldReload && !log.isLoading)) {
@@ -199,7 +199,7 @@ class GameLog extends Component {
     };
 
     handleClick = (event, id) => {
-        console.log('----- clicked ', id);
+        // console.log('----- clicked ', id);
     };
 
     handleChangePage = (event, page) => {

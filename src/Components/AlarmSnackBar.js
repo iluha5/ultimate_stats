@@ -1,14 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Button from '@material-ui/core/Button';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ErrorIcon from '@material-ui/icons/Error';
 import InfoIcon from '@material-ui/icons/Info';
-import CloseIcon from '@material-ui/icons/Close';
 import green from '@material-ui/core/colors/green';
 import amber from '@material-ui/core/colors/amber';
-import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import WarningIcon from '@material-ui/icons/Warning';
@@ -48,7 +45,7 @@ const styles1 = theme => ({
 });
 
 function MySnackbarContent(props) {
-    const {classes, className, message, onClose, variant, ...other} = props;
+    const {classes, className, message, variant, ...other} = props;
     const Icon = variantIcon[variant];
 
     return (
@@ -100,7 +97,6 @@ class AlarmSnackBar extends React.Component {
     };
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        // console.log('----- update props');
         if (prevState.selfClose) {
             return ({
                 open: false,
@@ -114,7 +110,7 @@ class AlarmSnackBar extends React.Component {
         }
     }
 
-    handleClose = (event, reason) => {
+    handleClose = () => {
         this.setState({selfClose: true});
     };
 

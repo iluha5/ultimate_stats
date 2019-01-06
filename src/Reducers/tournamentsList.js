@@ -1,5 +1,4 @@
-import {OrderedMap, OrderedSet, Record} from "immutable";
-import {LOAD_TEAMS, LOAD_TOURNAMENTS, LOAD_USERS, SHOULD_RELOAD, START, SUCCESS} from "../constants";
+import {LOAD_TOURNAMENTS, SHOULD_RELOAD, START, SUCCESS} from "../constants";
 import {arrToMap} from "../helpers";
 import {TournamentData, TournamentsListState} from "../model";
 

@@ -3,7 +3,16 @@ import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from "@material-ui/core/styles/index";
-import {DRAWER_WIDTH, GOAL, PLAYER_CLICK, PULL, TEAM_ONE, TEAM_TWO, THROW, TURNOVER} from "../constants";
+import {
+    GOAL,
+    PULL,
+    REDO,
+    TEAM_ONE,
+    TEAM_TWO,
+    THROW,
+    TURNOVER,
+    UNDO
+} from "../constants";
 import GameControlRoster from "./GameControlRoster";
 import Button from '@material-ui/core/Button';
 import GameControlOtherButs from "./GameControlOtherButs";
@@ -239,10 +248,10 @@ class GameControl extends Component {
     //     })
     // };
 
-    handleOtherBut = id => e => {
-        console.log(e.target.innerHTML);
-        console.log(id);
-    };
+    // handleOtherBut = id => e => {
+    //     console.log(e.target.innerHTML);
+    //     console.log(id);
+    // };
 
     handlePlayerClick = (id, name) => e => {
         e.preventDefault();
@@ -271,13 +280,13 @@ class GameControl extends Component {
     handleClick = (type) => e => {
         e.preventDefault();
         const {game, gameControl, log} = this.props;
-
+// debugger
         gameControl(type, game, log);
     };
 
     render() {
         const {game, teamsNames, classes, gameID, rosters} = this.props;
-        const {viewPortH, assist, goal} = this.state;
+        const {viewPortH, assist} = this.state;
 
         return (
             <div className={classes.root}>
@@ -352,11 +361,11 @@ class GameControl extends Component {
                         <GameLog gameID={gameID} logID={game.logID} preview/>
                     </div>
                     <Button size='small' variant="fab" className={classes.undo}
-                            onClick={this.handleOpenAddTournament}>
+                            onClick={this.handleClick(UNDO)}>
                         <Undo fontSize="small" color="action"/>
                     </Button>
                     <Button size='small' variant="fab" className={classes.redo}
-                            onClick={this.handleOpenAddTournament}>
+                            onClick={this.handleClick(REDO)}>
                         <Redo fontSize="small" color="action"/>
                     </Button>
 

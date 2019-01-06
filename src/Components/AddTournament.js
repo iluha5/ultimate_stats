@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
+// import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
 import {MuiPickersUtilsProvider} from 'material-ui-pickers';
@@ -160,7 +160,7 @@ class AddTournament extends React.Component {
 
     render() {
         const {isOpen, toggleClose, classes} = this.props;
-        const {selectedDateFrom, selectedDateTo, country, place, covering, format, divisions, name, isNameError, isDateFromError, isDateToError, nameHelper, dateToHelper} = this.state;
+        const {selectedDateFrom, selectedDateTo, country, place, covering, format, divisions, name, isNameError, nameHelper, dateToHelper} = this.state;
 
         const names = [
             'Открытый',
@@ -403,5 +403,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles, {withTheme: true})(AddTournament));
-
-// export default withStyles(styles, {withTheme: true})(AddTournament);

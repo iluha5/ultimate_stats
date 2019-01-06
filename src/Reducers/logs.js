@@ -1,24 +1,21 @@
 import {
+    ADD,
     FAIL,
     LOAD_LOG,
     LOG_ACTION,
-    PULL,
     SHOULD_RELOAD,
     SHOULD_UPLOAD,
     START,
     SUCCESS,
-    THROW,
-    TURNOVER, UPLOAD_GAME, UPLOAD_LOG
+    UNDO, UPLOAD_LOG
 } from "../constants";
-import {arrToDataArr, arrToMap, convertLogObjToRecord} from "../helpers";
+import {arrToDataArr} from "../helpers";
 import {LogData, LogLineData, LogsState} from "../model";
 
 const defaultLogsState = LogsState();
 
 export default (logsState = defaultLogsState, action) => {
     const {type, payload} = action;
-    // debugger
-    // const {id} = payload;
     let newState;
 
     switch (type) {
@@ -33,12 +30,9 @@ export default (logsState = defaultLogsState, action) => {
                                 .set('isError', false)
                         )
                 );
-
             return newState;
 
         case LOAD_LOG + SUCCESS:
-            // const recordedLogs = payload.map(log => convertLogObjToRecord(log, LogLineData));
-// debugger
             newState = logsState
                 .set(
                     'list', logsState.list
@@ -49,7 +43,6 @@ export default (logsState = defaultLogsState, action) => {
                                 .set('logList', arrToDataArr(payload.list, LogLineData))
                         )
                 );
-
             return newState;
 
         case LOAD_LOG + SHOULD_RELOAD:
@@ -68,11 +61,9 @@ export default (logsState = defaultLogsState, action) => {
                                 .set('id', payload.id)
                         )
                 );
-
             return newState;
 
         case LOG_ACTION:
-            // debugger
             newState = logsState
                 .set('list', logsState.list
                     .set(
@@ -82,7 +73,6 @@ export default (logsState = defaultLogsState, action) => {
                             ])
                         )
                 );
-// debugger
             return newState;
 
         case UPLOAD_LOG + START:
@@ -90,7 +80,7 @@ export default (logsState = defaultLogsState, action) => {
                 .set(
                     'list', logsState.list
                         .set(
-                            payload.id, logsState.list.get(payload.id) //LogData()
+                            payload.id, logsState.list.get(payload.id)
                                 .set('shouldUpload', false)
                                 .set('isUploading', true)
                         )
@@ -103,7 +93,7 @@ export default (logsState = defaultLogsState, action) => {
                 .set(
                     'list', logsState.list
                         .set(
-                            payload.id, logsState.list.get(payload.id) // LogData()
+                            payload.id, logsState.list.get(payload.id)
                                 .set('isUploading', false)
                         )
                 );
@@ -115,7 +105,7 @@ export default (logsState = defaultLogsState, action) => {
                 .set(
                     'list', logsState.list
                         .set(
-                            payload.id, logsState.list.get(payload.id) //LogData()
+                            payload.id, logsState.list.get(payload.id)
                                 .set('shouldUpload', true)
                         )
                 );
@@ -126,14 +116,25 @@ export default (logsState = defaultLogsState, action) => {
                 .set(
                     'list', logsState.list
                         .set(
-                            payload.id, logsState.list.get(payload.id) //LogData()
+                            payload.id, logsState.list.get(payload.id)
                                 .set('shouldUpload', true)
                         )
                 );
             return newState;
 
+        case UNDO + ADD:
+            newState = logsState
+                .set('list', logsState.list
+                    .set(
+                        payload.game.logID,  logsState.list.get(payload.game.logID)
+                            .set('logList', [
+                                ...logsState.list.get(payload.game.logID).logList
+                            ].slice(0, -1))
+                    )
+                );
+            return newState;
+
         default:
             return logsState;
-
     }
 }

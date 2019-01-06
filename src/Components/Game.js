@@ -5,35 +5,23 @@ import {withStyles} from "@material-ui/core/styles/index";
 import AppDrawer from "./AppDrawer";
 import {
     DRAWER_WIDTH,
-    GAME_START,
-    NOW_UPLOADING,
-    SHOULD_UPLOAD,
-    STANDBY, TIME_PAUSE,
+    TIME_PAUSE,
     TIME_START, TIME_STOP,
-    UPLOAD_INTERVAL
 } from "../constants";
 import GameTimer from "./GameTimer";
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-import SwipeableViews from 'react-swipeable-views';
 import GameControl from "./GameControl";
 import GameLog from "./GameLog";
 import {
     gameControl,
-    gameShouldUpload,
     loadGames,
     loadLog,
-    loadPlayers,
     loadRosters,
-    updateGame,
-    updateGameStart, updateGameTimer,
-    updateLog
+    updateGameTimer,
 } from "../AC";
-import store from "../store";
-import throttle from "lodash/throttle";
-import Overlay from "./Overlay";
 
 
 const styles = theme => ({
@@ -67,28 +55,12 @@ TabContainer.propTypes = {
     children: PropTypes.node.isRequired,
 };
 
-// let uploadIntervalID;
-
 class Game extends Component {
     state = {
         isTimerOn: false,
         tabValue: 0,
         isForceLoadFromServer: false,
     };
-
-
-    componentWillUnmount() {
-        clearInterval(this.intervalID);
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        const {game, log} = this.props;
-
-        this.shouldGameUpload = game.shouldUpload;
-        this.shouldLogUpload = log.shouldUpload;
-
-    }
-    ;
 
     toggleTimer = () => {
         const {game, gameControl} = this.props;
@@ -114,7 +86,7 @@ class Game extends Component {
     };
 
     forceUpdateFromServer = () => {
-        const {loadGames, loadLog, loadPlayers, loadRosters, game, updateGameTimer} = this.props;
+        const {loadGames, loadLog, loadPlayers, loadRosters, game} = this.props;
 
         if (window.confirm('Загрузить версию игры с сервера? (возможна потеря последних данных, введенных с Вашего устройства)')) {
             loadGames();
@@ -126,16 +98,9 @@ class Game extends Component {
 
     };
 
-    handleChangeIndex = index => {
-        this.setState({tabValue: index});
-    };
-
     render() {
         const {classes, id, game} = this.props;
         const {tabValue} = this.state;
-        // console.log('-----timePassed', game.timePassed);
-        // console.log('-----game.timePassed', game.timePassed);
-        // debugger
 
         return (
             <div>
@@ -196,8 +161,6 @@ Game.propTypes = {
     user: PropTypes.object.isRequired,
     game: PropTypes.object.isRequired,
     log: PropTypes.object.isRequired,
-    // teams: PropTypes.object.isRequired,
-    // rosters: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired,
 };
 
@@ -207,9 +170,6 @@ const mapStateToProps = (state, ownProps) => {
         user: state.user.userData,
         game: state.games.list.get(id),
         log: state.logs.list.get(state.games.list.get(id).logID)
-        // teams: state.teams.list,
-        // rosters: state.rosters,
-        // timePassed: state.games.list.get(id).timePassed
     }
 };
 
@@ -218,14 +178,8 @@ const mapDispatchToProps = (dispatch) => {
         loadGames: () => dispatch(loadGames()),
         loadLog: (logID) => dispatch(loadLog(logID)),
         loadRosters: () => dispatch(loadRosters()),
-        loadPlayers: () => dispatch(loadPlayers()),
-        updateGame: (game) => dispatch(updateGame(game)),
-        updateLog: (log) => dispatch(updateLog(log)),
-        // updateGameStart: (gameID, data) => dispatch(updateGameStart(gameID, data)),
         updateGameTimer: (gameID, time) => dispatch(updateGameTimer(gameID, time)),
         gameControl: (type, game, log) => dispatch(gameControl(type, game, log)),
-
-        gameShouldUpload: (game) => dispatch(gameShouldUpload(game)),
     };
 };
 

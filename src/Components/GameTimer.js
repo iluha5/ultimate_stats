@@ -8,16 +8,9 @@ import {updateGameTimer} from "../AC";
 class GameTimer extends Component {
 
     saveTimerToStore = (time) => {
-        const {updateGameTimer, gameID, game, initialTime} = this.props;
+        const {updateGameTimer, gameID} = this.props;
 
-        // if (game.shouldSetTimer) {
-        //     updateGameTimer(gameID, game.timePassed);
-        // } else {
-        // console.log('-----initialTime', initialTime);
-        // console.log('-----time', time);
-        // debugger
         updateGameTimer(gameID, Math.floor(time / 1000));
-        // }
     };
 
     render() {
@@ -29,9 +22,6 @@ class GameTimer extends Component {
                 startImmediately={false}
             >
                 {(timer) => {
-                    // console.log('-----initialTime - inside', initialTime);
-                    // console.log('-----timer.getTime()', timer.getTime());
-                    // debugger;
                     return (
                         <span>
                             {/* костыль из-за бага в Timer! Выводим initialTime вместо timer только сразу после загрузки данных с сервера */}
@@ -53,7 +43,6 @@ class GameTimer extends Component {
 }
 
 GameTimer.propTypes = {
-    // saveTimerToStore: PropTypes.func.isRequired,
     gameID: PropTypes.string.isRequired,
     initialTime: PropTypes.number,
     isTimerOn: PropTypes.bool,

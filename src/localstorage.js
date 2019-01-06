@@ -12,10 +12,10 @@ import {
     RosterData,
     RostersState,
     PlayerData,
-    PlayersState, LogData, LogsState, LogLineData
+    PlayersState, LogData, LogsState, LogLineData, LogUndoState
 } from "./model";
 
-export const loadState = (data) => {
+export const loadState = () => {
 
   try {
       const serializedState = localStorage.getItem('state');
@@ -25,7 +25,7 @@ export const loadState = (data) => {
       }
 
       let loadedState = JSON.parse(serializedState);
-      let { tournamentsList, user, games, teams, rosters, players, logs } = loadedState;
+      let { tournamentsList, user, games, teams, rosters, players, logs, undoList} = loadedState;
       const defaultTournamentList = TournamentsListState();
       const defaultUser = UserState();
       const defaultGame = GamesState();
@@ -33,6 +33,7 @@ export const loadState = (data) => {
       const defaultRosters = RostersState();
       const defaultPlayers = PlayersState();
       const defaultLogs = LogsState();
+      const defaultLogUndo = LogUndoState();
 // debugger
       if (tournamentsList && tournamentsList.list && !Record.isRecord(tournamentsList)) {
           tournamentsList = convertPlainObjectToState(tournamentsList, TournamentData, defaultTournamentList, TournamentsListState, OrderedMap);
@@ -82,10 +83,18 @@ export const loadState = (data) => {
       }
 
       if (logs && logs.list && !Record.isRecord(logs)) {
+
           logs = convertLogToRecord(logs, LogData, LogLineData, LogsState, defaultLogs, OrderedMap);
-          // logs = LogsState();
-          // debugger
+
           loadedState = {...loadedState, logs};
+      }
+
+      if (undoList && undoList.list && !Record.isRecord(undoList)) {
+          // debugger
+
+          undoList = convertPlainObjectToState(undoList, LogLineData, defaultLogUndo, LogUndoState, OrderedMap);
+
+          loadedState = {...loadedState, undoList};
       }
 
       // console.log('-----localstorage, все ок', loadedState);
