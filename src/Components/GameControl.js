@@ -253,29 +253,29 @@ class GameControl extends Component {
     //     console.log(id);
     // };
 
-    // handlePlayerClick = (id, name) => e => {
-    //     e.preventDefault();
-    //
-    //     const {game, gameControl, log} = this.props;
-    //
-    //     if (this.state.assist === null) {
-    //         this.setState({
-    //             assist: {id, name}
-    //         });
-    //         return 0;
-    //     }
-    //
-    //     const data = {
-    //         assist: this.state.assist,
-    //         goal: {id, name}
-    //     };
-    //
-    //     gameControl(GOAL, game, log, data);
-    //     this.setState({
-    //         assist: null
-    //     });
-    //
-    // };
+    handlePlayerClick = (id, name) => e => {
+        e.preventDefault();
+
+        const {game, gameControl, log} = this.props;
+
+        if (this.state.assist === null) {
+            this.setState({
+                assist: {id, name}
+            });
+            return 0;
+        }
+
+        const data = {
+            assist: this.state.assist,
+            goal: {id, name}
+        };
+
+        gameControl(GOAL, game, log, data);
+        this.setState({
+            assist: null
+        });
+
+    };
 
     handleClick = (type) => e => {
         e.preventDefault();
@@ -298,9 +298,7 @@ class GameControl extends Component {
                     </Typography>
 
                     <Typography variant="h6" gutterBottom className={classes.score}>
-                        {/*<span className={classes.code}>[{game.takenTimeOutsTeamOne.length}]</span>*/}
                         {`${game.teamOneScore}-${game.teamTwoScore}`}
-                        {/*<span className={classes.code}>[{game.takenTimeOutsTeamTwo.length}]</span>*/}
                     </Typography>
 
                     <Typography gutterBottom className={classes.scoreItem2}>
@@ -312,7 +310,6 @@ class GameControl extends Component {
                     <div
                         className={[classes.rosterWrapper, (game.offense === TEAM_ONE) && classes.rosterRootIsOffence].join(' ')}>
                         <div className={classes.roster}>
-                            {/*{game.offense === TEAM_TWO && <Overlay alfa='0' index='10'/>}*/}
                             <GameControlRoster rosterID={rosters.teamOne}
                                                handlePlayerClick={game.offense === TEAM_ONE && !game.isPull ? this.handlePlayerClick : null}/>
                         </div>
@@ -320,7 +317,6 @@ class GameControl extends Component {
                     <div
                         className={[classes.rosterWrapper, (game.offense === TEAM_TWO) && classes.rosterRootIsOffence].join(' ')}>
                         <div className={classes.roster}>
-                            {/*{game.offense === TEAM_ONE && <Overlay alfa='0' index='10'/>}*/}
                             <GameControlRoster rosterID={rosters.teamTwo}
                                                handlePlayerClick={game.offense === TEAM_TWO && !game.isPull ? this.handlePlayerClick : null}/>
                         </div>
@@ -362,10 +358,17 @@ class GameControl extends Component {
                 <div className={classes.logWrapper}>
                     <div className={classes.gameLogPrev}>
                         {/*<GameControlLogPrev />*/}
-                        <GameLog gameID={gameID} logID={game.logID} preview/>
+
+                        <GameLog
+                            gameID={gameID}
+                            logID={game.logID}
+                            preview
+                            teamOneID = {game.teamOneID}
+                            teamTwoID = {game.teamTwoID}
+                        />
                     </div>
 
-                    {log.logList.length > 0 &&
+                    {log && log.logList.length > 0 &&
                         <Button size='small' variant="fab" className={classes.undo}
                                 onClick={this.handleClick(UNDO)}>
                             <Undo fontSize="small" color="action"/>
@@ -412,7 +415,7 @@ const mapStateToProps = (state, ownProps) => {
         game: gameData,
         teamsNames: [teamOneName, teamTwoName],
         rosters: {teamOne: rosterTeamOne, teamTwo: rosterTeamTwo},
-        isUndoListEmpty: state.undoList.isEmpty
+        isUndoListEmpty: state.undoList.list.isEmpty()
     };
 };
 

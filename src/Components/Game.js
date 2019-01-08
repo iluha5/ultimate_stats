@@ -140,7 +140,12 @@ class Game extends Component {
                     }
                     {tabValue === 1 &&
                     <TabContainer>
-                        <GameLog gameID={id} logID={game.logID}/>
+                        <GameLog
+                            gameID={id}
+                            logID={game.logID}
+                            teamOneID = {game.teamOneID}
+                            teamTwoID = {game.teamTwoID}
+                        />
                     </TabContainer>
                     }
                     {tabValue === 2 &&

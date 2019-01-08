@@ -15,6 +15,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import {getColorForLogLine, getLogLineToRender} from "../helpers";
 import {TEAM_ONE, TEAM_TWO} from "../constants";
 import Error from "./Error";
+import {makeGetLogProps} from "../Selectors";
 
 let counter = 0;
 
@@ -214,6 +215,7 @@ class GameLog extends Component {
 
 
     render() {
+        console.log('----- log render');
         const {log, classes, players, rosterTeamOne, rosterTeamTwo, teamNames, preview} = this.props;
         const {order, orderBy, selected, rowsPerPage, page} = this.state;
 
@@ -307,8 +309,9 @@ GameLog.propTypes = {
     gameID: PropTypes.string.isRequired,
     logID: PropTypes.string.isRequired,
     preview: PropTypes.bool,
+    teamOneID: PropTypes.string.isRequired,
+    teamTwoID: PropTypes.string.isRequired,
     //from store
-    // game: PropTypes.object.isRequired,
     log: PropTypes.object,
     teams: PropTypes.object.isRequired,
     rosters: PropTypes.object.isRequired,
@@ -318,27 +321,30 @@ GameLog.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-    const {gameID} = ownProps;
-    const game = state.games.list.get(gameID);
-    const teamNames = {
-        [TEAM_ONE]: state.teams.list.get(game.teamOneID).name,
-        [TEAM_TWO]: state.teams.list.get(game.teamTwoID).name,
-    };
-    const logID = state.games.list.get(gameID).logID;
-    const log = !state.logs.list.isEmpty() ? state.logs.list.get(logID) : null;
-    const rosterTeamOne = state.rosters.list.get(state.teams.list.get(game.teamOneID).rosterID);
-    const rosterTeamTwo = state.rosters.list.get(state.teams.list.get(game.teamTwoID).rosterID);
+    // const {teamOneID, teamTwoID, logID} = ownProps;
+    // const teamNames = {
+    //     [TEAM_ONE]: state.teams.list.get(teamOneID).name,
+    //     [TEAM_TWO]: state.teams.list.get(teamTwoID).name,
+    // };
+    // const log = !state.logs.list.isEmpty() ? state.logs.list.get(logID) : null;
+    // const rosterTeamOne = state.rosters.list.get(state.teams.list.get(teamOneID).rosterID);
+    // const rosterTeamTwo = state.rosters.list.get(state.teams.list.get(teamTwoID).rosterID);
+    //
+    // return {
+    //     log: log,
+    //     players: state.players.list,
+    //     teams: state.teams.list,
+    //     rosters: state.rosters.list,
+    //     rosterTeamOne: rosterTeamOne,
+    //     rosterTeamTwo: rosterTeamTwo,
+    //     teamNames: teamNames,
+    // };
 
-    return {
-        // game: game, //state.games.list.get(gameID),
-        log: log,
-        players: state.players.list,
-        teams: state.teams.list,
-        rosters: state.rosters.list,
-        rosterTeamOne: rosterTeamOne,
-        rosterTeamTwo: rosterTeamTwo,
-        teamNames: teamNames,
-    };
+    const getLogProps = makeGetLogProps();
+
+    return (state, ownProps) => {
+        return getLogProps(state, ownProps);
+    }
 };
 
 const mapDispatchToProps = (dispatch) => {

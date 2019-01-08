@@ -212,7 +212,6 @@ class GameControlRoster extends Component {
             <div className={classes.tableWrapper}>
                 <Table className={classes.table} aria-labelledby="tableTitle">
                     <EnhancedTableHead
-                        // numSelected={selected.length}
                         order={order}
                         orderBy={orderBy}
                         onSelectAllClick={this.handleSelectAllClick}
@@ -221,7 +220,6 @@ class GameControlRoster extends Component {
                     />
                     <TableBody>
                         {stableSort(data, getSorting(order, orderBy))
-                        // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map(n => {
                                 const isSelected = this.isSelected(n.id);
                                 return (
@@ -248,11 +246,6 @@ class GameControlRoster extends Component {
                                     </TableRow>
                                 );
                             })}
-                        {/*{emptyRows > 0 && (*/}
-                        {/*<TableRow style={{height: 49 * emptyRows}}>*/}
-                        {/*<TableCell colSpan={6}/>*/}
-                        {/*</TableRow>*/}
-                        {/*)}*/}
                     </TableBody>
                 </Table>
             </div>
