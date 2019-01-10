@@ -6,6 +6,8 @@ import {connect} from "react-redux";
 import {ADMIN, SCOREKEEPER} from "../constants";
 import Tournament from "../Components/Tournament";
 import Game from "../Components/Game";
+import AuthRedirect from "../Components/AuthRedirect";
+
 
 class KeeperRoute extends Component {
 
@@ -13,21 +15,27 @@ class KeeperRoute extends Component {
         const {tournamentID} = match.params;
         const {user} = this.props;
 
-        return (user && (user.role === SCOREKEEPER || user.role === ADMIN )) ? (
-            <Tournament id={tournamentID}/>
-        ) : (
-            <Redirect to='/network' />
+        return (
+            <AuthRedirect>
+                <Tournament id={tournamentID}/>
+            </AuthRedirect>
         )
+// debugger
+//         return (user && (user.role === SCOREKEEPER || user.role === ADMIN )) ? (
+//             <Tournament id={tournamentID}/>
+//         ) : (
+//             <Redirect to='/network' />
+//         )
     };
 
     renderGame = ({match}) => {
         const {id, tournamentID} = match.params;
         const {user} = this.props;
 
-        return (user && (user.role === SCOREKEEPER || user.role === ADMIN )) ? (
-            <Game id={id} tournamentID={tournamentID} />
+        return (user && (user.role === SCOREKEEPER || user.role === ADMIN)) ? (
+            <Game id={id} tournamentID={tournamentID}/>
         ) : (
-            <Redirect to='/network' />
+            <Redirect to='/network'/>
         )
     };
 
@@ -37,9 +45,9 @@ class KeeperRoute extends Component {
                 <Switch>
                     <Route path='/network/keeper/tournament/:tournamentID/game/:id' render={this.renderGame}/>
                     <Route path='/network/keeper/tournament/:tournamentID' render={this.renderTournament}/>
-                    <Redirect path='/network/keeper/tournament' exact to='/network/keeper/'  />
-                    <Route path='/network/keeper' exact component={Scorekeeper} />
-                    <Redirect path='/network/keeper/:any' to='/network/keeper/'  />
+                    <Redirect path='/network/keeper/tournament' exact to='/network/keeper/'/>
+                    <Route path='/network/keeper' exact component={Scorekeeper}/>
+                    <Redirect path='/network/keeper/:any' to='/network/keeper/'/>
                 </Switch>
 
             </div>

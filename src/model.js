@@ -43,7 +43,8 @@ export const UserData = Record({
     id: null,
     name: null,
     email: null,
-    role: null
+    role: null,
+    isAuthenticated: false,
 });
 
 export const UserState = Record({
@@ -190,3 +191,4 @@ export const GamesStatisticsState = Record({
     shouldReload: true,
     list: new OrderedMap({})
 });
+

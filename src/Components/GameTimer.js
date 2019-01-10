@@ -32,7 +32,6 @@ class GameTimer extends Component {
                                 :
                                 (<span><Timer.Minutes/> : <Timer.Seconds/></span>)
                             }
-                            {console.log('-----timer.getTime()', timer.getTime())}
                             {this.saveTimerToStore(timer.getTime())}
                             {isTimerOn ? timer.start() : timer.stop()}
                         </span>

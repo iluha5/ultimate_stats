@@ -27,21 +27,21 @@ export const loadState = () => {
       let loadedState = JSON.parse(serializedState);
       let { tournamentsList, user, games, teams, rosters, players, logs} = loadedState;
       const defaultTournamentList = TournamentsListState();
-      const defaultUser = UserState();
+      const defaultUser = UserState({userData: UserData()});
       const defaultGame = GamesState();
       const defaultTeams = TeamsState();
       const defaultRosters = RostersState();
       const defaultPlayers = PlayersState();
       const defaultLogs = LogsState();
       const defaultLogUndo = LogUndoState();
-// debugger
+
       if (tournamentsList && tournamentsList.list && !Record.isRecord(tournamentsList)) {
           tournamentsList = convertPlainObjectToState(tournamentsList, TournamentData, defaultTournamentList, TournamentsListState, OrderedMap);
           tournamentsList.set('isLoading', false);
 
           loadedState = {...loadedState, tournamentsList};
       }
-// debugger
+
       if (user && user.userData && !Record.isRecord(user)) {
           user = convertPlainObjectToState(user, UserData, defaultUser, UserState, OrderedMap, 'userData');
 
@@ -49,7 +49,8 @@ export const loadState = () => {
 
           loadedState = {...loadedState, user};
       }
-// debugger
+      // loadedState = {...loadedState, user: defaultUser};
+
       if (games && games.list && !Record.isRecord(games)) {
           games = convertPlainObjectToState(games, GameData, defaultGame, GamesState, OrderedMap);
 
@@ -57,10 +58,10 @@ export const loadState = () => {
 
           loadedState = {...loadedState, games};
       }
-// debugger
+
       if (teams && teams.list && !Record.isRecord(teams)) {
           teams = convertPlainObjectToState(teams, TeamData, defaultTeams, TeamsState, OrderedMap);
-// debugger
+
           teams = teams.set('isLoading', false);
 
           loadedState = {...loadedState, teams};

@@ -1,9 +1,9 @@
 import {OrderedMap, Map} from 'immutable'
 import {
     GOAL,
-    INJURY, LOG_ACTION,
+    INJURY,
     OTHER, PULL,
-    SOTG, TEAM_ONE, TEAM_TWO,
+    SOTG, TEAM_ONE,
     THROW,
     TIME_PAUSE,
     TIME_START,

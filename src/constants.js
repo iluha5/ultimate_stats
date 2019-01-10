@@ -42,6 +42,7 @@ export const GAME_START = 'GAME_START';
 
 // statuses
 export const WRONG_USER = 'WRONG_USER';
+export const LOGOUT = 'LOGOUT';
 
 // roles
 export const SCOREKEEPER = 'scorekeeper';

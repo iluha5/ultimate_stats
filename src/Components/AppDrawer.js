@@ -25,7 +25,7 @@ import StopOutlined from '@material-ui/icons/StopOutlined';
 import FiberManualRecord from '@material-ui/icons/FiberManualRecord';
 import FiberSmartRecord from '@material-ui/icons/FiberSmartRecord';
 import {connect} from "react-redux";
-import {goTo} from "../AC";
+import {goTo, logout} from "../AC";
 import {DRAWER_WIDTH} from "../constants";
 
 
@@ -34,11 +34,8 @@ import {DRAWER_WIDTH} from "../constants";
 const styles = theme => ({
     root: {
         display: 'flex',
-        // minHeight: 0,
-        // flexGrow: 1,
     },
     title: {
-        // border: '1px solid #fff',
         lineHeight: '1.5em',
         verticalAlign: 'middle',
         paddingTop: 0,
@@ -155,10 +152,19 @@ class AppDrawer extends React.Component {
         this.setState({anchorEl: null});
     };
 
+    // handleLogout = () => {
+    //
+    // };
+
+    handleForceUpdate = (forceUpdateFromServer) => () => {
+        this.setState({anchorEl: null});
+        forceUpdateFromServer();
+    };
+
     render() {
         const {
             classes, theme, goTo, user, title, isGame, toggleTimer, handlerStop, isTimerOn, forceUpdateFromServer,
-            uploadingStatus,
+            uploadingStatus, logout
         } = this.props;
         const {anchorEl} = this.state;
         const open = Boolean(anchorEl);
@@ -222,18 +228,18 @@ class AppDrawer extends React.Component {
                         </Typography>
                         {(
                             <div className={classes.rightMenuWrapper}>
-                                {!uploadingStatus && (
+                                {isGame && !uploadingStatus && (
                                     <IconButton
-                                        onClick={forceUpdateFromServer}
+                                        // onClick={}
                                         className={classes.uploadNotNeeded}
                                     >
                                         <FiberManualRecord/>
                                     </IconButton>
                                 )}
 
-                                {uploadingStatus && (
+                                {isGame && uploadingStatus && (
                                     <IconButton
-                                        onClick={forceUpdateFromServer}
+                                        // onClick={}
                                         className={classes.uploadingInProgress}
                                     >
                                         <FiberSmartRecord/>
@@ -279,8 +285,10 @@ class AppDrawer extends React.Component {
                                     >
                                         {user.name}
                                     </Typography>
-                                    <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                                    <MenuItem onClick={this.handleClose}>My account</MenuItem>
+
+                                    {isGame && <MenuItem onClick={this.handleForceUpdate(forceUpdateFromServer)} >Загрузить с сервера</MenuItem>}
+                                    {isGame && <MenuItem onClick={this.handleClose}>Начать игру заново</MenuItem>}
+                                    <MenuItem onClick={logout}>Выйти</MenuItem>
                                 </Menu>
                             </div>
                         )}
@@ -334,6 +342,7 @@ AppDrawer.propTypes = {
     toggleTimer: PropTypes.func,
     handlerStop: PropTypes.func,
     forceUpdateFromServer: PropTypes.func,
+    logout: PropTypes.func,
     isTimerOn: PropTypes.bool,
     uploadingStatus: PropTypes.bool,
     // Injected by the documentation to work in an iframe.
@@ -349,7 +358,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        goTo: (path) => dispatch(goTo(path))
+        goTo: (path) => dispatch(goTo(path)),
+        logout: () => dispatch(logout())
     };
 };
 

@@ -1,4 +1,4 @@
-import {FAIL, LOAD_BEARER, LOAD_USERS, START, SUCCESS} from "../constants";
+import {FAIL, LOAD_BEARER, LOAD_USERS, LOGOUT, START, SUCCESS} from "../constants";
 import {UserData, UserState} from "../model";
 
 const defaultUser = UserState();
@@ -18,6 +18,8 @@ export default (userState = defaultUser, action) => {
             console.log('----- Fail to load Users', payload);
             return userState
                 .set('isLoading', false);
+        case LOGOUT:
+            return defaultUser;
         default:
             return userState;
     }

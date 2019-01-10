@@ -11,7 +11,7 @@ import {
     LOAD_ROSTERS,
     LOAD_TOURNAMENTS,
     LOAD_USERS,
-    LOG_ACTION, OTHER,
+    LOG_ACTION, LOGOUT, OTHER,
     PULL,
     PUSH_NEW_TEAM,
     PUSH_NEW_TOURNAMENT, REDO,
@@ -32,6 +32,14 @@ import {
 import {push} from 'react-router-redux';
 import uuidv4 from 'uuid/v4';
 import {LogLineData} from "./model";
+
+export const logout = () => {
+  return (dispatch) => {
+      dispatch({
+          type: LOGOUT
+      });
+  }
+};
 
 export const gameControl = (type, game, log, data) => {
     return (dispatch, getState) => {
