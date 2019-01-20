@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {withStyles} from "@material-ui/core/styles/index";
 import AppDrawer from "./AppDrawer";
 import {
-    DRAWER_WIDTH,
+    DRAWER_WIDTH, FORCE_UPLOAD_GAME,
     TIME_PAUSE,
     TIME_START, TIME_STOP,
 } from "../constants";
@@ -21,7 +21,8 @@ import {
     loadLog,
     loadRosters,
     updateGameTimer,
-    loadPlayers
+    loadPlayers,
+    clearGame
 } from "../AC";
 
 
@@ -35,6 +36,7 @@ const styles = theme => ({
         [theme.breakpoints.up('md')]: {
             width: `calc(100% - ${DRAWER_WIDTH}px)`,
             marginLeft: DRAWER_WIDTH,
+            paddingTop: 48,
         },
         paddingTop: 32,
 
@@ -82,6 +84,12 @@ class Game extends Component {
 
     };
 
+    handlerForceUploadGame = () => {
+      const {game, gameControl} = this.props;
+
+      gameControl(FORCE_UPLOAD_GAME, game);
+    };
+
     handleChangeTab = (event, tabValue) => {
         this.setState({tabValue});
     };
@@ -95,6 +103,14 @@ class Game extends Component {
             loadPlayers();
             loadRosters();
             // updateGameTimer(game.id, game.timePassed)
+        }
+    };
+
+    forceEraseGame = () => {
+        const {game, clearGame} = this.props;
+
+        if (window.confirm('Внимание! Вы сотрете все данные об игре без возможности восстановления! Продолжить?')) {
+            clearGame(game);
         }
 
     };
@@ -112,7 +128,9 @@ class Game extends Component {
                     isTimerOn={game.isTimeOn}
                     toggleTimer={this.toggleTimer}
                     handlerStop={this.handlerStop}
+                    handlerForceUploadGame={this.handlerForceUploadGame}
                     forceUpdateFromServer={this.forceUpdateFromServer}
+                    forceEraseGame={this.forceEraseGame}
                     uploadingStatus={game.isUploading}
                 />
                 <main className={classes.content}>
@@ -185,6 +203,7 @@ const mapDispatchToProps = (dispatch) => {
         loadLog: (logID) => dispatch(loadLog(logID)),
         loadRosters: () => dispatch(loadRosters()),
         loadPlayers: () => dispatch(loadPlayers()),
+        clearGame: (game) => dispatch(clearGame(game)),
         updateGameTimer: (gameID, time) => dispatch(updateGameTimer(gameID, time)),
         gameControl: (type, game, log) => dispatch(gameControl(type, game, log)),
     };

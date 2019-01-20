@@ -1,5 +1,5 @@
 import {
-    ADD,
+    ADD, CLEAR_GAME,
     FAIL,
     LOAD_LOG,
     LOG_ACTION,
@@ -132,6 +132,17 @@ export default (logsState = defaultLogsState, action) => {
                             .set('logList', [
                                 ...logsState.list.get(payload.game.logID).logList
                             ].slice(0, -1))
+                    )
+                );
+            return newState;
+
+        case CLEAR_GAME:
+            newState = logsState
+                .set('list', logsState.list
+                    .set(
+                        payload.game.logID, LogData()
+                            .set('id', payload.game.logID)
+                            .set('shouldReload', false)
                     )
                 );
             return newState;

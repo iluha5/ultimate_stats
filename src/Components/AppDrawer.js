@@ -152,10 +152,6 @@ class AppDrawer extends React.Component {
         this.setState({anchorEl: null});
     };
 
-    // handleLogout = () => {
-    //
-    // };
-
     handleForceUpdate = (forceUpdateFromServer) => () => {
         this.setState({anchorEl: null});
         forceUpdateFromServer();
@@ -164,7 +160,7 @@ class AppDrawer extends React.Component {
     render() {
         const {
             classes, theme, goTo, user, title, isGame, toggleTimer, handlerStop, isTimerOn, forceUpdateFromServer,
-            uploadingStatus, logout
+            uploadingStatus, logout, handlerForceUploadGame, forceEraseGame
         } = this.props;
         const {anchorEl} = this.state;
         const open = Boolean(anchorEl);
@@ -230,7 +226,7 @@ class AppDrawer extends React.Component {
                             <div className={classes.rightMenuWrapper}>
                                 {isGame && !uploadingStatus && (
                                     <IconButton
-                                        // onClick={}
+                                        onClick={handlerForceUploadGame}
                                         className={classes.uploadNotNeeded}
                                     >
                                         <FiberManualRecord/>
@@ -239,7 +235,7 @@ class AppDrawer extends React.Component {
 
                                 {isGame && uploadingStatus && (
                                     <IconButton
-                                        // onClick={}
+                                        onClick={handlerForceUploadGame}
                                         className={classes.uploadingInProgress}
                                     >
                                         <FiberSmartRecord/>
@@ -287,7 +283,7 @@ class AppDrawer extends React.Component {
                                     </Typography>
 
                                     {isGame && <MenuItem onClick={this.handleForceUpdate(forceUpdateFromServer)} >Загрузить с сервера</MenuItem>}
-                                    {isGame && <MenuItem onClick={this.handleClose}>Начать игру заново</MenuItem>}
+                                    {isGame && <MenuItem onClick={this.handleForceUpdate(forceEraseGame)}>Начать игру заново</MenuItem>}
                                     <MenuItem onClick={logout}>Выйти</MenuItem>
                                 </Menu>
                             </div>
@@ -342,6 +338,8 @@ AppDrawer.propTypes = {
     toggleTimer: PropTypes.func,
     handlerStop: PropTypes.func,
     forceUpdateFromServer: PropTypes.func,
+    handlerForceUploadGame: PropTypes.func,
+    forceEraseGame: PropTypes.func,
     logout: PropTypes.func,
     isTimerOn: PropTypes.bool,
     uploadingStatus: PropTypes.bool,

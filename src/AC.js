@@ -1,7 +1,7 @@
 import {
     ADD,
-    API,
-    FAIL,
+    API, CLEAR_GAME,
+    FAIL, FORCE_UPLOAD_GAME,
     GOAL, INJURY,
     LOAD_ALL_TEAMS,
     LOAD_BEARER,
@@ -173,7 +173,7 @@ export const gameControl = (type, game, log, data) => {
                 const redoLogLine = getState().undoList.list.last();
                 const redoType = redoLogLine.type;
                 logLine = redoLogLine.toObject();
-// debugger
+
                 dispatch({
                     type: LOG_ACTION + redoType,
                     payload: {game, logLine: LogLineData(redoLogLine)}
@@ -184,7 +184,8 @@ export const gameControl = (type, game, log, data) => {
                     payload: {game}
                 });
                 break;
-
+            case FORCE_UPLOAD_GAME:
+                break;
             default:
                 dispatch({
                     type: LOG_ACTION + UNDEFINED_EVENT,
@@ -192,7 +193,7 @@ export const gameControl = (type, game, log, data) => {
                 });
         }
 
-        if (type !== UNDO && type !== REDO) {
+        if (type !== UNDO && type !== REDO && type !== FORCE_UPLOAD_GAME) {
             dispatch({
                 type: LOG_ACTION,
                 payload: {game, logLine: LogLineData(logLine)}
@@ -220,6 +221,16 @@ export const gameControl = (type, game, log, data) => {
         //     payload: {id: game.logID},
         // });
     }
+};
+
+export const clearGame = (game) => {
+  return (dispatch) => {
+      dispatch({
+          type: CLEAR_GAME,
+          payload: {game}
+      });
+
+  }
 };
 
 export const updateGame = (game) => {

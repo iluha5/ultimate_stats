@@ -95,8 +95,8 @@ export const GameData = Record({
     timeStart: '',
     timePassed: 0,
     statisticID: '',
-    rosterID: '',
-    isPull: false,
+    rosterID: '', // не нужно???
+    isPull: true, // должно быть false по умолчанию??
     isTimeOn: false,
 });
 

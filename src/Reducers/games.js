@@ -1,5 +1,5 @@
 import {
-    ADD, FAIL, GOAL, INJURY,
+    ADD, CLEAR_GAME, FAIL, GOAL, INJURY,
     LOAD_GAMES, LOG_ACTION, OTHER, PULL,
     SHOULD_RELOAD, SHOULD_UPLOAD, SOTG,
     START, SUCCESS,
@@ -200,6 +200,33 @@ export default (gamesState = defaultGamesState, action) => {
             return gamesState
                 .set('list', gamesState.list
                     .set(payload.game.id, prevGameState)
+                );
+
+        case CLEAR_GAME:
+            // const temp = GameData;
+            // debugger
+            return gamesState
+                .set('list', gamesState.list
+                    .set(payload.game.id, GameData()
+                            .set('id', payload.game.id)
+                            .set('tournamentID', payload.game.tournamentID)
+                            .set('logID', payload.game.logID)
+                            .set('ownerID', payload.game.ownerID)
+                            .set('teamOneID', payload.game.teamOneID)
+                            .set('teamTwoID', payload.game.teamTwoID)
+                            .set('offense', TEAM_ONE)
+                            .set('codeOne', payload.game.codeOne)
+                            .set('codeTwo', payload.game.codeTwo)
+                            .set('date', payload.game.date)
+                            .set('timeStart', payload.game.timeStart)
+                            .set('statisticID', payload.game.statisticID)
+                            .set('rosterID', payload.game.rosterID)
+                    )
+                    // .set(payload.game.id, gamesState.list.get(payload.game.id)
+                    //         .set('inProgress', false)
+                    //         .set('isFinished', false)
+                    //         .set('offense', TEAM_ONE)
+                    // )
                 );
 
         default:

@@ -36,6 +36,10 @@ export const LOAD_LOG_LIST = 'LOAD_LOG_LIST';
 export const LOAD_LOG = 'LOAD_LOG';
 export const UPLOAD_LOG = 'UPLOAD_LOG';
 
+// Force commands
+export const FORCE_UPLOAD_GAME = 'FORCE_UPLOAD_GAME';
+export const CLEAR_GAME = 'CLEAR_GAME';
+
 export const UPDATE_TIMER_GAME = 'UPDATE_TIMER_GAME';
 export const UPDATE_GAME = 'UPDATE_GAME';
 export const GAME_START = 'GAME_START';
