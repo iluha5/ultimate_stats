@@ -15,7 +15,7 @@ export default (viewLogsState = defaultViewLogsState, action) => {
 // debugger
     switch (type) {
         case VIEW_LOAD_LOG + START:
-            debugger
+            // debugger
             newState = viewLogsState
                 .set(
                     'list', viewLogsState.list

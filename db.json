@@ -1161,6 +1161,67 @@
             "isPull": true,
             "isTimeOn": true
           }
+        },
+        {
+          "id": "2d222214-4cd2-420e-b24d-719abf4ed97a",
+          "type": "TIME_PAUSE",
+          "team": "TEAM_ONE",
+          "time": "9561",
+          "playerGoal": "",
+          "playerAssist": "",
+          "currScoreTeamOne": 1,
+          "currScoreTeamTwo": 1,
+          "gameSnapshot": {
+            "id": "234wefg",
+            "tournamentID": "sdsrd0-8sdfg098xcv0b-vcbn9",
+            "logID": "log002",
+            "ownerID": "sadfa234sda",
+            "teamOneID": "03",
+            "teamTwoID": "04",
+            "inProgress": true,
+            "isFinished": false,
+            "offense": "TEAM_ONE",
+            "win": -1,
+            "teamOneScore": 1,
+            "teamTwoScore": 1,
+            "codeOne": "C2",
+            "codeTwo": "C4",
+            "teamOneTurnovers": 0,
+            "teamTwoTurnovers": 0,
+            "fullTimeDuration": 0,
+            "teamOneOffenceDuration": 0,
+            "teamTwoOffenceDuration": 0,
+            "SotgTeamOne": [
+              -1
+            ],
+            "SotgTeamTwo": [
+              -1
+            ],
+            "SotgCommentsTeamOne": "",
+            "SotgCommentsTeamTwo": "",
+            "passesTeamOne": 3,
+            "passesTeamTwo": 5,
+            "takenTimeOutsTeamOne": [],
+            "takenTimeOutsTeamTwo": [],
+            "takenSotgTimeOutsTeamOne": [],
+            "takenSotgTimeOutsTeamTwo": [],
+            "injuryStoppageTeamOne": 0,
+            "injuryStoppageTeamTwo": 0,
+            "otherCallsTeamOne": 0,
+            "otherCallsTeamTwo": 1,
+            "others": [],
+            "shouldUpload": false,
+            "shouldReload": false,
+            "shouldSetTimer": true,
+            "isUploading": false,
+            "date": "1543999362020",
+            "timeStart": "11:00",
+            "timePassed": 9561,
+            "statisticID": "gs0002",
+            "rosterID": "ros02",
+            "isPull": false,
+            "isTimeOn": true
+          }
         }
       ]
     },
@@ -2911,11 +2972,11 @@
       "isUploading": false,
       "date": "1543999362020",
       "timeStart": "11:00",
-      "timePassed": 8300,
+      "timePassed": 9561,
       "statisticID": "gs0002",
       "rosterID": "ros02",
       "isPull": false,
-      "isTimeOn": true
+      "isTimeOn": false
     },
     {
       "id": "234wefwed3g",

@@ -187,6 +187,73 @@ export function getLogLineToRender(logLine, players, rosterTeamOne, rosterTeamTw
     return {time, score, details};
 }
 
+export function getLogLineToRenderView(logLine, players, rosterTeamOne, rosterTeamTwo, teamNames) {
+    const time = +logLine.time;
+    let score = `${logLine.currScoreTeamOne} - ${logLine.currScoreTeamTwo}`;
+    let details = `${logLine.type}`;
+    const teamName = teamNames[logLine.team] || '';
+
+    switch (logLine.type) {
+        case GOAL:
+            let playerAssist = '';
+            let playerGoal = '';
+            const playerAssistNum = logLine.team === TEAM_ONE ?
+                rosterTeamOne.players.find(player => player.id === logLine.playerAssist).num :
+                rosterTeamTwo.players.find(player => player.id === logLine.playerAssist).num;
+
+            const playerGoalNum = logLine.team === TEAM_ONE ?
+                rosterTeamOne.players.find(player => player.id === logLine.playerGoal).num :
+                rosterTeamTwo.players.find(player => player.id === logLine.playerGoal).num;
+
+            if (logLine.playerAssist === logLine.playerGoal) {
+                details = `Кэллахан - ${players.get(logLine.playerGoal).secondName}`;
+            }
+            playerAssist = logLine.playerAssist === UNDEFINED_PLAYER ? 'Неизвестный' :
+                `#${playerAssistNum} ${players.get(logLine.playerAssist).secondName} ${players.get(logLine.playerAssist).firstName[0]} `;
+            playerGoal = logLine.playerGoal === UNDEFINED_PLAYER ? 'Неизвестный' :
+                `#${playerGoalNum} ${players.get(logLine.playerGoal).secondName} ${players.get(logLine.playerGoal).firstName[0]} `;
+
+            details = `${playerAssist} -> ${playerGoal}`;
+            score = logLine.team === TEAM_ONE ? `${logLine.currScoreTeamOne}.- ${logLine.currScoreTeamTwo}` : `${logLine.currScoreTeamOne} -.${logLine.currScoreTeamTwo}`;
+            break;
+        case TURNOVER:
+            details = `Турновер`;//. Атака: ${teamName}`;
+            break;
+        case THROW:
+            details = `Бросок`;// ${teamName.substr(0, 15)}.`;
+            break;
+        case TIMEOUT:
+            details = `Таймаут`;//: ${teamName.substr(0, 15)}.`;
+            break;
+        case SOTG:
+            details = `Спирит. таймаут`;//: ${teamName.substr(0, 15)}.`;
+            break;
+        case INJURY:
+            details = `Остановка по травме`;//: ${teamName.substr(0, 15)}.`;
+            break;
+        case OTHER:
+            details = `Прочая остановка`;//: ${teamName.substr(0, 15)}.`;
+            break;
+        case TIME_STOP:
+            details = null;
+            break;
+        case TIME_START:
+            details = null;
+            break;
+        case TIME_PAUSE:
+            details = null;
+            break;
+        case PULL:
+            details = `Пулл`;//: ${teamName.substr(0, 15)}.`;
+            break;
+        default:
+            details = 'Неизвестное действие';
+    }
+
+    return logLine.team === TEAM_ONE ? {time, score, team_one: details} : {time, score, team_two: details};
+}
+
+
 export function getMyGamesInProgress(games, userID) {
     let result = [];
     games.forEach(game => {
