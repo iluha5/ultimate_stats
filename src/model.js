@@ -168,6 +168,30 @@ export const LogLineData = Record({
     gameSnapshot: {}
 });
 
+export const ViewLogsState = Record({
+    list: Map({})
+});
+export const ViewLogData = Record({
+    id: '',
+    isLoading: false,
+    shouldUpload: false,
+    shouldReload: true,
+    isUploading: false,
+    isError: false,
+    logList: [],
+});
+export const ViewLogLineData = Record({
+    id: '',
+    type: '',
+    team: '',
+    time: 0,
+    playerGoal: '',
+    playerAssist: '',
+    currScoreTeamOne: 0,
+    currScoreTeamTwo: 0,
+    gameSnapshot: {}
+});
+
 export const LogUndoState = Record({
     gameID: '',
     isEmpty: true,

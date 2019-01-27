@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-import {loadLog} from "../AC";
+import {loadGames, loadLog, loadPlayers, loadRosters, loadViewLog} from "../AC";
 import Loader from "./Loader";
 import {withStyles} from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -152,7 +152,7 @@ const styles = theme => ({
 });
 
 
-class GameLog extends Component {
+class GameViewLog extends Component {
     state = {
         order: 'desc',
         orderBy: 'time',
@@ -165,13 +165,16 @@ class GameLog extends Component {
 
 
     componentDidMount() {
-        const {loadLog, log, logID} = this.props;
+        const {loadViewLog, loadRosters, loadPlayers, log, logID} = this.props;
         // const {order} = this.state;
         // debugger
-        if (!log || (log.shouldReload && !log.isLoading)) {
-            // window.alert(game);
-            loadLog(logID);
-        }
+        loadViewLog(logID);
+        loadPlayers();
+        loadRosters();
+        // if (!log || (log.shouldReload && !log.isLoading)) {
+        //     // window.alert(game);
+        //     loadViewLog(logID);
+        // }
 
         // if (preview && order === 'asc'){
         //     this.setState({
@@ -181,10 +184,13 @@ class GameLog extends Component {
     }
 
     componentDidUpdate() {
-        const {loadLog, log, logID} = this.props;
+        const {loadViewLog, loadRosters, loadPlayers, log, logID} = this.props;
         // debugger
+        // loadViewLog(logID);
+        // loadPlayers();
+        // loadRosters();
         if (!log || (log.shouldReload && !log.isLoading)) {
-            loadLog(logID);
+            loadViewLog(logID);
         }
     }
 
@@ -305,7 +311,7 @@ class GameLog extends Component {
     }
 }
 
-GameLog.propTypes = {
+GameViewLog.propTypes = {
     gameID: PropTypes.string.isRequired,
     logID: PropTypes.string.isRequired,
     preview: PropTypes.bool,
@@ -349,9 +355,12 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loadLog: (logID) => dispatch(loadLog(logID))
+        loadViewLog: (logID) => dispatch(loadViewLog(logID)),
+        // loadGames: () => dispatch(loadGames()),
+        loadRosters: () => dispatch(loadRosters()),
+        loadPlayers: () => dispatch(loadPlayers()),
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(GameLog));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(GameViewLog));
 

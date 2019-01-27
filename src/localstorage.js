@@ -12,7 +12,7 @@ import {
     RosterData,
     RostersState,
     PlayerData,
-    PlayersState, LogData, LogsState, LogLineData, LogUndoState
+    PlayersState, LogData, LogsState, LogLineData, LogUndoState, ViewLogsState
 } from "./model";
 
 export const loadState = () => {
@@ -33,6 +33,7 @@ export const loadState = () => {
       const defaultRosters = RostersState();
       const defaultPlayers = PlayersState();
       const defaultLogs = LogsState();
+      const defaultViewLogs = ViewLogsState();
       const defaultLogUndo = LogUndoState();
 
       if (tournamentsList && tournamentsList.list && !Record.isRecord(tournamentsList)) {
@@ -88,8 +89,8 @@ export const loadState = () => {
 
           loadedState = {...loadedState, logs};
       }
-
-      loadedState = {...loadedState, undoList: defaultLogUndo};
+// debugger
+      loadedState = {...loadedState, undoList: defaultLogUndo, viewLogs: defaultViewLogs};
 
       // if (undoList && undoList.list && !Record.isRecord(undoList)) {
       //     // debugger

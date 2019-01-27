@@ -1,6 +1,6 @@
 import {
     ADD,
-    API, CLEAR_GAME,
+    API, CHANGE_OFFENSE, CLEAR_GAME,
     FAIL, FORCE_UPLOAD_GAME,
     GOAL, INJURY,
     LOAD_ALL_TEAMS,
@@ -26,7 +26,7 @@ import {
     UPDATE_TIMER_GAME,
     UPDATE_TOURNAMENT,
     UPLOAD_GAME,
-    UPLOAD_LOG,
+    UPLOAD_LOG, VIEW_LOAD_LOG,
     WRONG_USER
 } from "./constants";
 import {push} from 'react-router-redux';
@@ -55,7 +55,7 @@ export const gameControl = (type, game, log, data) => {
 
         };
 
-        if (!game.inProgress && type !== TIME_START && type !== UNDO) return;
+        if (!game.inProgress && type !== TIME_START && type !== UNDO && type !== CHANGE_OFFENSE) return;
         switch (type) {
             case TIME_START:
                 dispatch({
@@ -186,6 +186,13 @@ export const gameControl = (type, game, log, data) => {
                 break;
             case FORCE_UPLOAD_GAME:
                 break;
+            case CHANGE_OFFENSE:
+                dispatch({
+                    type: CHANGE_OFFENSE,
+                    payload: {game}
+                });
+
+                break;
             default:
                 dispatch({
                     type: LOG_ACTION + UNDEFINED_EVENT,
@@ -193,7 +200,7 @@ export const gameControl = (type, game, log, data) => {
                 });
         }
 
-        if (type !== UNDO && type !== REDO && type !== FORCE_UPLOAD_GAME) {
+        if (type !== UNDO && type !== REDO && type !== FORCE_UPLOAD_GAME && type !== CHANGE_OFFENSE) {
             dispatch({
                 type: LOG_ACTION,
                 payload: {game, logLine: LogLineData(logLine)}
@@ -361,6 +368,37 @@ export const loadLog = (logID) => {
             });
     }
 };
+
+export const loadViewLog = (logID) => {
+    return (dispatch) => {
+        dispatch({
+            type: VIEW_LOAD_LOG + START,
+            payload: {id: logID}
+        });
+
+        fetch(API.logs + '/' + logID)
+            .then(res => {
+                if (res.status >= 400) {
+                    throw new Error(res.statusText)
+                }
+                return res.json()
+            })
+            .then(response => dispatch({
+                    type: VIEW_LOAD_LOG + SUCCESS,
+                    payload: response
+                })
+            )
+            .catch(error => {
+                window.alert(`Файл лога для данной игры не найден на сервере! ID лога: ${logID}`);
+                console.error('Ошибка загрузки лога', error);
+                dispatch({
+                    type: VIEW_LOAD_LOG + FAIL,
+                    payload: {error, id: logID}
+                });
+            });
+    }
+};
+
 
 export const loadRosters = () => {
     return (dispatch) => {

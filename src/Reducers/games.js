@@ -1,5 +1,5 @@
 import {
-    ADD, CLEAR_GAME, FAIL, GOAL, INJURY,
+    ADD, CHANGE_OFFENSE, CLEAR_GAME, FAIL, GOAL, INJURY,
     LOAD_GAMES, LOG_ACTION, OTHER, PULL,
     SHOULD_RELOAD, SHOULD_UPLOAD, SOTG,
     START, SUCCESS,
@@ -229,6 +229,13 @@ export default (gamesState = defaultGamesState, action) => {
                     // )
                 );
 
+        case CHANGE_OFFENSE:
+            return gamesState
+                .set('list', gamesState.list
+                    .set(payload.game.id, gamesState.list.get(payload.game.id)
+                        .set('offense', payload.game.offense === TEAM_ONE ? TEAM_TWO : TEAM_ONE)
+                    )
+                );
         default:
             return gamesState;
 

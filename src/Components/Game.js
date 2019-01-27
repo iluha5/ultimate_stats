@@ -24,6 +24,7 @@ import {
     loadPlayers,
     clearGame
 } from "../AC";
+import GameViewLog from "./GameViewLog";
 
 
 const styles = theme => ({
@@ -147,6 +148,7 @@ class Game extends Component {
                             <Tab label="Управление" className={classes.tab}/>
                             <Tab label="Лог" className={classes.tab}/>
                             <Tab label="Статистика" className={classes.tab}/>
+                            <Tab label="Ход игры" className={classes.tab}/>
                         </Tabs>
                     </AppBar>
 
@@ -169,6 +171,16 @@ class Game extends Component {
                     {tabValue === 2 &&
                     <TabContainer>
                         Статистика
+                    </TabContainer>
+                    }
+                    {tabValue === 3 &&
+                    <TabContainer>
+                        <GameViewLog
+                            gameID={id}
+                            logID={game.logID}
+                            teamOneID = {game.teamOneID}
+                            teamTwoID = {game.teamTwoID}
+                        />
                     </TabContainer>
                     }
                 </main>

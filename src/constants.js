@@ -34,6 +34,7 @@ export const GAME = 'GAME';
 export const UPDATE_TOURNAMENT = 'UPDATE_TOURNAMENT';
 export const LOAD_LOG_LIST = 'LOAD_LOG_LIST';
 export const LOAD_LOG = 'LOAD_LOG';
+export const VIEW_LOAD_LOG = 'VIEW_LOAD_LOG';
 export const UPLOAD_LOG = 'UPLOAD_LOG';
 
 // Force commands
@@ -72,6 +73,7 @@ export const OTHER = 'OTHER';
 export const TIME_STOP = 'TIME_STOP';
 export const TIME_START = 'TIME_START';
 export const TIME_PAUSE = 'TIME_PAUSE';
+export const CHANGE_OFFENSE = 'CHANGE_OFFENSE';
 export const PLAYER_CLICK = 'PLAYER_CLICK';
 
 export const UNDEFINED_PLAYER = 'UNDEFINED_PLAYER';

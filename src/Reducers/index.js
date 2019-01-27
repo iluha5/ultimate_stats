@@ -9,6 +9,7 @@ import rosters from "./rosters";
 import players from "./players";
 import logs from "./logs";
 import undoList from "./undoList";
+import viewLogs from "./viewLogs";
 
 export default combineReducers({
     router: routerReducer,
@@ -20,5 +21,6 @@ export default combineReducers({
     rosters,
     players,
     logs,
-    undoList
+    undoList,
+    viewLogs
 })

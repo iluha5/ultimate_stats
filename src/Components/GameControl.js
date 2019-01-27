@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from "@material-ui/core/styles/index";
 import {
+    CHANGE_OFFENSE,
     GOAL,
     PULL,
     REDO,
@@ -283,7 +284,7 @@ class GameControl extends Component {
 
         gameControl(type, game, log);
 
-        type === UNDO && console.log('-----undoList', window.store.getState().undoList);
+        // type === UNDO && console.log('-----undoList', window.store.getState().undoList);
     };
 
     render() {
@@ -335,6 +336,12 @@ class GameControl extends Component {
                         <Button variant="outlined" color="secondary" className={classes.throw}
                                 onClick={this.handleClick(PULL)}>
                             Пулл!
+                        </Button>
+                    )}
+                    {game.isPull && !game.inProgress && !game.isFinished && (
+                        <Button variant="outlined" color="secondary" className={classes.throw}
+                                onClick={this.handleClick(CHANGE_OFFENSE)}>
+                            Сменить атаку!
                         </Button>
                     )}
 
