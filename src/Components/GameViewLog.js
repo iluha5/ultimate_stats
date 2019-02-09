@@ -152,6 +152,7 @@ GameViewLog.propTypes = {
     preview: PropTypes.bool,
     teamOneID: PropTypes.string.isRequired,
     teamTwoID: PropTypes.string.isRequired,
+    isGlobalShow: PropTypes.bool,
     //from store
     log: PropTypes.object,
     teams: PropTypes.object.isRequired,
@@ -162,10 +163,16 @@ GameViewLog.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-    const getLogProps = makeGetLogProps();
+    const {isGlobalShow, gameID} = ownProps;
 
-    return (state, ownProps) => {
-        return getLogProps(state, ownProps);
+    if (!isGlobalShow) {
+        const getLogProps = makeGetLogProps();
+
+        return (state, ownProps) => {
+            return getLogProps(state, ownProps);
+        }
+    } else {
+
     }
 };
 

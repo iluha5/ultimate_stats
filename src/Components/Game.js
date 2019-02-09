@@ -25,6 +25,7 @@ import {
     clearGame
 } from "../AC";
 import GameViewLog from "./GameViewLog";
+import {saveGameAndLog} from "../helpers";
 
 
 const styles = theme => ({
@@ -116,6 +117,13 @@ class Game extends Component {
 
     };
 
+    handleSaveGame = () => {
+        const {game, log} = this.props;
+        console.log('-----', );
+        saveGameAndLog(game, log);
+    };
+
+
     render() {
         const {classes, id, game} = this.props;
         const {tabValue} = this.state;
@@ -133,7 +141,9 @@ class Game extends Component {
                     forceUpdateFromServer={this.forceUpdateFromServer}
                     forceEraseGame={this.forceEraseGame}
                     uploadingStatus={game.isUploading}
-                />
+                    saveGame = {this.handleSaveGame}
+
+            />
                 <main className={classes.content}>
                     <AppBar position="static" color="default" className={classes.tabs}>
                         <Tabs

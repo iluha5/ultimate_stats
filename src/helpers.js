@@ -12,6 +12,17 @@ import {
     TURNOVER,
     UNDEFINED_PLAYER
 } from "./constants";
+import FileSaver from 'file-saver';
+
+export function saveGameAndLog(game = {}, log = {}) {
+    const content = {
+        game: game,
+        log: log
+    };
+
+    const file = new File([JSON.stringify(content, null, '\t')], `game_${game.id}`, {type : 'application/json'});
+    FileSaver.saveAs(file);
+}
 
 export function arrToMap(arr, DataRecord = Map) {
     // debugger

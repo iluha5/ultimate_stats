@@ -103,25 +103,26 @@ export default (logsState = defaultLogsState, action) => {
 
         case UPLOAD_LOG + FAIL:
             // debugger
-            newState = logsState
-                .set(
-                    'list', logsState.list
-                        .set(
-                            payload.id, logsState.list.get(payload.id)
-                                .set('shouldUpload', true)
-                        )
-                );
-            return newState;
+            // newState = logsState
+            //     .set(
+            //         'list', logsState.list
+            //             .set(
+            //                 payload.id, logsState.list.get(payload.id)
+            //                     .set('shouldUpload', true)
+            //             )
+            //     );
+            // return newState;
+            return logsState;
 
         case UPLOAD_LOG + SHOULD_UPLOAD:
-            newState = logsState
-                .set(
-                    'list', logsState.list
-                        .set(
-                            payload.id, logsState.list.get(payload.id)
-                                .set('shouldUpload', true)
-                        )
-                );
+            // newState = logsState
+            //     .set(
+            //         'list', logsState.list
+            //             .set(
+            //                 payload.id, logsState.list.get(payload.id)
+            //                     .set('shouldUpload', true)
+            //             )
+            //     );
             return newState;
 
         case UNDO + ADD:

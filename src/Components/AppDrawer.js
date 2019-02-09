@@ -157,10 +157,15 @@ class AppDrawer extends React.Component {
         forceUpdateFromServer();
     };
 
+    handleSaveGame = (saveGame) => () => {
+        this.setState({anchorEl: null});
+        saveGame();
+    };
+
     render() {
         const {
             classes, theme, goTo, user, title, isGame, toggleTimer, handlerStop, isTimerOn, forceUpdateFromServer,
-            uploadingStatus, logout, handlerForceUploadGame, forceEraseGame
+            uploadingStatus, logout, handlerForceUploadGame, forceEraseGame, saveGame
         } = this.props;
         const {anchorEl} = this.state;
         const open = Boolean(anchorEl);
@@ -284,6 +289,7 @@ class AppDrawer extends React.Component {
 
                                     {isGame && <MenuItem onClick={this.handleForceUpdate(forceUpdateFromServer)} >Загрузить с сервера</MenuItem>}
                                     {isGame && <MenuItem onClick={this.handleForceUpdate(forceEraseGame)}>Начать игру заново</MenuItem>}
+                                    {isGame && <MenuItem onClick={this.handleSaveGame(saveGame)}>Выгрузить игру</MenuItem>}
                                     <MenuItem onClick={logout}>Выйти</MenuItem>
                                 </Menu>
                             </div>
@@ -340,6 +346,7 @@ AppDrawer.propTypes = {
     forceUpdateFromServer: PropTypes.func,
     handlerForceUploadGame: PropTypes.func,
     forceEraseGame: PropTypes.func,
+    saveGame: PropTypes.func,
     logout: PropTypes.func,
     isTimerOn: PropTypes.bool,
     uploadingStatus: PropTypes.bool,

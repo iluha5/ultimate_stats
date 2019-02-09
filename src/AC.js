@@ -329,10 +329,10 @@ export const updateLog = (log) => {
 
             })
             .catch((err) => {
-                dispatch({
-                    type: UPLOAD_LOG + FAIL,
-                    payload: err,
-                });
+                // dispatch({
+                //     type: UPLOAD_LOG + FAIL,
+                //     payload: err,
+                // });
                 console.error(`Не получилось обновить таблицу лога! ID игры: ${log.id}`, err);
             })
 
