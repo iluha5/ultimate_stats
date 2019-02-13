@@ -29,12 +29,14 @@ export const PUSH_NEW_TEAM = 'PUSH_NEW_TEAM';
 export const SHOULD_RELOAD = 'SHOULD_RELOAD';
 export const LOAD_ALL_TEAMS = 'LOAD_ALL_TEAMS';
 export const LOAD_GAMES = 'LOAD_GAMES';
+export const LOAD_GAME = 'LOAD_GAME';
 export const UPLOAD_GAME = 'UPLOAD_GAME';
 export const GAME = 'GAME';
 export const UPDATE_TOURNAMENT = 'UPDATE_TOURNAMENT';
 export const LOAD_LOG_LIST = 'LOAD_LOG_LIST';
 export const LOAD_LOG = 'LOAD_LOG';
 export const VIEW_LOAD_LOG = 'VIEW_LOAD_LOG';
+export const LOAD_SHOW_GAME = 'LOAD_SHOW_GAME';
 export const UPLOAD_LOG = 'UPLOAD_LOG';
 
 // Force commands

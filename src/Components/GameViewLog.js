@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-import {loadPlayers, loadRosters, loadViewLog} from "../AC";
+import {loadDataForShowGame, loadPlayers, loadRosters, loadViewLog} from "../AC";
 import Loader from "./Loader";
 import {withStyles} from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -66,12 +66,30 @@ const styles = theme => ({
 
 class GameViewLog extends Component {
 
-    componentDidMount() {
-        const {loadViewLog, loadRosters, loadPlayers, logID} = this.props;
+    async loadAllData() {
+        const {loadViewLog, loadRosters, loadPlayers, loadDataForShowGame, logID, gameID} = this.props;
+
+        await loadDataForShowGame(gameID);
 
         loadViewLog(logID);
         loadPlayers();
         loadRosters();
+
+    }
+
+    componentDidMount() {
+        const {loadViewLog, loadRosters, loadPlayers, logID, isGlobalShow} = this.props;
+        //
+        // isGlobalShow && loadDataForShowGame(gameID);
+
+        if (isGlobalShow) {
+            this.loadAllData()
+        } else {
+            loadViewLog(logID);
+            loadPlayers();
+            loadRosters();
+        }
+
     }
 
     componentDidUpdate() {
@@ -181,6 +199,7 @@ const mapDispatchToProps = (dispatch) => {
         loadViewLog: (logID) => dispatch(loadViewLog(logID)),
         loadRosters: () => dispatch(loadRosters()),
         loadPlayers: () => dispatch(loadPlayers()),
+        loadDataForShowGame: () => dispatch(loadDataForShowGame()),
     };
 };
 

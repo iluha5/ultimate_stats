@@ -7,6 +7,7 @@ import {Redirect, Route, Switch} from "react-router-dom";
 import Mode from "./Components/Mode";
 import NetworkRoute from "./Routes/NetworkRoute";
 import KeeperRoute from "./Routes/KeeperRoute";
+import ShowGameRoute from "./Routes/ShowGameRoute";
 
 class App extends Component {
     render() {
@@ -15,6 +16,7 @@ class App extends Component {
                 <ConnectedRouter history={history}>
                     <div>
                         <Switch>
+                            <Route path='/game/:id' component={ShowGameRoute}/>
                             <Route path='/network/keeper/:any' component={KeeperRoute}/>
                             <Route path='/network/keeper' component={KeeperRoute}/>
                             <Route path='/network' component={NetworkRoute}/>

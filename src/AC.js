@@ -4,11 +4,11 @@ import {
     FAIL, FORCE_UPLOAD_GAME,
     GOAL, INJURY,
     LOAD_ALL_TEAMS,
-    LOAD_BEARER,
+    LOAD_BEARER, LOAD_GAME,
     LOAD_GAMES,
     LOAD_LOG,
     LOAD_PLAYERS,
-    LOAD_ROSTERS,
+    LOAD_ROSTERS, LOAD_SHOW_GAME,
     LOAD_TOURNAMENTS,
     LOAD_USERS,
     LOG_ACTION, LOGOUT, OTHER,
@@ -32,6 +32,67 @@ import {
 import {push} from 'react-router-redux';
 import uuidv4 from 'uuid/v4';
 import {LogLineData} from "./model";
+
+export const loadDataForShowGame = (gameID) => {
+    return (dispatch) => {
+        dispatch({
+            type: LOAD_SHOW_GAME + START,
+        });
+
+        fetch(API.games + '/' + gameID)
+            .then(res => {
+                if (res.status >= 400) {
+                    throw new Error(res.statusText)
+                }
+                return res.json()
+            })
+            .then(game => {
+                dispatch({
+                    type: LOAD_GAME + SUCCESS,
+                    payload: game
+                });
+
+                return fetch(API.logs + '/' + game.logID);
+            })
+            .then(res => {
+                if (res.status >= 400) {
+                    throw new Error(res.statusText)
+                }
+                return res.json()
+            })
+            .then(log => {
+                dispatch({
+                    type: LOAD_LOG + SUCCESS,
+                    payload: {response: log}
+                });
+
+                return fetch(API.all_teams);
+            })
+            .then(res => {
+                if (res.status >= 400) {
+                    throw new Error(res.statusText)
+                }
+                return res.json()
+            })
+            .then(response => dispatch({
+                    type: LOAD_ALL_TEAMS + SUCCESS,
+                    payload: response
+                })
+            )
+
+
+
+            
+            .catch(error => {
+                console.error('Ошибка загрузки данных', error);
+                dispatch({
+                    type: LOAD_SHOW_GAME + FAIL,
+                    payload: {error, id: gameID}
+                });
+            })
+
+    }
+};
 
 export const logout = () => {
   return (dispatch) => {

@@ -1,5 +1,5 @@
 import {
-    ADD, CHANGE_OFFENSE, CLEAR_GAME, FAIL, GOAL, INJURY,
+    ADD, CHANGE_OFFENSE, CLEAR_GAME, FAIL, GOAL, INJURY, LOAD_GAME,
     LOAD_GAMES, LOG_ACTION, OTHER, PULL,
     SHOULD_RELOAD, SHOULD_UPLOAD, SOTG,
     START, SUCCESS,
@@ -27,6 +27,13 @@ export default (gamesState = defaultGamesState, action) => {
                 .set('shouldReload', false)
                 .set('list', gamesState.list
                     .merge(newList)
+                );
+        case LOAD_GAME + SUCCESS:
+            const {game} = payload;
+
+            return gamesState
+                .set('list', gamesState.list
+                    .set(game.id, GameData(game))
                 );
 
         case LOAD_GAMES + SHOULD_RELOAD:
