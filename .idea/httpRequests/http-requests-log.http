@@ -1,0 +1,8 @@
+GET http://results.lord-novgorod.ru/api/tournaments
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-02-13T111514.200.json
+
+###
+
