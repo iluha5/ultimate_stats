@@ -1,3 +1,54 @@
+PUT http://142.93.129.161:8084/api/v1/games/5c82a5b547654945be70550b
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+{"id":"5c82a5b547654945be70550b","tournamentID":"5c82a02547654945be705501","logID":"5c82a78647654945be70551e","ownerID":"5c82923347654945be7054e9","teamOneID":"5c82a6bd47654945be705514","teamTwoID":"5c83ba469f2860262d6998fd","inProgress":true,"isFinished":false,"offense":"TEAM_TWO","win":-1,"teamOneScore":0,"teamTwoScore":0,"codeOne":"C1","codeTwo":"C3","teamOneTurnovers":0,"teamTwoTurnovers":0,"fullTimeDuration":0,"teamOneOffenceDuration":0,"teamTwoOffenceDuration":0,"SotgTeamOne":[-1],"SotgTeamTwo":[-1],"SotgCommentsTeamOne":"","SotgCommentsTeamTwo":"","passesTeamOne":0,"passesTeamTwo":0,"takenTimeOutsTeamOne":[],"takenTimeOutsTeamTwo":[],"takenSotgTimeOutsTeamOne":[],"takenSotgTimeOutsTeamTwo":[],"injuryStoppageTeamOne":0,"injuryStoppageTeamTwo":0,"otherCallsTeamOne":0,"otherCallsTeamTwo":0,"others":[],"shouldUpload":false,"shouldReload":false,"shouldSetTimer":false,"isUploading":true,"date":"1553929932021","timeStart":"9:00","timePassed":15,"statisticID":"gs0001","rosterID":"ros01","isPull":false,"isTimeOn":true}
+
+<> 2019-03-09T063818.405.json
+
+###
+
+POST http://142.93.129.161:8084/api/v1/teams
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+  {     "players": 15,     "name": "Оксидиско",     "games": 4,     "id": "sdfda6bd47654945be705514",     "rosterID": "ros02"   }
+
+<> 2019-03-08T110038.405.json
+
+###
+
+PUT http://142.93.129.161:8084/api/v1/games/5c82a5b547654945be70550b
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+  {     "teamOneTurnovers": 1,     "takenSotgTimeOutsTeamOne": [       "2430"     ],     "date": "1553929932021",     "passesTeamTwo": 9,     "timePassed": 2726,     "offense": "TEAM_TWO",     "teamOneID": "01",     "teamTwoTurnovers": 1,     "rosterID": "ros01",     "statisticID": "gs0001",     "timeStart": "9:00",     "takenTimeOutsTeamTwo": [            ],     "codeOne": "C1",     "id": "5c82a5b547654945be70550b",     "win": "TEAM_ONE",     "others": [            ],     "teamTwoScore": "3.0",     "takenSotgTimeOutsTeamTwo": [            ],     "teamTwoID": "02",     "ownerID": "sadfa234sda",     "isFinished": true,     "takenTimeOutsTeamOne": [            ],     "otherCallsTeamOne": 1,     "tournamentID": "5c82a02547654945be705501",     "passesTeamOne": 11,     "logID": "log001",     "codeTwo": "C3",     "teamOneScore": "4.0"   }
+
+<> 2019-03-08T105806.200.json
+
+###
+
+PUT http://142.93.129.161:8084/api/v1/games/5c82a5b547654945be70550b
+Accept: */*
+Cache-Control: no-cache
+
+  {     "teamOneTurnovers": 1,     "takenSotgTimeOutsTeamOne": [       "2430"     ],     "date": "1553929932021",     "passesTeamTwo": 9,     "timePassed": 2726,     "offense": "TEAM_TWO",     "teamOneID": "01",     "teamTwoTurnovers": 1,     "rosterID": "ros01",     "statisticID": "gs0001",     "timeStart": "9:00",     "takenTimeOutsTeamTwo": [            ],     "codeOne": "C1",     "id": "5c82a5b547654945be70550b",     "win": "TEAM_ONE",     "others": [            ],     "teamTwoScore": "3.0",     "takenSotgTimeOutsTeamTwo": [            ],     "teamTwoID": "02",     "ownerID": "sadfa234sda",     "isFinished": true,     "takenTimeOutsTeamOne": [            ],     "otherCallsTeamOne": 1,     "tournamentID": "5c82a02547654945be705501",     "passesTeamOne": 11,     "logID": "log001",     "codeTwo": "C3",     "teamOneScore": "4.0"   }
+
+<> 2019-03-08T105635.415.json
+
+###
+
+GET http://142.93.129.161:8084/api/v1/users/
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-08T093445.200.json
+
+###
+
 GET http://results.lord-novgorod.ru/api/tournaments
 Accept: */*
 Cache-Control: no-cache

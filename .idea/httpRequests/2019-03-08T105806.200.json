@@ -1,0 +1,32 @@
+{
+  "teamOneTurnovers": 1,
+  "takenSotgTimeOutsTeamOne": [
+    "2430"
+  ],
+  "date": "1553929932021",
+  "passesTeamTwo": 9,
+  "timePassed": 2726,
+  "offense": "TEAM_TWO",
+  "teamOneID": "01",
+  "teamTwoTurnovers": 1,
+  "rosterID": "ros01",
+  "statisticID": "gs0001",
+  "timeStart": "9:00",
+  "takenTimeOutsTeamTwo": [],
+  "codeOne": "C1",
+  "id": "5c82a5b547654945be70550b",
+  "win": "TEAM_ONE",
+  "others": [],
+  "teamTwoScore": "3.0",
+  "takenSotgTimeOutsTeamTwo": [],
+  "teamTwoID": "02",
+  "ownerID": "sadfa234sda",
+  "isFinished": true,
+  "takenTimeOutsTeamOne": [],
+  "otherCallsTeamOne": 1,
+  "tournamentID": "5c82a02547654945be705501",
+  "passesTeamOne": 11,
+  "logID": "log001",
+  "codeTwo": "C3",
+  "teamOneScore": "4.0"
+}

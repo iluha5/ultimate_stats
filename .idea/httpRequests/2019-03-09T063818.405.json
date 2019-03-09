@@ -1,0 +1,7 @@
+{
+  "timestamp": 1552145895985,
+  "status": 405,
+  "error": "Method Not Allowed",
+  "message": "Request method 'PUT' not supported",
+  "path": "/api/v1/games/5c82a5b547654945be70550b"
+}

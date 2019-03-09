@@ -1,0 +1,7 @@
+{
+  "timestamp": 1552075238536,
+  "status": 405,
+  "error": "Method Not Allowed",
+  "message": "Request method 'POST' not supported",
+  "path": "/api/v1/teams"
+}

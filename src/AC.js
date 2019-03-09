@@ -317,6 +317,10 @@ export const updateGame = (game) => {
         };
 
         const path = `${API.games}/${game.id}`;
+        console.log('-----path', path);
+       console.log('-----params.body', params.body);
+
+       debugger
 
         fetch(path, params)
             .then((resp) => {
@@ -375,6 +379,9 @@ export const updateLog = (log) => {
         };
 
         const path = `${API.logs}/${log.id}`;
+        console.log('-----path', path);
+        console.log('-----params.body', params.body);
+        debugger
 
         fetch(path, params)
             .then((resp) => {
@@ -792,7 +799,14 @@ export const loadUsersAndLogin = (user) => {
         dispatch({
             type: LOAD_USERS + START,
         });
-        fetch(API.users)
+
+        const params = { method: 'GET',
+            mode: 'cors',
+            cache: 'default' };
+
+        // const params = {};
+
+        fetch(API.users, params)
             .then(res => {
                 if (res.status >= 400) {
                     throw new Error(res.statusText)
