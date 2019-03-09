@@ -339,11 +339,11 @@ export const updateGame = (game) => {
 
             })
             .catch((err) => {
-                dispatch({
-                    type: UPLOAD_GAME + FAIL,
-                    payload: err,
-                });
-                console.error(`Не получилось обновить таблицу игры! ID игры: ${game.id}`);
+                // dispatch({
+                //     type: UPLOAD_GAME + FAIL,
+                //     payload: {id: game.id, error: err},
+                // });
+                console.error(`Не получилось обновить таблицу игры! ID игры: ${game.id}`, err);
             })
 
     }

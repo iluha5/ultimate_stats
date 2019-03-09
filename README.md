@@ -1,44 +1,44 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Сборщик статистики для <a href="https://ru.wikipedia.org/wiki/%D0%90%D0%BB%D1%82%D0%B8%D0%BC%D0%B0%D1%82_%D1%84%D1%80%D0%B8%D1%81%D0%B1%D0%B8">алтимат фрисби</a>
 
-## Available Scripts
+Программа для сбора статистики матчей по флаинг диску (алтимату). Предполагается для использования обслуживающим
+персоналом (судей или стаффа) игр на официальных соревнованиях федерации флаинг диска России (ФФДР). Разработана по заказу федерации спортивных игр с летающим диском Новгородской области.
+Программа находится на стадии бета-тестирования.
 
-In the project directory, you can run:
+<p align="center">
+  <img src="./img/preview.jpg" alt="Interface example"
+       width="654" height="450">
+</p>
 
-### `npm start`
+С помощью данной программы организаторы соревнований смогут собрать следующую статистику по каждому матчу: <br>
+итоговый счет
+гол + пас согласно командным спискам
+все остановки в игре
+переходы владений диска
+остановки таймера игры
+все пасы команд
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Вся статистика собирается с учетом времени игры - реализован игровой таймер с основными функциями управления
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Пример работы
 
-### `npm test`
+Превью программы представлено по адресу <a href="www.novak.su/test/stats">www.novak.su/test/stats</a> <br>
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Установка
 
-### `npm run build`
+Для локальной работы работы, сделайте форк данного репозитория. Затем установите зависимости
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+nmp i
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+Необходимо наличие установленного пакетного менеджера NPM.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Основные преимущества данного продукта:
+вся статистика собирается с учетом времени игры
+управление игрой - на одном экране, который содержит все необходимые кнопки управления
+удобная работа с игровым логом - имеется отдельное окно с логом игры и превью лога на основном экране сбора статистики
+возможность отката действия оператора программы (UNDO и REDO)
+адаптивная верстка, в том числе по вертикали, для работы на любых современных мобильных устройствах
+возможность выгрузки файла со статистикой по окончании игры
+хранение всей собранной статистики на устройстве оператора (в localstorage) на случай потерия связи с сервером
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Начало работы с программой
