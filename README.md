@@ -5,7 +5,7 @@
 Программа находится на стадии бета-тестирования.
 
 <p align="center">
-  <img src="./img/preview.jpg" alt="Interface example" width="250">
+  <img src="./img/preview.jpg" alt="Interface example" width="300">
 </p>
 
 С помощью данной программы организаторы соревнований смогут собрать следующую статистику по каждому матчу: <br>
