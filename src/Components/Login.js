@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-import {loadBearer, loadUsersAndLogin} from "../AC";
+import {loadUsersAndLogin} from "../AC";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {withStyles} from "@material-ui/core/es/styles/index";
@@ -42,11 +42,12 @@ class Login extends Component {
     handleButtonClick = event => {
         event.preventDefault();
 
-        const {loadUsersAndLogin, loadBearer} = this.props;
+        const {loadUsersAndLogin} = this.props;
         const {email, password} = this.state;
 
         if (email && password) {
-            loadBearer(); // just for immitation
+            // immitation only!
+            // loadBearer(); // just for immitation
             loadUsersAndLogin({email, password});
         }
 
@@ -135,7 +136,8 @@ const
 const
     mapDispatchToProps = (dispatch) => {
         return ({
-            loadBearer: () => dispatch(loadBearer()),
+            // immitation only!
+            //loadBearer: () => dispatch(loadBearer()),
             loadUsersAndLogin: (user) => dispatch(loadUsersAndLogin(user))
         });
     };

@@ -79,8 +79,6 @@ class GameViewLog extends Component {
 
     componentDidMount() {
         const {loadViewLog, loadRosters, loadPlayers, logID, isGlobalShow} = this.props;
-        //
-        // isGlobalShow && loadDataForShowGame(gameID);
 
         if (isGlobalShow) {
             this.loadAllData()
@@ -181,7 +179,7 @@ GameViewLog.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-    const {isGlobalShow, gameID} = ownProps;
+    const {isGlobalShow} = ownProps;
 
     if (!isGlobalShow) {
         const getLogProps = makeGetLogProps();

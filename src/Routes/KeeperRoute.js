@@ -13,19 +13,13 @@ class KeeperRoute extends Component {
 
     renderTournament = ({match}) => {
         const {tournamentID} = match.params;
-        const {user} = this.props;
 
         return (
             <AuthRedirect>
                 <Tournament id={tournamentID}/>
             </AuthRedirect>
         )
-// debugger
-//         return (user && (user.role === SCOREKEEPER || user.role === ADMIN )) ? (
-//             <Tournament id={tournamentID}/>
-//         ) : (
-//             <Redirect to='/network' />
-//         )
+
     };
 
     renderGame = ({match}) => {

@@ -25,14 +25,12 @@ export function saveGameAndLog(game = {}, log = {}) {
 }
 
 export function arrToMap(arr, DataRecord = Map) {
-    // debugger
     return arr.reduce((acc, item) =>
             acc.set(item.id, DataRecord(item))
         , OrderedMap({}))
 }
 
 export function arrToDataArr(arr, DataRecord = Map) {
-    // debugger
     return arr.map(item => DataRecord(item))
 }
 
@@ -41,7 +39,6 @@ export function mapToArr(obj) {
 }
 
 export function convertLogToRecord(logsState, LogData, LogLineData, LogsState, defaultLogState, OrderedMap, GameData) {
-    // debugger
     if (logsState && logsState.list && Object.keys(logsState.list).length !== 0) {
 
         const newMap = Object.keys(logsState.list).reduce((acc, key) => {
@@ -54,8 +51,6 @@ export function convertLogToRecord(logsState, LogData, LogLineData, LogsState, d
                             return LogLineData(Object.assign({}, logLine, {gameSnapshot: GameData(logLine.gameSnapshot)}))
                         }
                     );
-                } else {
-                    // console.log('-----logsState.list[key].logList не массив! Вот logsState.list[key]', logsState.list[key]);
                 }
 
                 acc[key] = LogData({...logsState.list[key], logList: logLines});
@@ -70,10 +65,11 @@ export function convertLogToRecord(logsState, LogData, LogLineData, LogsState, d
     return defaultLogState;
 }
 
-export function convertLogObjToRecord(log, LogLineData = Map) {
-    const newList = log.list.map(line => LogLineData(line));
-    return {...log, list: newList};
-}
+////////// Testing purpose!
+// export function convertLogObjToRecord(log, LogLineData = Map) {
+//     const newList = log.list.map(line => LogLineData(line));
+//     return {...log, list: newList};
+// }
 
 export function convertPlainObjectToState(state, DataRecord, defaultState, DataStateRecord, OrderedMap, listKey = 'list') {
     if (state && state[listKey] && Object.keys(state[listKey]).length !== 0) {
@@ -129,13 +125,8 @@ export function getLogLineToRender(logLine, players, rosterTeamOne, rosterTeamTw
     let details = `${logLine.type}`;
     const teamName = teamNames[logLine.team] || '';
 
-    // const rosterTeamOne = rosters.get(teams.get(game.teamOneID).rosterID);
-    // const rosterTeamTwo = rosters.get(teams.get(game.teamTwoID).rosterID);
-
     switch (logLine.type) {
         case GOAL:
-            // debugger
-            // console.log('-----logLine', logLine);
             let playerAssist = '';
             let playerGoal = '';
             const playerAssistNum = logLine.team === TEAM_ONE ?
@@ -145,10 +136,11 @@ export function getLogLineToRender(logLine, players, rosterTeamOne, rosterTeamTw
             const playerGoalNum = logLine.team === TEAM_ONE ?
                 rosterTeamOne.players.find(player => player.id === logLine.playerGoal).num :
                 rosterTeamTwo.players.find(player => player.id === logLine.playerGoal).num;
-// debugger
+
             if (logLine.playerAssist === logLine.playerGoal) {
                 details = `Кэллахан - ${players.get(logLine.playerGoal).secondName}`;
             }
+
             playerAssist = logLine.playerAssist === UNDEFINED_PLAYER ? 'Неизвестный' :
                 `#${playerAssistNum} ${players.get(logLine.playerAssist).secondName} ${players.get(logLine.playerAssist).firstName[0]} `;
             playerGoal = logLine.playerGoal === UNDEFINED_PLAYER ? 'Неизвестный' :
@@ -186,12 +178,9 @@ export function getLogLineToRender(logLine, players, rosterTeamOne, rosterTeamTw
             details = `ВРЕМЯ ОСТАНОВЛЕНО!!`;
             break;
         case PULL:
-            // debugger
             details = `Пулл: ${teamName.substr(0, 15)}.`;
             break;
         default:
-            // debugger
-            // console.log('-----logLine.type', logLine.type);
             details = 'Неизвестное действие';
     }
 
@@ -202,7 +191,6 @@ export function getLogLineToRenderView(logLine, players, rosterTeamOne, rosterTe
     const time = +logLine.time;
     let score = `${logLine.currScoreTeamOne} - ${logLine.currScoreTeamTwo}`;
     let details = `${logLine.type}`;
-    const teamName = teamNames[logLine.team] || '';
 
     switch (logLine.type) {
         case GOAL:
@@ -228,22 +216,22 @@ export function getLogLineToRenderView(logLine, players, rosterTeamOne, rosterTe
             score = logLine.team === TEAM_ONE ? `${logLine.currScoreTeamOne}.- ${logLine.currScoreTeamTwo}` : `${logLine.currScoreTeamOne} -.${logLine.currScoreTeamTwo}`;
             break;
         case TURNOVER:
-            details = `Турновер`;//. Атака: ${teamName}`;
+            details = `Турновер`;
             break;
         case THROW:
-            details = `Бросок`;// ${teamName.substr(0, 15)}.`;
+            details = `Бросок`;
             break;
         case TIMEOUT:
-            details = `Таймаут`;//: ${teamName.substr(0, 15)}.`;
+            details = `Таймаут`;
             break;
         case SOTG:
-            details = `Спирит. таймаут`;//: ${teamName.substr(0, 15)}.`;
+            details = `Спирит. таймаут`;
             break;
         case INJURY:
-            details = `Остановка по травме`;//: ${teamName.substr(0, 15)}.`;
+            details = `Остановка по травме`;
             break;
         case OTHER:
-            details = `Прочая остановка`;//: ${teamName.substr(0, 15)}.`;
+            details = `Прочая остановка`;
             break;
         case TIME_STOP:
             details = null;
@@ -255,7 +243,7 @@ export function getLogLineToRenderView(logLine, players, rosterTeamOne, rosterTe
             details = null;
             break;
         case PULL:
-            details = `Пулл`;//: ${teamName.substr(0, 15)}.`;
+            details = `Пулл`;
             break;
         default:
             details = 'Неизвестное действие';
@@ -276,6 +264,7 @@ export function getMyGamesInProgress(games, userID) {
     return result;
 }
 
+///////////// Testing purpose!
 // export function getReducedGameByType(type, game, logLine) {
 //
 //     switch (type) {

@@ -4,7 +4,7 @@ import {
     FAIL, FORCE_UPLOAD_GAME,
     GOAL, INJURY,
     LOAD_ALL_TEAMS,
-    LOAD_BEARER, LOAD_GAME,
+    LOAD_GAME,
     LOAD_GAMES,
     LOAD_LOG,
     LOAD_PLAYERS,
@@ -317,10 +317,10 @@ export const updateGame = (game) => {
         };
 
         const path = `${API.games}/${game.id}`;
-        console.log('-----path', path);
-       console.log('-----params.body', params.body);
-
-       debugger
+       //  console.log('-----path', path);
+       // console.log('-----params.body', params.body);
+       //
+       // debugger
 
         fetch(path, params)
             .then((resp) => {
@@ -349,6 +349,7 @@ export const updateGame = (game) => {
     }
 };
 
+//////// Testing purpose
 // export const gameShouldUpload = (game) => {
 //     return (dispatch) => {
 //         dispatch({
@@ -379,9 +380,9 @@ export const updateLog = (log) => {
         };
 
         const path = `${API.logs}/${log.id}`;
-        console.log('-----path', path);
-        console.log('-----params.body', params.body);
-        debugger
+        // console.log('-----path', path);
+        // console.log('-----params.body', params.body);
+        // debugger
 
         fetch(path, params)
             .then((resp) => {
@@ -536,6 +537,7 @@ export const updateGameTimer = (gameID, time) => {
     }
 };
 
+////////////// Testing purpose!
 // export const updateGameStart = (gameID, data) => {
 //     const {isTimerOn, inProgress} = data;
 //
@@ -766,33 +768,34 @@ export const loadTournamentsList = () => {
     }
 };
 
-export const loadBearer = () => {
-    return (dispatch) => {
-        dispatch({
-            type: LOAD_BEARER + START,
-        });
-
-        fetch(API.bearer)
-            .then(res => {
-                if (res.status >= 400) {
-                    throw new Error(res.statusText)
-                }
-                return res.json()
-            })
-            .then(response => dispatch({
-                    type: LOAD_BEARER + SUCCESS,
-                    payload: response
-                })
-            )
-            .catch(err => {
-                dispatch({
-                    type: LOAD_BEARER + FAIL,
-                    payload: {err}
-                });
-                console.error('Ошибка загрузки барьера', err);
-            });
-    }
-};
+///////////////  immitation only!
+// export const loadBearer = () => {
+//     return (dispatch) => {
+//         dispatch({
+//             type: LOAD_BEARER + START,
+//         });
+//
+//         fetch(API.bearer)
+//             .then(res => {
+//                 if (res.status >= 400) {
+//                     throw new Error(res.statusText)
+//                 }
+//                 return res.json()
+//             })
+//             .then(response => dispatch({
+//                     type: LOAD_BEARER + SUCCESS,
+//                     payload: response
+//                 })
+//             )
+//             .catch(err => {
+//                 dispatch({
+//                     type: LOAD_BEARER + FAIL,
+//                     payload: {err}
+//                 });
+//                 console.error('Ошибка загрузки барьера', err);
+//             });
+//     }
+// };
 
 export const loadUsersAndLogin = (user) => {
     return (dispatch) => {

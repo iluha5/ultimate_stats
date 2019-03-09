@@ -4,7 +4,6 @@ import Scorekeeper from "../Components/Scorekeeper";
 import {Redirect, Route, Switch} from "react-router-dom";
 import {connect} from "react-redux";
 import {ADMIN, SCOREKEEPER} from "../constants";
-import GameViewLog from "../Components/GameViewLog";
 
 class NetworkRoute extends Component {
     renderKeeper = () => {
