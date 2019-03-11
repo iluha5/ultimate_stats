@@ -6,7 +6,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c3e26b6-b516-4db4-9859-08cea4fb132c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AC.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/AC.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -20,11 +23,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AC.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AC.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AC.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5270">
-              <caret line="343" column="58" selection-start-line="343" selection-start-column="58" selection-end-line="343" selection-end-column="58" />
+            <state relative-caret-position="483">
+              <caret line="389" lean-forward="true" selection-start-line="389" selection-end-line="389" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="constants.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/constants.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="15" column="57" selection-start-line="15" selection-start-column="57" selection-end-line="15" selection-end-column="57" />
             </state>
           </provider>
         </entry>
@@ -70,11 +82,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="31" column="10" selection-start-line="31" selection-start-column="10" selection-end-line="31" selection-end-column="10" />
+            <state relative-caret-position="459">
+              <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
             </state>
           </provider>
         </entry>
@@ -82,20 +94,8 @@
       <file leaf-file-name="games.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Reducers/games.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
+            <state relative-caret-position="1003">
               <caret line="68" column="20" selection-start-line="68" selection-start-column="20" selection-end-line="68" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GameViewLog.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Components/GameViewLog.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1139">
-              <caret line="81" selection-start-line="81" selection-end-line="81" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -167,6 +167,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="dummy://restClient/response5.json" root0="SKIP_INSPECTION" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -211,16 +214,16 @@
         <option value="$PROJECT_DIR$/src/Selectors/index.js" />
         <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/Routes/ShowGameRoute.js" />
-        <option value="$PROJECT_DIR$/src/constants.js" />
         <option value="$PROJECT_DIR$/src/Components/Login.js" />
         <option value="$PROJECT_DIR$/src/Routes/KeeperRoute.js" />
         <option value="$PROJECT_DIR$/src/Components/GameViewLog.js" />
         <option value="$PROJECT_DIR$/src/Components/AuthRedirect.js" />
         <option value="$PROJECT_DIR$/src/helpers.js" />
         <option value="$PROJECT_DIR$/src/Routes/NetworkRoute.js" />
-        <option value="$PROJECT_DIR$/src/AC.js" />
         <option value="$PROJECT_DIR$/src/Reducers/games.js" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/src/constants.js" />
+        <option value="$PROJECT_DIR$/src/AC.js" />
       </list>
     </option>
   </component>
@@ -255,6 +258,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -295,7 +299,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -317,6 +320,40 @@
   <component name="RestClientSettings">
     <option name="REQUEST_HISTORY">
       <list>
+        <RestClientRequest>
+          <option name="httpMethod" value="PUT" />
+          <option name="urlBase" value="http://142.93.129.161:8084" />
+          <option name="urlPath" value="/api/v1/games/" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Content-Type" />
+                <option name="value" value="application/json" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="parametersEnabled" value="true" />
+          <option name="haveTextToSend" value="true" />
+          <option name="textToSend" value="{&quot;id&quot;:&quot;5c82a5b547654945be70550b&quot;,&quot;tournamentID&quot;:&quot;5c82a02547654945be705501&quot;,&quot;logID&quot;:&quot;5c82a78647654945be70551e&quot;,&quot;ownerID&quot;:&quot;5c82923347654945be7054e9&quot;,&quot;teamOneID&quot;:&quot;5c82a6bd47654945be705514&quot;,&quot;teamTwoID&quot;:&quot;5c83ba469f2860262d6998fd&quot;,&quot;inProgress&quot;:true,&quot;isFinished&quot;:false,&quot;offense&quot;:&quot;TEAM_TWO&quot;,&quot;win&quot;:-1,&quot;teamOneScore&quot;:0,&quot;teamTwoScore&quot;:0,&quot;codeOne&quot;:&quot;C1&quot;,&quot;codeTwo&quot;:&quot;C3&quot;,&quot;teamOneTurnovers&quot;:0,&quot;teamTwoTurnovers&quot;:0,&quot;fullTimeDuration&quot;:0,&quot;teamOneOffenceDuration&quot;:0,&quot;teamTwoOffenceDuration&quot;:0,&quot;SotgTeamOne&quot;:[-1],&quot;SotgTeamTwo&quot;:[-1],&quot;SotgCommentsTeamOne&quot;:&quot;&quot;,&quot;SotgCommentsTeamTwo&quot;:&quot;&quot;,&quot;passesTeamOne&quot;:0,&quot;passesTeamTwo&quot;:0,&quot;takenTimeOutsTeamOne&quot;:[],&quot;takenTimeOutsTeamTwo&quot;:[],&quot;takenSotgTimeOutsTeamOne&quot;:[],&quot;takenSotgTimeOutsTeamTwo&quot;:[],&quot;injuryStoppageTeamOne&quot;:0,&quot;injuryStoppageTeamTwo&quot;:0,&quot;otherCallsTeamOne&quot;:0,&quot;otherCallsTeamTwo&quot;:0,&quot;others&quot;:[],&quot;shouldUpload&quot;:false,&quot;shouldReload&quot;:false,&quot;shouldSetTimer&quot;:false,&quot;isUploading&quot;:true,&quot;date&quot;:&quot;1553929932021&quot;,&quot;timeStart&quot;:&quot;9:00&quot;,&quot;timePassed&quot;:15,&quot;statisticID&quot;:&quot;gs0001&quot;,&quot;rosterID&quot;:&quot;ros01&quot;,&quot;isPull&quot;:false,&quot;isTimeOn&quot;:true}" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
+        <RestClientRequest>
+          <option name="httpMethod" value="PUT" />
+          <option name="urlBase" value="http://142.93.129.161:8084" />
+          <option name="urlPath" value="/api/v1/games/5c82a5b547654945be70550b" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Content-Type" />
+                <option name="value" value="application/json" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="parametersEnabled" value="true" />
+          <option name="haveTextToSend" value="true" />
+          <option name="textToSend" value="{&quot;id&quot;:&quot;5c82a5b547654945be70550b&quot;,&quot;tournamentID&quot;:&quot;5c82a02547654945be705501&quot;,&quot;logID&quot;:&quot;5c82a78647654945be70551e&quot;,&quot;ownerID&quot;:&quot;5c82923347654945be7054e9&quot;,&quot;teamOneID&quot;:&quot;5c82a6bd47654945be705514&quot;,&quot;teamTwoID&quot;:&quot;5c83ba469f2860262d6998fd&quot;,&quot;inProgress&quot;:true,&quot;isFinished&quot;:false,&quot;offense&quot;:&quot;TEAM_TWO&quot;,&quot;win&quot;:-1,&quot;teamOneScore&quot;:0,&quot;teamTwoScore&quot;:0,&quot;codeOne&quot;:&quot;C1&quot;,&quot;codeTwo&quot;:&quot;C3&quot;,&quot;teamOneTurnovers&quot;:0,&quot;teamTwoTurnovers&quot;:0,&quot;fullTimeDuration&quot;:0,&quot;teamOneOffenceDuration&quot;:0,&quot;teamTwoOffenceDuration&quot;:0,&quot;SotgTeamOne&quot;:[-1],&quot;SotgTeamTwo&quot;:[-1],&quot;SotgCommentsTeamOne&quot;:&quot;&quot;,&quot;SotgCommentsTeamTwo&quot;:&quot;&quot;,&quot;passesTeamOne&quot;:0,&quot;passesTeamTwo&quot;:0,&quot;takenTimeOutsTeamOne&quot;:[],&quot;takenTimeOutsTeamTwo&quot;:[],&quot;takenSotgTimeOutsTeamOne&quot;:[],&quot;takenSotgTimeOutsTeamTwo&quot;:[],&quot;injuryStoppageTeamOne&quot;:0,&quot;injuryStoppageTeamTwo&quot;:0,&quot;otherCallsTeamOne&quot;:0,&quot;otherCallsTeamTwo&quot;:0,&quot;others&quot;:[],&quot;shouldUpload&quot;:false,&quot;shouldReload&quot;:false,&quot;shouldSetTimer&quot;:false,&quot;isUploading&quot;:true,&quot;date&quot;:&quot;1553929932021&quot;,&quot;timeStart&quot;:&quot;9:00&quot;,&quot;timePassed&quot;:15,&quot;statisticID&quot;:&quot;gs0001&quot;,&quot;rosterID&quot;:&quot;ros01&quot;,&quot;isPull&quot;:false,&quot;isTimeOn&quot;:true}" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
         <RestClientRequest>
           <option name="httpMethod" value="PUT" />
           <option name="urlBase" value="http://142.93.129.161:8084" />
@@ -479,12 +516,13 @@
       <workItem from="1549996528526" duration="1650000" />
       <workItem from="1550078391408" duration="397000" />
       <workItem from="1552145375262" duration="3329000" />
-      <workItem from="1552152703123" duration="2792000" />
+      <workItem from="1552152703123" duration="3496000" />
+      <workItem from="1552220151615" duration="2062000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="510448000" />
+    <option name="totallyTimeSpent" value="513214000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -494,19 +532,19 @@
       <window_info anchor="bottom" id="TODO" order="11" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" weight="0.32982087" />
+      <window_info anchor="bottom" id="REST Client" order="12" visible="true" weight="0.3329821" />
       <window_info anchor="bottom" id="Version Control" order="3" />
       <window_info id="npm" order="0" sideWeight="0.50151515" side_tool="true" weight="0.24963397" />
+      <window_info anchor="bottom" id="Run" order="6" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="1" />
       <window_info id="Favorites" order="1" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info anchor="bottom" id="TypeScript" order="8" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Run" order="6" />
-      <window_info anchor="bottom" id="REST Client" order="12" visible="true" weight="0.3329821" />
-      <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="5" weight="0.32771337" />
@@ -789,13 +827,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/constants.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="12" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Components/Login.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -870,24 +901,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AC.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5270">
-          <caret line="343" column="58" selection-start-line="343" selection-start-column="58" selection-end-line="343" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Reducers/games.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
+        <state relative-caret-position="1003">
           <caret line="68" column="20" selection-start-line="68" selection-start-column="20" selection-end-line="68" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="31" column="10" selection-start-line="31" selection-start-column="10" selection-end-line="31" selection-end-column="10" />
+        <state relative-caret-position="459">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/constants.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="15" column="57" selection-start-line="15" selection-start-column="57" selection-end-line="15" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AC.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="389" lean-forward="true" selection-start-line="389" selection-end-line="389" />
         </state>
       </provider>
     </entry>

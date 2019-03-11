@@ -316,13 +316,13 @@ export const updateGame = (game) => {
             body: JSON.stringify(game)
         };
 
-        const path = `${API.games}/${game.id}`;
-       //  console.log('-----path', path);
+        // const path = `${API.games}/${game.id}`;
+        // console.log('-----path', API.games);
        // console.log('-----params.body', params.body);
        //
        // debugger
 
-        fetch(path, params)
+        fetch(API.games, params)
             .then((resp) => {
                 if ((resp.status < 200) || (resp.status > 300)) {
                     throw new Error("Response status: " + resp.status);
@@ -379,12 +379,12 @@ export const updateLog = (log) => {
             body: JSON.stringify(uploadData)
         };
 
-        const path = `${API.logs}/${log.id}`;
-        // console.log('-----path', path);
+        // const path = `${API.logs}/${log.id}`;
+        // console.log('-----path', API.logs);
         // console.log('-----params.body', params.body);
         // debugger
 
-        fetch(path, params)
+        fetch(API.logs, params)
             .then((resp) => {
                 if ((resp.status < 200) || (resp.status > 300)) {
                     throw new Error("Response status: " + resp.status);

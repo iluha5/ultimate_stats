@@ -11,10 +11,10 @@ export const API = {
     users: 'http://142.93.129.161:8084/api/v1/users', //users: '/users',
     tournaments: 'http://142.93.129.161:8084/api/v1/tournaments', //tournaments: '/tournaments',
     all_teams: 'http://142.93.129.161:8084/api/v1/teams', //all_teams: '/teams',
-    games: 'http://142.93.129.161:8084/api/v1/games', //games: '/games',
+    games: 'http://142.93.129.161:8084/api/v1/games/', //games: '/games',
     rosters: 'http://142.93.129.161:8084/api/v1/rosters', //rosters: '/rosters',
     players: 'http://142.93.129.161:8084/api/v1/players', //players: '/players',
-    logs: 'http://142.93.129.161:8084/api/v1/logs', //logs: '/logs',
+    logs: 'http://142.93.129.161:8084/api/v1/logs/', //logs: '/logs',
 };
 
 // commands

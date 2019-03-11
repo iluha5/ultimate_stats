@@ -1,0 +1,34 @@
+{
+  "takenSotgTimeOutsTeamOne": [],
+  "date": "1553929932021",
+  "timePassed": 15,
+  "inProgress": true,
+  "offense": "TEAM_TWO",
+  "teamOneID": "5c82a6bd47654945be705514",
+  "SotgTeamTwo": [
+    -1
+  ],
+  "SotgCommentsTeamOne": "",
+  "rosterID": "ros01",
+  "statisticID": "gs0001",
+  "timeStart": "9:00",
+  "takenTimeOutsTeamTwo": [],
+  "codeOne": "C1",
+  "id": "5c82a5b547654945be70550b",
+  "win": "-1",
+  "SotgTeamOne": [
+    -1
+  ],
+  "others": [],
+  "teamTwoScore": "0",
+  "SotgCommentsTeamTwo": "",
+  "takenSotgTimeOutsTeamTwo": [],
+  "teamTwoID": "5c83ba469f2860262d6998fd",
+  "ownerID": "5c82923347654945be7054e9",
+  "isUploading": true,
+  "takenTimeOutsTeamOne": [],
+  "tournamentID": "5c82a02547654945be705501",
+  "logID": "5c82a78647654945be70551e",
+  "codeTwo": "C3",
+  "teamOneScore": "0"
+}
