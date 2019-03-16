@@ -91,7 +91,7 @@ class TournamentsList extends React.Component {
 
         return list.map((tournament, i) => {
             return (
-                <Link to={`/network/keeper/tournament/${tournament.id}`} className={classes.link} key={tournament.id}>
+                <Link to={`/test/stats/network/keeper/tournament/${tournament.id}`} className={classes.link} key={tournament.id}>
                     <ListItem button>
                         <ListItemText primary={tournament.name}/>
                         <ListItemText className={classes.dates}>

@@ -837,7 +837,7 @@ export const loadUsersAndLogin = (user) => {
                     });
 
                     if (fullUser.role !== WRONG_USER) {
-                        dispatch(push('/network/keeper'));
+                        dispatch(push('/test/stats/network/keeper'));
                     }
                 }
             )

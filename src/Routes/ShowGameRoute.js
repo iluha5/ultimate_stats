@@ -21,7 +21,7 @@ class ShowGameRoute extends Component {
         return (
             <div>
                 <Switch>
-                    <Route path='/game/:id' render={this.renderShowGame}/>
+                    <Route path='/test/stats/game/:id' render={this.renderShowGame}/>
                 </Switch>
             </div>
         );

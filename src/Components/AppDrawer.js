@@ -175,7 +175,7 @@ class AppDrawer extends React.Component {
             <div>
                 <List>
                     {['Главная'].map((text, index) => (
-                        <ListItem button key={text} onClick={() => goTo('/')}>
+                        <ListItem button key={text} onClick={() => goTo('/test/stats/')}>
                             <ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
                             <ListItemText primary={text}/>
                         </ListItem>

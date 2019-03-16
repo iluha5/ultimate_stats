@@ -12,20 +12,20 @@ class NetworkRoute extends Component {
         return (user && (user.role === SCOREKEEPER || user.role === ADMIN)) ? (
             <Scorekeeper/>
         ) : (
-            <Redirect to='/network'/>
+            <Redirect to='/test/stats/network'/>
         )
     };
 
 
-    redirectNetwork = () => <Redirect to='/network'/>;
+    redirectNetwork = () => <Redirect to='/test/stats/network'/>;
 
     render() {
         return (
             <div>
                 <Switch>
-                    <Route path='/network/keeper' render={this.renderKeeper}/>
-                    <Route path='/network' exact component={Login}/>
-                    <Route path='/network/:any' render={this.redirectNetwork}/>
+                    <Route path='/test/stats/network/keeper' render={this.renderKeeper}/>
+                    <Route path='/test/stats/network' exact component={Login}/>
+                    <Route path='/test/stats/network/:any' render={this.redirectNetwork}/>
                 </Switch>
             </div>
         );

@@ -11,7 +11,7 @@ class Mode extends Component {
         return (
             <div>
                 <form className={classes.container} noValidate autoComplete="off">
-                    <Link to="/network" style={{textDecoration: 'none'}}>
+                    <Link to="/test/stats/network" style={{textDecoration: 'none'}}>
                         <Button variant="outlined" className={classes.button} size="large">
                             Сетевой режим
                         </Button>

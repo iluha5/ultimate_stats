@@ -17,12 +17,12 @@ class App extends Component {
                     <div>
                         {/*<BrowserRouter basename='/test/stats'>*/}
                             <Switch>
-                                <Route path='/game/:id' component={ShowGameRoute}/>
-                                <Route path='/network/keeper/:any' component={KeeperRoute}/>
-                                <Route path='/network/keeper' component={KeeperRoute}/>
-                                <Route path='/network' component={NetworkRoute}/>
-                                <Route path='/:any' render={() => <Redirect to='/'/>}/>
-                                <Route path='/' component={Mode}/>
+                                <Route path='/test/stats/game/:id' component={ShowGameRoute}/>
+                                <Route path='/test/stats/network/keeper/:any' component={KeeperRoute}/>
+                                <Route path='/test/stats/network/keeper' component={KeeperRoute}/>
+                                <Route path='/test/stats/network' component={NetworkRoute}/>
+                                <Route path='/test/stats/:any' render={() => <Redirect to='/'/>}/>
+                                <Route path='/test/stats/' component={Mode}/>
                             </Switch>
                         {/*</BrowserRouter>*/}
                     </div>

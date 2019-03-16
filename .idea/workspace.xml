@@ -6,11 +6,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c3e26b6-b516-4db4-9859-08cea4fb132c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AC.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/AC.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/AppDrawer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/AppDrawer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/AuthRedirect.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/AuthRedirect.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Mode.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Mode.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/TournamentsList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/TournamentsList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Routes/KeeperRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/KeeperRoute.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Routes/NetworkRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/NetworkRoute.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/ShowGameRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/ShowGameRoute.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -27,17 +31,8 @@
       <file leaf-file-name="AC.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AC.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="636">
-              <caret line="838" column="39" selection-start-line="838" selection-start-column="39" selection-end-line="838" selection-end-column="39" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="constants.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/constants.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="57" selection-start-line="15" selection-start-column="57" selection-end-line="15" selection-end-column="57" />
+            <state relative-caret-position="704">
+              <caret line="830" lean-forward="true" selection-start-line="830" selection-end-line="830" />
             </state>
           </provider>
         </entry>
@@ -45,17 +40,20 @@
       <file leaf-file-name="NetworkRoute.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Routes/NetworkRoute.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="18" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
+            <state relative-caret-position="459">
+              <caret line="27" column="44" selection-start-line="27" selection-start-column="44" selection-end-line="27" selection-end-column="44" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ShowGameRoute.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ShowGameRoute.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Routes/ShowGameRoute.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="14" lean-forward="true" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
+            <state relative-caret-position="391">
+              <caret line="23" column="44" selection-start-line="23" selection-start-column="44" selection-end-line="23" selection-end-column="44" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -75,8 +73,11 @@
       <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="8" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
+            <state relative-caret-position="323">
+              <caret line="19" column="34" lean-forward="true" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -108,15 +109,37 @@
       <file leaf-file-name="KeeperRoute.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Routes/KeeperRoute.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="8" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
+            <state relative-caret-position="391">
+              <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README-ru.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README-ru.md">
-          <provider selected="true" editor-type-id="text-editor" />
+      <file leaf-file-name="AuthRedirect.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Components/AuthRedirect.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="26" column="33" lean-forward="true" selection-start-line="26" selection-start-column="33" selection-end-line="26" selection-end-column="33" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Mode.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Components/Mode.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -130,11 +153,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>loadGames</find>
-      <find>loadAll</find>
-      <find>UPLOAD_GAME</find>
-      <find>UPDATE_TIMER_GAME</find>
-      <find>LOAD_GAMES + SUCCESS</find>
       <find>logs</find>
       <find>time</find>
       <find>progress</find>
@@ -160,6 +178,11 @@
       <find>loadB</find>
       <find>updateLo</find>
       <find>login</find>
+      <find>push</find>
+      <find>p</find>
+      <find>/network</find>
+      <find>push(</find>
+      <find>goto</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -168,7 +191,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Components/Tournament.js" />
         <option value="$PROJECT_DIR$/db.json" />
         <option value="$PROJECT_DIR$/src/Components/Overlay.js" />
         <option value="$PROJECT_DIR$/src/Components/GameControlOtherButs.js" />
@@ -214,11 +236,12 @@
         <option value="$PROJECT_DIR$/src/Reducers/games.js" />
         <option value="$PROJECT_DIR$/src/constants.js" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/src/AC.js" />
         <option value="$PROJECT_DIR$/src/Routes/KeeperRoute.js" />
-        <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/Routes/NetworkRoute.js" />
         <option value="$PROJECT_DIR$/src/Routes/ShowGameRoute.js" />
+        <option value="$PROJECT_DIR$/src/App.js" />
+        <option value="$PROJECT_DIR$/src/AC.js" />
+        <option value="$PROJECT_DIR$/src/Components/Mode.js" />
       </list>
     </option>
   </component>
@@ -515,12 +538,12 @@
       <workItem from="1552152703123" duration="3496000" />
       <workItem from="1552220151615" duration="2260000" />
       <workItem from="1552316644876" duration="599000" />
-      <workItem from="1552749387341" duration="5184000" />
+      <workItem from="1552749387341" duration="6205000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="519195000" />
+    <option name="totallyTimeSpent" value="520216000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -530,6 +553,7 @@
       <window_info anchor="bottom" id="TODO" order="11" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" weight="0.32982087" />
+      <window_info anchor="bottom" id="Find" order="5" weight="0.32771337" />
       <window_info anchor="bottom" id="Version Control" order="3" />
       <window_info id="npm" order="0" sideWeight="0.50151515" side_tool="true" weight="0.24963397" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
@@ -545,7 +569,6 @@
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="5" weight="0.32771337" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -582,13 +605,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Components/Overlay.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Reducers/bearer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -829,16 +845,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/AuthRedirect.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="13" selection-start-line="13" selection-end-line="13" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/helpers.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4284">
@@ -913,38 +919,67 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AC.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="636">
-          <caret line="838" column="39" selection-start-line="838" selection-start-column="39" selection-end-line="838" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Routes/KeeperRoute.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="8" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="8" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Routes/NetworkRoute.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="18" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
+        <state relative-caret-position="459">
+          <caret line="27" column="44" selection-start-line="27" selection-start-column="44" selection-end-line="27" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Routes/ShowGameRoute.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="14" lean-forward="true" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
+        <state relative-caret-position="391">
+          <caret line="23" column="44" selection-start-line="23" selection-start-column="44" selection-end-line="23" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AC.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="704">
+          <caret line="830" lean-forward="true" selection-start-line="830" selection-end-line="830" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="34" lean-forward="true" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Routes/KeeperRoute.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/Mode.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/AuthRedirect.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="33" lean-forward="true" selection-start-line="26" selection-start-column="33" selection-end-line="26" selection-end-column="33" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

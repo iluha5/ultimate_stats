@@ -8,7 +8,7 @@ class AuthRedirect extends Component {
         const {user, goTo} = this.props;
 
         if (!user || !user.role || (user.role !== SCOREKEEPER && user.role !== ADMIN)) {
-            goTo('/network');
+            goTo('/test/stats/network');
             return (<></>);
         }
 

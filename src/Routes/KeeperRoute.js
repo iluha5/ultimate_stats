@@ -29,7 +29,7 @@ class KeeperRoute extends Component {
         return (user && (user.role === SCOREKEEPER || user.role === ADMIN)) ? (
             <Game id={id} tournamentID={tournamentID}/>
         ) : (
-            <Redirect to='/network'/>
+            <Redirect to='/test/stats/network'/>
         )
     };
 
@@ -37,11 +37,11 @@ class KeeperRoute extends Component {
         return (
             <div>
                 <Switch>
-                    <Route path='/network/keeper/tournament/:tournamentID/game/:id' render={this.renderGame}/>
-                    <Route path='/network/keeper/tournament/:tournamentID' render={this.renderTournament}/>
-                    <Redirect path='/network/keeper/tournament' exact to='/network/keeper/'/>
-                    <Route path='/network/keeper' exact component={Scorekeeper}/>
-                    <Redirect path='/network/keeper/:any' to='/network/keeper/'/>
+                    <Route path='/test/stats/network/keeper/tournament/:tournamentID/game/:id' render={this.renderGame}/>
+                    <Route path='/test/stats/network/keeper/tournament/:tournamentID' render={this.renderTournament}/>
+                    <Redirect path='/test/stats/network/keeper/tournament' exact to='/test/stats/network/keeper/'/>
+                    <Route path='/test/stats/network/keeper' exact component={Scorekeeper}/>
+                    <Redirect path='/test/stats/network/keeper/:any' to='/test/stats/network/keeper/'/>
                 </Switch>
             </div>
         );
