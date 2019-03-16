@@ -1,45 +1,48 @@
-# Сборщик статистики для <a href="https://ru.wikipedia.org/wiki/%D0%90%D0%BB%D1%82%D0%B8%D0%BC%D0%B0%D1%82_%D1%84%D1%80%D0%B8%D1%81%D0%B1%D0%B8">алтимат фрисби</a>
+# <a href="https://en.wikipedia.org/wiki/Ultimate_(sport)">Ultimate frisbee</a> statistic's collector.
 
-Программа для сбора статистики матчей по флаинг диску (алтимату). Предполагается для использования обслуживающим
-персоналом (судей или стаффа) игр на официальных соревнованиях федерации флаинг диска России (ФФДР). Разработана по заказу федерации спортивных игр с летающим диском Новгородской области.
-Программа находится на стадии бета-тестирования.
+Purpose ot the program is collect statistic for ultimate frisbee matches. Judges and games scorekeepers (staff) can use it in official ultimate frisbee tournaments according with Russia flying disc federation.
+Customer - Novgorod flying disc federation.
+
+Program is in beta-testing stage.
+
+Russian readme in <a href="README-ru.md">README-ru.md</a> file.
 
 <p align="center">
   <img src="./img/preview.jpg" alt="Interface example" width="300">
 </p>
 
-С помощью данной программы организаторы соревнований смогут собрать следующую статистику по каждому матчу: <br>
+Collect follow data: <br>
 
-* итоговый счет
-* гол + пас согласно командным спискам
-* все остановки в игре
-* переходы владений диска
-* остановки таймера игры
-* все пасы команд
+* final score of the game
+* goals and assists, according with teams rosters
+* collect all stoppage of the game
+* turnovers
+* collect all operators actions including time stoppage
+* all disk throws
 
+Program have timer and all game actions have time stamps.
 
-Вся статистика собирается с учетом времени игры - реализован игровой таймер с основными функциями управления
+## Demo
 
-## Пример работы
+Working demo: <a href="http://www.novak.su/test/stats">www.novak.su/test/stats</a> <br>
 
-Превью программы представлено по адресу <a href="http://www.novak.su/test/stats">www.novak.su/test/stats</a> <br>
+## Installation
 
-## Установка
-
-Для локальной работы работы, сделайте форк данного репозитория. Затем установите зависимости
+For local working, make fork and clone the repo. Install dependencies:
 
 ```sh
 $ npm install
 ```
-Необходимо наличие установленного пакетного менеджера NPM.
 
-## Основные преимущества данного продукта:
+## Program features:
 
-* вся статистика собирается с учетом времени игры
-* управление игрой - на одном экране, который содержит все необходимые кнопки управления
-* удобная работа с игровым логом - имеется отдельное окно с логом игры и превью лога на основном экране сбора статистики
-* возможность отката действия оператора программы (UNDO и REDO)
-* адаптивная верстка, в том числе по вертикали, для работы на любых современных мобильных устройствах
-* возможность выгрузки файла со статистикой по окончании игры
-* хранение всей собранной статистики на устройстве оператора (в localstorage) на случай потерия связи с сервером
+* collect statistics with time stamps
+* all control buttons is in one screen
+* convenient workflow with game log, there are two modes - preview mode and full mode
+* UNDO и REDO for logs
+* adaptive markup (includes height adaptive) for convenient work in all modern mobile devices
+* downloading game file to device
+* all game statistic hold on the operator's device (in localstorage)
+* working with network breaks (sync after communication restoration)
+
 
