@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Login from "../Components/Login";
 import Scorekeeper from "../Components/Scorekeeper";
-import {Redirect, Route, Switch} from "react-router-dom";
+import { Redirect, Route, Switch} from "react-router-dom";
 import {connect} from "react-redux";
 import {ADMIN, SCOREKEEPER} from "../constants";
 
@@ -27,7 +27,6 @@ class NetworkRoute extends Component {
                     <Route path='/network' exact component={Login}/>
                     <Route path='/network/:any' render={this.redirectNetwork}/>
                 </Switch>
-
             </div>
         );
     }

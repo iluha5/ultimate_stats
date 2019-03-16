@@ -43,7 +43,6 @@ class KeeperRoute extends Component {
                     <Route path='/network/keeper' exact component={Scorekeeper}/>
                     <Redirect path='/network/keeper/:any' to='/network/keeper/'/>
                 </Switch>
-
             </div>
         );
     }

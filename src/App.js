@@ -15,14 +15,16 @@ class App extends Component {
             <Provider store={store}>
                 <ConnectedRouter history={history}>
                     <div>
-                        <Switch>
-                            <Route path='/game/:id' component={ShowGameRoute}/>
-                            <Route path='/network/keeper/:any' component={KeeperRoute}/>
-                            <Route path='/network/keeper' component={KeeperRoute}/>
-                            <Route path='/network' component={NetworkRoute}/>
-                            <Route path='/:any' render={() => <Redirect to='/' />}/>
-                            <Route path='/' component={Mode}/>
-                        </Switch>
+                        {/*<BrowserRouter basename='/test/stats'>*/}
+                            <Switch>
+                                <Route path='/game/:id' component={ShowGameRoute}/>
+                                <Route path='/network/keeper/:any' component={KeeperRoute}/>
+                                <Route path='/network/keeper' component={KeeperRoute}/>
+                                <Route path='/network' component={NetworkRoute}/>
+                                <Route path='/:any' render={() => <Redirect to='/'/>}/>
+                                <Route path='/' component={Mode}/>
+                            </Switch>
+                        {/*</BrowserRouter>*/}
                     </div>
                 </ConnectedRouter>
             </Provider>

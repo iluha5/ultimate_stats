@@ -44,5 +44,3 @@ $ npm install
 * downloading game file to device
 * all game statistic hold on the operator's device (in localstorage)
 * working with network breaks (sync after communication restoration)
-
-
