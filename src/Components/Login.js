@@ -66,6 +66,9 @@ class Login extends Component {
                     <Typography variant="h5" component="h2">
                         Вход в сетевой режим
                     </Typography>
+                    <Typography variant="h6" component="h5">
+                        (тестовый вход - vasya@gmail.com / 1234)
+                    </Typography>
                     <TextField
                         id="outlined-email-input"
                         label="Email"

@@ -5,7 +5,8 @@ Customer - Novgorod flying disc federation.
 
 Program is in beta-testing stage.
 
-Russian readme in <a href="README-ru.md">README-ru.md</a> file.
+Russian readme in <a href="README-ru.md">README-ru.md</a> file. <br>
+Look at the user manual in <a href="ultimate_stats_docs_ru.pdf">ultimate_stats_docs_ru.pdf</a>, russian version.
 
 <p align="center">
   <img src="./img/preview.jpg" alt="Interface example" width="300">
