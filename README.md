@@ -35,6 +35,12 @@ For local working, make fork and clone the repo. Install dependencies:
 $ npm install
 ```
 
+then execute
+
+```sh
+$ npm run start
+```
+
 ## Program features:
 
 * collect statistics with time stamps
