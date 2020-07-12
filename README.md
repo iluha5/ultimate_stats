@@ -1,18 +1,16 @@
-# The program for collecting statistics of games on <a href="https://en.wikipedia.org/wiki/Ultimate_(sport)">Ultimate Frisbee</a>
+# The application for collecting statistics of <a href="https://en.wikipedia.org/wiki/Ultimate_(sport)">Ultimate Frisbee</a> sport matches.
 
 Purpose of the program is collect statistic for ultimate frisbee matches in tournaments. Judges and games scorekeepers (staff) can use it in official ultimate frisbee tournaments according with Russia flying disc federation.
 Customer - Novgorod flying disc federation.
 
-Program is in beta-testing stage.
-
 Russian readme in <a href="README-ru.md">README-ru.md</a> file. <br>
  
-<p align="center">
-  <img src="./img/preview.jpg" alt="Interface example" width="300">
+<p>
+  <img src="./img/ultimate-stats.gif" alt="Interface example">
 </p>
 Look at the user manual in <a href="ultimate_stats_docs_ru.pdf">ultimate_stats_docs_ru.pdf</a> (rus). <br><br>
 
-Сollects the following data: <br>
+Collects the following data: <br>
 
 * final score of the game
 * goals and assists, according with teams rosters
@@ -22,10 +20,6 @@ Look at the user manual in <a href="ultimate_stats_docs_ru.pdf">ultimate_stats_d
 * all disk throws
 
 Program has a timer and all actions in the game have time stamps.
-
-## Demo
-
-Working demo: <a href="http://www.novak.su/test/stats">www.novak.su/test/stats</a> <br>
 
 ## Installation
 
@@ -38,10 +32,10 @@ $ npm install
 then execute
 
 ```sh
-$ npm run start
+$ npm run serve
 ```
 
-## Program features:
+## App features:
 
 * collect statistics with time stamps
 * all control buttons is in one screen
